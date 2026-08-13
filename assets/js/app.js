@@ -846,3 +846,62 @@ document.addEventListener("DOMContentLoaded", () => {
         "Biodiesel domain controls ready."
     );
 });
+/* ============================================================
+   ARM OPTIMIZATION INTENSITY
+============================================================ */
+
+function updateOptimizationIntensity() {
+
+    const slider = document.getElementById("optimizationIntensity");
+    const valueDisplay = document.getElementById("intensityValue");
+    const fill = document.getElementById("fill");
+
+    if (!slider || !valueDisplay || !fill) {
+        console.error("ARM optimization intensity wiring error.");
+        return;
+    }
+
+    const intensity = Number(slider.value);
+
+    valueDisplay.textContent = `${intensity}%`;
+    fill.style.width = `${intensity}%`;
+
+    console.log(
+        `ARM optimization intensity updated: ${intensity}%`
+    );
+}
+
+
+/* ============================================================
+   ARM DOMAIN MONITOR
+============================================================ */
+
+function updateARMDomainMonitor() {
+
+    const intensity = Number(
+        document.getElementById("optimizationIntensity")?.value || 0
+    );
+
+    const domains = [
+        "domainQuantization",
+        "domainPruning",
+        "domainGraph",
+        "domainMemory",
+        "domainKernel",
+        "domainRuntime"
+    ];
+
+    domains.forEach(id => {
+
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent = intensity;
+        }
+
+    });
+
+    console.log(
+        `ARM domain monitor synchronized: ${intensity}%`
+    );
+}
