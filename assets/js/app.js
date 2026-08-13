@@ -847,7 +847,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 });
 /* ============================================================
-   ARM OPTIMIZATION INTENSITY
+   ARM OPTIMIZATION INTENSITY — FIXED SCREEN WIRING
 ============================================================ */
 
 function updateOptimizationIntensity() {
@@ -857,7 +857,14 @@ function updateOptimizationIntensity() {
     const fill = document.getElementById("fill");
 
     if (!slider || !valueDisplay || !fill) {
-        console.error("ARM optimization intensity wiring error.");
+        console.error(
+            "ARM optimization intensity wiring error:",
+            {
+                slider: !!slider,
+                valueDisplay: !!valueDisplay,
+                fill: !!fill
+            }
+        );
         return;
     }
 
@@ -865,6 +872,8 @@ function updateOptimizationIntensity() {
 
     valueDisplay.textContent = `${intensity}%`;
     fill.style.width = `${intensity}%`;
+
+    updateARMDomainMonitor();
 
     console.log(
         `ARM optimization intensity updated: ${intensity}%`
@@ -878,9 +887,13 @@ function updateOptimizationIntensity() {
 
 function updateARMDomainMonitor() {
 
-    const intensity = Number(
-        document.getElementById("optimizationIntensity")?.value || 0
+    const slider = document.getElementById(
+        "optimizationIntensity"
     );
+
+    const intensity = slider
+        ? Number(slider.value)
+        : 0;
 
     const domains = [
         "domainQuantization",
@@ -905,3 +918,33 @@ function updateARMDomainMonitor() {
         `ARM domain monitor synchronized: ${intensity}%`
     );
 }
+
+
+/* ============================================================
+   GUARANTEED SCREEN EVENT WIRING
+============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const slider = document.getElementById(
+        "optimizationIntensity"
+    );
+
+    if (!slider) {
+        console.error(
+            "ARM intensity slider not found."
+        );
+        return;
+    }
+
+    slider.addEventListener(
+        "input",
+        updateOptimizationIntensity
+    );
+
+    updateOptimizationIntensity();
+
+    console.log(
+        "ARM optimization intensity control: CONNECTED"
+    );
+});
