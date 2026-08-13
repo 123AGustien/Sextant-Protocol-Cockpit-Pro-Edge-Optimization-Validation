@@ -544,43 +544,83 @@ RESET SCENARIO
 </div>
 
 </section>
+/* ============================================================
+   ARM OPTIMIZATION INTENSITY
+   SINGLE SOURCE OF TRUTH
+============================================================ */
 
-<!-- ============================================================
-     OPTIMIZATION INTENSITY
-============================================================ -->
+let armOptimizationIntensity = 50;
 
-<section class="card">
+function getARMOptimizationIntensity() {
 
-<h3>🎚️ ARM OPTIMIZATION INTENSITY</h3>
+    const slider = document.getElementById("optimizationIntensity");
 
-<div class="muted">
-Change deterministic ARM optimization workload from 0% to 100%.
-</div>
+    if (!slider) {
+        console.error("ARM optimization intensity slider not found.");
+        return armOptimizationIntensity;
+    }
 
-<br>
+    armOptimizationIntensity = Number(slider.value);
 
-<input
-id="optimizationIntensity"
-type="range"
-min="0"
-max="100"
-step="1"
-value="50"
-oninput="updateOptimizationIntensity()"
->
+    return armOptimizationIntensity;
+}
 
-<div class="intensity">
-Intensity:
-<span id="intensityValue">50%</span>
-</div>
 
-<div class="bar">
-<div id="fill" class="fill"></div>
-</div>
+function updateOptimizationIntensity() {
 
-</section>
+    const intensity = getARMOptimizationIntensity();
 
-<!-- ============================================================
+    const valueDisplay = document.getElementById("intensityValue");
+    const fill = document.getElementById("fill");
+
+    if (!valueDisplay || !fill) {
+        console.error("ARM optimization intensity display wiring error.");
+        return;
+    }
+
+    valueDisplay.textContent = `${intensity}%`;
+    fill.style.width = `${intensity}%`;
+
+    updateARMDomainMonitor();
+
+    console.log(
+        `ARM optimization intensity updated: ${intensity}%`
+    );
+}
+
+
+/* ============================================================
+   ARM DOMAIN MONITOR
+   SYNCHRONIZED WITH ARM INTENSITY
+============================================================ */
+
+function updateARMDomainMonitor() {
+
+    const intensity = getARMOptimizationIntensity();
+
+    const domains = [
+        "domainQuantization",
+        "domainPruning",
+        "domainGraph",
+        "domainMemory",
+        "domainKernel",
+        "domainRuntime"
+    ];
+
+    domains.forEach(id => {
+
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent = intensity;
+        }
+
+    });
+
+    console.log(
+        `ARM domain monitor synchronized: ${intensity}%`
+    );
+} ============================================================
      ARM OPTIMIZATION PIPELINE
 ============================================================ -->
 
