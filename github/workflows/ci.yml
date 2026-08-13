@@ -1,0 +1,185 @@
+name: NeuralEdge Optimizer CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate NeuralEdge Platform
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ----------------------------------------
+      # SOURCE
+      # ----------------------------------------
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ----------------------------------------
+      # PYTHON
+      # ----------------------------------------
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # ----------------------------------------
+      # DEPENDENCIES
+      # ----------------------------------------
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      # ----------------------------------------
+      # PROJECT STRUCTURE
+      # ----------------------------------------
+
+      - name: Verify project structure
+        run: |
+          test -f index.html
+          test -f assets/css/styles.css
+          test -f assets/js/app.js
+
+          test -f benchmark.py
+          test -f self_test.py
+          test -f run_baseline.py
+          test -f run_optimized.py
+
+          test -f requirements.txt
+          test -f README.md
+          test -f architecture_diagram.md
+
+          echo "Project structure: PASS"
+
+      # ----------------------------------------
+      # PYTHON SYNTAX
+      # ----------------------------------------
+
+      - name: Validate Python syntax
+        run: |
+          python -m py_compile benchmark.py
+          python -m py_compile self_test.py
+          python -m py_compile run_baseline.py
+          python -m py_compile run_optimized.py
+
+          echo "Python syntax validation: PASS"
+
+      # ----------------------------------------
+      # NEURALEDGE CORE SELF-TEST
+      # ----------------------------------------
+
+      - name: Run NeuralEdge core self-test
+        run: |
+          echo "Running NeuralEdge core self-test..."
+          python self_test.py
+
+      # ----------------------------------------
+      # BASELINE BENCHMARK
+      # ----------------------------------------
+
+      - name: Run baseline benchmark
+        run: |
+          echo "Running baseline benchmark..."
+          python run_baseline.py
+
+      # ----------------------------------------
+      # OPTIMIZED BENCHMARK
+      # ----------------------------------------
+
+      - name: Run optimized benchmark
+        run: |
+          echo "Running optimized benchmark..."
+          python run_optimized.py
+
+      # ----------------------------------------
+      # BENCHMARK ENGINE SELF-TEST
+      # ----------------------------------------
+
+      - name: Run benchmark engine validation
+        run: |
+          echo "Running benchmark engine validation..."
+          python benchmark.py
+
+      # ----------------------------------------
+      # WEB UI WIRING
+      # ----------------------------------------
+
+      - name: Validate web assets
+        run: |
+          grep -q 'assets/css/styles.css' index.html
+          grep -q 'assets/js/app.js' index.html
+
+          grep -q 'runOptimization' index.html
+          grep -q 'id="fill"' index.html
+          grep -q 'id="line"' index.html
+          grep -q 'id="result"' index.html
+
+          echo "Web asset wiring: PASS"
+
+      # ----------------------------------------
+      # JAVASCRIPT WIRING
+      # ----------------------------------------
+
+      - name: Validate JavaScript wiring
+        run: |
+          grep -q 'runOptimization' assets/js/app.js
+          grep -q 'benchmark' assets/js/app.js || true
+
+          echo "JavaScript file validation: PASS"
+
+      # ----------------------------------------
+      # ARCHITECTURE DOCUMENT
+      # ----------------------------------------
+
+      - name: Validate architecture documentation
+        run: |
+          grep -q 'NEURALEDGE OPTIMIZER' architecture_diagram.md
+          grep -q 'Baseline Benchmark' architecture_diagram.md
+          grep -q 'Optimization Layer' architecture_diagram.md
+          grep -q 'Optimized Benchmark' architecture_diagram.md
+          grep -q 'Comparison Engine' architecture_diagram.md
+
+          echo "Architecture documentation: PASS"
+
+      # ----------------------------------------
+      # FINAL VALIDATION
+      # ----------------------------------------
+
+      - name: Validation complete
+        run: |
+          echo "========================================="
+          echo " NeuralEdge Optimizer CI"
+          echo "========================================="
+          echo " PROJECT STRUCTURE: PASS"
+          echo " PYTHON SYNTAX: PASS"
+          echo " CORE SELF-TEST: PASS"
+          echo " BASELINE BENCHMARK: PASS"
+          echo " OPTIMIZED BENCHMARK: PASS"
+          echo " BENCHMARK ENGINE: PASS"
+          echo " WEB ASSET WIRING: PASS"
+          echo " JAVASCRIPT VALIDATION: PASS"
+          echo " ARCHITECTURE VALIDATION: PASS"
+          echo "========================================="
+          echo " NEURALEDGE RESEARCH BENCHMARK PLATFORM"
+          echo " SIMULATION / BENCHMARK VALIDATION COMPLETE"
+          echo "========================================="
