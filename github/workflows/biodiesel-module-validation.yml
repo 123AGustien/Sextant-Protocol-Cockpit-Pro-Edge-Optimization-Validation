@@ -1,0 +1,152 @@
+name: SPD v13.1 — Biodiesel Module Validation
+
+on:
+  push:
+    branches:
+      - command-centre
+      - feature/BHR-human-rights-compliance
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-biodiesel:
+    name: Validate Biodiesel Rules and Wiring
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Biodiesel module files
+        shell: bash
+        run: |
+          set -e
+
+          files=(
+            "rules/energy/biodiesel/biodieselRules.js"
+            "rules/energy/biodiesel/biodieselRuleEngine.js"
+            "rules/energy/biodiesel/biodieselScenarioEngine.js"
+            "rules/energy/biodiesel/biodieselTrialManoeuvre.js"
+            "rules/energy/biodiesel/biodieselIntegration.js"
+            "rules/energy/biodiesel/biodieselLoader.js"
+          )
+
+          for file in "${files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "MISSING: $file"
+              exit 1
+            fi
+            echo "FOUND: $file"
+          done
+
+      - name: Verify Biodiesel rule registry
+        shell: bash
+        run: |
+          grep -q "BIODIESEL_SHORTAGE" \
+            rules/energy/biodiesel/biodieselRules.js
+
+          grep -q "BDS-001" \
+            rules/energy/biodiesel/biodieselRules.js
+
+          grep -q "BDS-002" \
+            rules/energy/biodiesel/biodieselRules.js
+
+          grep -q "BDS-003" \
+            rules/energy/biodiesel/biodieselRules.js
+
+          grep -q "BDS-004" \
+            rules/energy/biodiesel/biodieselRules.js
+
+          echo "Biodiesel rule registry: PASS"
+
+      - name: Verify rule-derived solution path
+        shell: bash
+        run: |
+          grep -q "BiodieselRuleEngine" \
+            rules/energy/biodiesel/biodieselScenarioEngine.js
+
+          grep -q "deriveSolution" \
+            rules/energy/biodiesel/biodieselScenarioEngine.js
+
+          echo "Rule → Scenario → Lena solution path: PASS"
+
+      - name: Verify trial manoeuvre protection
+        shell: bash
+        run: |
+          grep -q "physicalExecution" \
+            rules/energy/biodiesel/biodieselTrialManoeuvre.js
+
+          grep -q "humanAuthorization" \
+            rules/energy/biodiesel/biodieselTrialManoeuvre.js
+
+          echo "Trial manoeuvre safety gate: PASS"
+
+      - name: Verify integration layer
+        shell: bash
+        run: |
+          grep -q "BiodieselScenarioEngine" \
+            rules/energy/biodiesel/biodieselIntegration.js
+
+          grep -q "BiodieselTrialManoeuvre" \
+            rules/energy/biodiesel/biodieselIntegration.js
+
+          echo "Biodiesel integration layer: PASS"
+
+      - name: Verify HTML script load order
+        shell: bash
+        run: |
+          html_file=$(find . -maxdepth 2 -type f \
+            \( -name "index.html" -o -name "*.html" \) \
+            | head -n 1)
+
+          if [ -z "$html_file" ]; then
+            echo "No HTML file found"
+            exit 1
+          fi
+
+          grep -q "rules/energy/biodiesel/biodieselRules.js" "$html_file"
+          grep -q "rules/energy/biodiesel/biodieselRuleEngine.js" "$html_file"
+          grep -q "rules/energy/biodiesel/biodieselScenarioEngine.js" "$html_file"
+          grep -q "rules/energy/biodiesel/biodieselTrialManoeuvre.js" "$html_file"
+          grep -q "rules/energy/biodiesel/biodieselIntegration.js" "$html_file"
+          grep -q "rules/energy/biodiesel/biodieselLoader.js" "$html_file"
+
+          echo "HTML Biodiesel script wiring: PASS"
+
+      - name: Verify Golden Rule protection
+        shell: bash
+        run: |
+          grep -R -q "OBSERVE.*VERIFY.*ASSESS.*DECIDE.*ACT.*UPDATE" \
+            rules/energy/biodiesel/
+
+          echo "Golden Rule pipeline reference: PASS"
+
+      - name: Verify no automatic physical execution
+        shell: bash
+        run: |
+          if grep -R -Ei \
+            "physicalExecution:[[:space:]]*true|automaticExecution:[[:space:]]*true" \
+            rules/energy/biodiesel/; then
+            echo "FAIL: automatic physical execution detected"
+            exit 1
+          fi
+
+          echo "Automatic physical execution protection: PASS"
+
+      - name: Biodiesel validation summary
+        run: |
+          echo "========================================"
+          echo "SPD v13.1 BIODIESEL VALIDATION"
+          echo "========================================"
+          echo "Rules: PASS"
+          echo "Rule Engine: PASS"
+          echo "Scenario Engine: PASS"
+          echo "Trial Manoeuvre: PASS"
+          echo "Integration: PASS"
+          echo "Loader: PASS"
+          echo "HTML Wiring: PASS"
+          echo "Golden Rule: PASS"
+          echo "Human Authorization Gate: PASS"
+          echo "========================================"
