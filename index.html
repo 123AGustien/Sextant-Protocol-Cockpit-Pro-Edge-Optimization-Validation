@@ -810,20 +810,11 @@ ARM pipeline log active.
 
 <!-- ============================================================
      BIODIESEL ENERGY RESILIENCE MODULE
-============================================================ -->
-
-<section class="card">
-
-<h3>🛢️ BIODIESEL ENERGY RESILIENCE MODULE</h3>
-
-<div class="simulator-banner">
+============================================================ --><section class="card"><h3>🛢️ BIODIESEL ENERGY RESILIENCE MODULE</h3><div class="simulator-banner">
 ⚡ SEXTANT PROTOCOL™ ENERGY DOMAIN —
 BIODIESEL AUTHORITATIVE RULE ENGINE —
 LOCAL DETERMINISTIC VALIDATION
-</div>
-
-<div class="muted">
-
+</div><div class="muted">
 BIODIESEL COCKPIT
 <br>↓<br>
 BIODIESEL DOMAIN INTEGRATION
@@ -835,333 +826,148 @@ BIODIESEL SCENARIO ENGINE
 TRIAL MANOEUVRE ENGINE
 <br>↓<br>
 VALIDATION / DECISION / AUDIT
-
-</div>
-
-<br>
-
-<div class="controls">
-
-<button
-type="button"
-class="energy-button"
+</div><br><div class="controls"><button type="button"
 onclick="runBiodieselIntegrationTest()">
 🔌 BIODIESEL INTEGRATION TEST
 </button>
 
-<button
-type="button"
-class="energy-button"
+<button type="button"
+class="test-button"
 onclick="runBiodieselSelfTest()">
 🧪 BIODIESEL SELF-TEST
 </button>
 
-<button
-type="button"
+<button type="button"
+class="corrective-button"
+onclick="runBiodieselTestAndCorrect()">
+🛠️ SELF-TEST + CORRECTIVE ACTION
+</button>
+
+<button type="button"
+class="test-button"
+onclick="runBiodieselScenario('NORMAL')">
+🛢️ BIODIESEL NORMAL
+</button>
+
+<button type="button"
+class="test-button"
+onclick="runBiodieselScenario('FUEL_PRESSURE')">
+⚠️ FUEL PRESSURE
+</button>
+
+<button type="button"
+class="test-button"
+onclick="runBiodieselScenario('ENERGY_SHORTAGE')">
+⚠️ ENERGY SHORTAGE
+</button>
+
+<button type="button"
+class="test-button"
+onclick="runBiodieselScenario('FUEL_CONTAMINATION')">
+⚠️ FUEL CONTAMINATION
+</button>
+
+<button type="button"
+class="test-button"
+onclick="runBiodieselScenario('FULL_BIODIESEL_STRESS')">
+⚠️ FULL BIODIESEL STRESS
+</button>
+
+<button type="button"
 class="trial-button"
 onclick="runBiodieselTrialManoeuvre()">
 ⚓ RUN BIODIESEL TRIAL MANOEUVRE
 </button>
 
-<button
-type="button"
-class="energy-button"
-onclick="runBiodieselScenario('NORMAL')">
-🛢️ BIODIESEL NORMAL
-</button>
-
-<button
-type="button"
-class="energy-button"
-onclick="runBiodieselScenario('FUEL_PRESSURE')">
-⚠️ FUEL PRESSURE
-</button>
-
-<button
-type="button"
-class="energy-button"
-onclick="runBiodieselScenario('ENERGY_SHORTAGE')">
-⚠️ ENERGY SHORTAGE
-</button>
-
-<button
-type="button"
-class="energy-button"
-onclick="runBiodieselScenario('FUEL_CONTAMINATION')">
-⚠️ FUEL CONTAMINATION
-</button>
-
-</div>
-
-</section>
-
-<!-- ============================================================
+</div></section><!-- ============================================================
+     BIODIESEL SYSTEM STATUS
+============================================================ --><section class="card"><h3>⚡ BIODIESEL ENERGY SYSTEM STATUS</h3><div class="metric">
+<span>Energy Domain</span>
+<strong id="biodieselDomainStatus">READY</strong>
+</div><div class="metric">
+<span>Rule Engine</span>
+<strong id="biodieselRuleEngineStatus">READY</strong>
+</div><div class="metric">
+<span>Scenario Engine</span>
+<strong id="biodieselScenarioEngineStatus">READY</strong>
+</div><div class="metric">
+<span>Trial Manoeuvre Engine</span>
+<strong id="biodieselTrialEngineStatus">READY</strong>
+</div><div class="metric">
+<span>Integration Layer</span>
+<strong id="biodieselIntegrationStatus">READY</strong>
+</div><div class="metric">
+<span>Backend</span>
+<span class="badge">LOCAL / NOT CONNECTED</span>
+</div></section><!-- ============================================================
      BIODIESEL SCENARIO RESULT
-============================================================ -->
-
-<section class="card">
-
-<h3>🧪 BIODIESEL SCENARIO RESULT</h3>
-
-<pre id="biodieselScenarioResult">
+============================================================ --><section class="card"><h3>🧪 BIODIESEL SCENARIO RESULT</h3><pre id="biodieselScenarioResult">
 Biodiesel scenario not executed.
-</pre>
-
-</section>
-
-<!-- ============================================================
+</pre></section><!-- ============================================================
      BIODIESEL TRIAL MANOEUVRE
-============================================================ -->
-
-<section class="card">
-
-<h3>⚓ BIODIESEL TRIAL MANOEUVRE</h3>
-
-<div class="muted">
-Controlled simulation only.
+============================================================ --><section class="card"><h3>⚓ BIODIESEL TRIAL MANOEUVRE</h3><div class="muted">
+Controlled deterministic trial manoeuvre simulation.
 No physical engine command.
 No vessel actuation.
 No external system connection.
-</div>
-
-<pre id="biodieselTrialManoeuvre">
-Biodiesel trial manoeuvre not executed.
-</pre>
-
-</section>
-
-<!-- ============================================================
-     BIODIESEL VALIDATION
-============================================================ -->
-
-<section class="card">
-
-<h3>🔎 BIODIESEL VALIDATION</h3>
-
-<pre id="biodieselValidation">
-Biodiesel validation not executed.
-</pre>
-
-</section>
-
-<!-- ============================================================
-     BIODIESEL INTEGRATION
-============================================================ -->
-
-<section class="card">
-
-<h3>🔌 BIODIESEL DOMAIN INTEGRATION</h3>
-
-<pre id="biodieselIntegration">
-Biodiesel domain integration not executed.
-</pre>
-
-</section>
-
-<!-- ============================================================
-     BIODIESEL AUDIT
-============================================================ -->
-
-<section class="card">
-
-<h3>🧾 BIODIESEL AUDIT RECORD</h3>
-
-<pre
-<!-- ============================================================
-     BIODIESEL AUDIT
-============================================================ -->
-
-<section class="card">
-
-<h3>🧾 BIODIESEL AUDIT RECORD</h3>
-
-<pre id="biodieselAudit">
-Biodiesel audit waiting...
-</pre>
-
-</section>
-
-<!-- ============================================================
-     BIODIESEL PIPELINE LOG
-============================================================ -->
-
-<section class="card">
-
-<h3>📜 BIODIESEL PIPELINE LOG</h3>
-
-<pre id="biodieselPipelineLog">
-Biodiesel pipeline log waiting...
-</pre>
-
-</section>
-
-<!-- ============================================================
-     BIODIESEL TRIAL MANOEUVRE
-============================================================ -->
-
-<section class="card">
-
-<h3>🧪 BIODIESEL TRIAL MANOEUVRE</h3>
-
-<div class="muted">
-Controlled deterministic trial manoeuvre simulation.
-No physical machinery or vessel control is executed.
 Human/operator authority remains required for any real-world action.
-</div>
-
-<br>
-
-<div class="controls">
-
-<button
-    type="button"
-    class="test-button"
-    onclick="runBiodieselTrialManoeuvre()">
+</div><br><div class="controls"><button type="button"
+class="trial-button"
+onclick="runBiodieselTrialManoeuvre()">
 ▶ RUN TRIAL MANOEUVRE
 </button>
 
-<button
-    type="button"
-    class="test-button"
-    onclick="validateBiodieselTrialManoeuvre()">
+<button type="button"
+class="test-button"
+onclick="validateBiodieselTrialManoeuvre()">
 🔎 VALIDATE TRIAL MANOEUVRE
 </button>
 
-<button
-    type="button"
-    class="reset-button"
-    onclick="resetBiodieselTrialManoeuvre()">
+<button type="button"
+class="reset-button"
+onclick="resetBiodieselTrialManoeuvre()">
 RESET TRIAL MANOEUVRE
 </button>
 
-</div>
-
-<br>
-
-<pre id="biodieselTrialManoeuvre">
+</div><br><pre id="biodieselTrialManoeuvre">
 Biodiesel trial manoeuvre not executed.
-</pre>
-
-</section>
-
-<!-- ============================================================
+</pre></section><!-- ============================================================
      BIODIESEL VALIDATION
-============================================================ -->
-
-<section class="card">
-
-<h3>🔎 BIODIESEL VALIDATION</h3>
-
-<pre id="biodieselValidation">
+============================================================ --><section class="card"><h3>🔎 BIODIESEL VALIDATION</h3><pre id="biodieselValidation">
 Biodiesel validation not executed.
-</pre>
-
-</section>
-
-<!-- ============================================================
-     BIODIESEL SCENARIO CONTROL
-============================================================ -->
-
-<section class="card">
-
-<h3>🎛️ BIODIESEL SCENARIO CONTROL</h3>
-
-<div class="controls">
-
-<button
-    type="button"
-    class="test-button"
-    onclick="runBiodieselScenario('NORMAL')">
-NORMAL
-</button>
-
-<button
-    type="button"
-    class="test-button"
-    onclick="runBiodieselScenario('FUEL_QUALITY_DEGRADATION')">
-FUEL QUALITY DEGRADATION
-</button>
-
-<button
-    type="button"
-    class="test-button"
-    onclick="runBiodieselScenario('POWER_LOSS')">
-POWER LOSS
-</button>
-
-<button
-    type="button"
-    class="test-button"
-    onclick="runBiodieselScenario('THERMAL_STRESS')">
-THERMAL STRESS
-</button>
-
-<button
-    type="button"
-    class="test-button"
-    onclick="runBiodieselScenario('ENGINE_LOAD')">
-ENGINE LOAD
-</button>
-
-<button
-    type="button"
-    class="test-button"
-    onclick="runBiodieselScenario('FULL_BIODIESEL_STRESS')">
-FULL BIODIESEL STRESS
-</button>
-
-</div>
-
-</section>
-
-<!-- ============================================================
-     BIODIESEL SYSTEM STATUS
-============================================================ -->
-
-<section class="card">
-
-<h3>⚡ BIODIESEL ENERGY SYSTEM STATUS</h3>
-
-<div class="metric">
-<span>Energy Domain</span>
-<strong id="biodieselDomainStatus">READY</strong>
-</div>
-
-<div class="metric">
-<span>Rule Engine</span>
-<strong id="biodieselRuleEngineStatus">READY</strong>
-</div>
-
-<div class="metric">
-<span>Scenario Engine</span>
-<strong id="biodieselScenarioEngineStatus">READY</strong>
-</div>
-
-<div class="metric">
-<span>Trial Manoeuvre Engine</span>
-<strong id="biodieselTrialEngineStatus">READY</strong>
-</div>
-
-<div class="metric">
-<span>Integration Layer</span>
-<strong id="biodieselIntegrationStatus">READY</strong>
-</div>
-
-<div class="metric">
-<span>Backend</span>
-<span class="badge">LOCAL / NOT CONNECTED</span>
-</div>
-
-</section>
-
-<!-- ============================================================
+</pre></section><!-- ============================================================
+     BIODIESEL DOMAIN INTEGRATION
+============================================================ --><section class="card"><h3>🔌 BIODIESEL DOMAIN INTEGRATION</h3><pre id="biodieselIntegration">
+Biodiesel domain integration not executed.
+</pre></section><!-- ============================================================
+     BIODIESEL SELF-TEST
+============================================================ --><section class="card"><h3>🧪 BIODIESEL SELF-TEST</h3><pre id="biodieselSelfTest">
+Biodiesel self-test not executed.
+</pre></section><!-- ============================================================
+     BIODIESEL SELF-TEST INTERPRETATION
+============================================================ --><section class="card"><h3>🔎 BIODIESEL SELF-TEST INTERPRETATION</h3><pre id="biodieselSelfTestInterpretation">
+Waiting for Biodiesel self-test...
+</pre></section><!-- ============================================================
+     BIODIESEL FAULT IDENTIFICATION
+============================================================ --><section class="card"><h3>⚠️ BIODIESEL FAULT IDENTIFICATION</h3><pre id="biodieselFaultIdentification">
+No Biodiesel fault assessment available.
+</pre></section><!-- ============================================================
+     BIODIESEL CORRECTIVE ACTION
+============================================================ --><section class="card"><h3>🛠️ BIODIESEL CORRECTIVE ACTION</h3><pre id="biodieselCorrectiveAction">
+No corrective action available.
+</pre></section><!-- ============================================================
+     BIODIESEL RE-TEST VALIDATION
+============================================================ --><section class="card"><h3>🔁 BIODIESEL RE-TEST VALIDATION</h3><pre id="biodieselRetest">
+Biodiesel re-test not executed.
+</pre></section><!-- ============================================================
+     BIODIESEL AUDIT
+============================================================ --><section class="card"><h3>🧾 BIODIESEL AUDIT RECORD</h3><pre id="biodieselAudit">
+Biodiesel audit waiting...
+</pre></section><!-- ============================================================
+     BIODIESEL PIPELINE LOG
+============================================================ --><section class="card"><h3>📜 BIODIESEL PIPELINE LOG</h3><pre id="biodieselPipelineLog">
+Biodiesel pipeline log waiting...
+</pre></section><!-- ============================================================
      SEXTANT PROTOCOL™ — BIODIESEL ENERGY MODULE
      AUTHORITATIVE LOAD ORDER
-============================================================ -->
-
-<script src="rules/energy/biodiesel/biodieselRules.js"></script>
-<script src="rules/energy/biodiesel/biodieselRuleEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselScenarioEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselTrialManoeuvre.js"></script>
-<script src="rules/energy/biodiesel/biodieselIntegration.js"></script>
-<script src="rules/energy/biodiesel/biodieselLoader.js"></script>
+============================================================ --><script src="rules/energy/biodiesel/biodieselRules.js"></script><script src="rules/energy/biodiesel/biodieselRuleEngine.js"></script><script src="rules/energy/biodiesel/biodieselScenarioEngine.js"></script><script src="rules/energy/biodiesel/biodieselTrialManoeuvre.js"></script><script src="rules/energy/biodiesel/biodieselIntegration.js"></script><script src="rules/energy/biodiesel/biodieselLoader.js"></script>
