@@ -103,6 +103,18 @@ button:hover{opacity:.85}
     border-color:#ff5555;
 }
 
+.energy-button{
+    background:#006b45;
+    color:#fff;
+    border-color:#00ff88;
+}
+
+.trial-button{
+    background:#174d73;
+    color:#fff;
+    border-color:#44baff;
+}
+
 .metric{
     display:flex;
     justify-content:space-between;
@@ -284,7 +296,9 @@ NO BACKEND CONNECTION
 SYSTEM STATUS: READY — ARM SIMULATOR
 </div>
 
-<!-- ARM SYSTEM CONTROLS -->
+<!-- ============================================================
+     ARM SYSTEM CONTROLS
+============================================================ -->
 
 <section class="card">
 
@@ -323,7 +337,9 @@ RESET ARM SYSTEM
 
 </section>
 
-<!-- ARM SYSTEM OVERVIEW -->
+<!-- ============================================================
+     ARM SYSTEM OVERVIEW
+============================================================ -->
 
 <section class="card">
 
@@ -356,7 +372,9 @@ RESET ARM SYSTEM
 
 </section>
 
-<!-- ARM DOMAIN MONITOR -->
+<!-- ============================================================
+     ARM DOMAIN MONITOR
+============================================================ -->
 
 <section class="card">
 
@@ -404,7 +422,9 @@ RESET ARM SYSTEM
 
 </section>
 
-<!-- ARM DOMAIN INTEGRATION -->
+<!-- ============================================================
+     ARM DOMAIN INTEGRATION
+============================================================ -->
 
 <section class="card">
 
@@ -432,7 +452,9 @@ ARM domain integration test not executed.
 
 </section>
 
-<!-- ARM OPTIMIZATION DOMAINS -->
+<!-- ============================================================
+     ARM OPTIMIZATION DOMAINS
+============================================================ -->
 
 <section class="card">
 
@@ -479,7 +501,9 @@ ARM — FULL OPTIMIZATION
 
 </section>
 
-<!-- ARM SCENARIO CONTROL -->
+<!-- ============================================================
+     ARM SCENARIO CONTROL
+============================================================ -->
 
 <section class="card">
 
@@ -521,7 +545,9 @@ RESET SCENARIO
 
 </section>
 
-<!-- OPTIMIZATION INTENSITY -->
+<!-- ============================================================
+     OPTIMIZATION INTENSITY
+============================================================ -->
 
 <section class="card">
 
@@ -554,7 +580,9 @@ Intensity:
 
 </section>
 
-<!-- OPTIMIZATION PIPELINE -->
+<!-- ============================================================
+     ARM OPTIMIZATION PIPELINE
+============================================================ -->
 
 <section class="card">
 
@@ -582,7 +610,9 @@ ARM optimization pipeline waiting...
 
 </section>
 
-<!-- SCENARIO PANEL -->
+<!-- ============================================================
+     ARM SCENARIO PANEL
+============================================================ -->
 
 <section class="card">
 
@@ -594,7 +624,9 @@ Waiting...
 
 </section>
 
-<!-- RAW ARM STATE -->
+<!-- ============================================================
+     RAW ARM STATE
+============================================================ -->
 
 <section class="card">
 
@@ -606,7 +638,9 @@ Waiting...
 
 </section>
 
-<!-- SYSTEM ASSESSMENT -->
+<!-- ============================================================
+     ARM SYSTEM ASSESSMENT
+============================================================ -->
 
 <section class="card">
 
@@ -618,7 +652,9 @@ Waiting...
 
 </section>
 
-<!-- OPTIMIZATION DECISION -->
+<!-- ============================================================
+     NEURALEDGE DECISION
+============================================================ -->
 
 <section class="card">
 
@@ -630,7 +666,9 @@ Waiting...
 
 </section>
 
-<!-- EXECUTION RESULTS -->
+<!-- ============================================================
+     EXECUTION RESULTS
+============================================================ -->
 
 <section class="card">
 
@@ -658,7 +696,9 @@ Waiting...
 
 </section>
 
-<!-- ARM VALIDATION -->
+<!-- ============================================================
+     ARM VALIDATION
+============================================================ -->
 
 <section class="card">
 
@@ -670,7 +710,9 @@ ARM validation not executed.
 
 </section>
 
-<!-- SELF TEST -->
+<!-- ============================================================
+     ARM SELF TEST
+============================================================ -->
 
 <section class="card">
 
@@ -682,7 +724,9 @@ ARM self-test not executed.
 
 </section>
 
-<!-- SELF TEST INTERPRETATION -->
+<!-- ============================================================
+     ARM SELF TEST INTERPRETATION
+============================================================ -->
 
 <section class="card">
 
@@ -694,7 +738,9 @@ Waiting for ARM self-test...
 
 </section>
 
-<!-- FAULT IDENTIFICATION -->
+<!-- ============================================================
+     ARM FAULT IDENTIFICATION
+============================================================ -->
 
 <section class="card">
 
@@ -706,7 +752,9 @@ No ARM fault assessment available.
 
 </section>
 
-<!-- CORRECTIVE ACTION -->
+<!-- ============================================================
+     ARM CORRECTIVE ACTION
+============================================================ -->
 
 <section class="card">
 
@@ -718,7 +766,9 @@ No corrective action available.
 
 </section>
 
-<!-- RETEST -->
+<!-- ============================================================
+     ARM RETEST
+============================================================ -->
 
 <section class="card">
 
@@ -730,7 +780,9 @@ ARM re-test not executed.
 
 </section>
 
-<!-- AUDIT -->
+<!-- ============================================================
+     ARM AUDIT
+============================================================ -->
 
 <section class="card">
 
@@ -742,7 +794,9 @@ ARM audit waiting...
 
 </section>
 
-<!-- PIPELINE LOG -->
+<!-- ============================================================
+     ARM PIPELINE LOG
+============================================================ -->
 
 <section class="card">
 
@@ -754,1204 +808,162 @@ ARM pipeline log active.
 
 </section>
 
-<footer class="footer">
-Investor Simulation Mode |
-ARM Optimization Engine v1.0 |
-NeuralEdge Confidential Preview
-<br>
-ARM64 Edge Optimization Simulator — Local Deterministic Execution
-</footer>
-
-<script>
-
-/* ============================================================
-   NEURALEDGE ARM AI ACCELERATION PLATFORM
-   LOCAL DETERMINISTIC SIMULATOR
-   NO BACKEND CONNECTION
-   NO SPD RESILIENCE DOMAIN FILES
-============================================================ */
-
-const PHI = 1.618033988749895;
-
-let optimizationIntensity = 50;
-let currentARMScenario = "NORMAL";
-
-let armState = {
-    quantization:0,
-    pruning:0,
-    graphOptimization:0,
-    memoryOptimization:0,
-    kernelOptimization:0,
-    arm64Runtime:0
-};
-
-let armAuditRecords = [];
-let armPipelineLog = [];
-
-const armScenarioProfiles = {
-
-    NORMAL:{
-        quantization:20,
-        pruning:20,
-        graphOptimization:20,
-        memoryOptimization:20,
-        kernelOptimization:20,
-        arm64Runtime:20
-    },
-
-    EDGE_LOAD:{
-        quantization:60,
-        pruning:55,
-        graphOptimization:70,
-        memoryOptimization:75,
-        kernelOptimization:65,
-        arm64Runtime:80
-    },
-
-    LATENCY_STRESS:{
-        quantization:75,
-        pruning:60,
-        graphOptimization:90,
-        memoryOptimization:65,
-        kernelOptimization:95,
-        arm64Runtime:90
-    },
-
-    MEMORY_PRESSURE:{
-        quantization:65,
-        pruning:80,
-        graphOptimization:60,
-        memoryOptimization:95,
-        kernelOptimization:70,
-        arm64Runtime:85
-    },
-
-    THERMAL_STRESS:{
-        quantization:80,
-        pruning:75,
-        graphOptimization:75,
-        memoryOptimization:80,
-        kernelOptimization:85,
-        arm64Runtime:95
-    },
-
-    QUANTIZATION:{
-        quantization:95,
-        pruning:35,
-        graphOptimization:45,
-        memoryOptimization:55,
-        kernelOptimization:45,
-        arm64Runtime:60
-    },
-
-    PRUNING:{
-        quantization:45,
-        pruning:95,
-        graphOptimization:65,
-        memoryOptimization:70,
-        kernelOptimization:60,
-        arm64Runtime:65
-    },
-
-    GRAPH_OPTIMIZATION:{
-        quantization:50,
-        pruning:60,
-        graphOptimization:95,
-        memoryOptimization:70,
-        kernelOptimization:80,
-        arm64Runtime:75
-    },
-
-    MEMORY_OPTIMIZATION:{
-        quantization:55,
-        pruning:65,
-        graphOptimization:65,
-        memoryOptimization:95,
-        kernelOptimization:70,
-        arm64Runtime:80
-    },
-
-    KERNEL_OPTIMIZATION:{
-        quantization:50,
-        pruning:55,
-        graphOptimization:75,
-        memoryOptimization:65,
-        kernelOptimization:98,
-        arm64Runtime:90
-    },
-
-    ARM64_RUNTIME:{
-        quantization:60,
-        pruning:60,
-        graphOptimization:75,
-        memoryOptimization:80,
-        kernelOptimization:90,
-        arm64Runtime:100
-    },
-
-    FULL_ARM_OPTIMIZATION:{
-        quantization:95,
-        pruning:90,
-        graphOptimization:95,
-        memoryOptimization:90,
-        kernelOptimization:95,
-        arm64Runtime:100
-    }
-};
-
-/* ============================================================
-   HELPERS
-============================================================ */
-
-function setText(id,value){
-
-    const el = document.getElementById(id);
-
-    if(el){
-        el.textContent = value;
-    }
-}
-
-function setJSON(id,value){
-
-    const el = document.getElementById(id);
-
-    if(el){
-        el.textContent =
-            JSON.stringify(value,null,2);
-    }
-}
-
-function nowISO(){
-    return new Date().toISOString();
-}
-
-/* ============================================================
-   PIPELINE STAGE
-============================================================ */
-
-function activateStage(stage){
-
-    [
-        "OBSERVE",
-        "VERIFY",
-        "OPTIMIZE",
-        "ASSESS",
-        "VALIDATE",
-        "UPDATE"
-    ].forEach(name=>{
-
-        const el =
-            document.getElementById(
-                "stage" + name
-            );
-
-        if(el){
-            el.classList.toggle(
-                "active",
-                name === stage
-            );
-        }
-    });
-}
-
-/* ============================================================
-   INTENSITY
-============================================================ */
-
-function updateOptimizationIntensity(){
-
-    const slider =
-        document.getElementById(
-            "optimizationIntensity"
-        );
-
-    optimizationIntensity =
-        Number(slider.value);
-
-    setText(
-        "intensityValue",
-        optimizationIntensity + "%"
-    );
-
-    document.getElementById("fill").style.width =
-        optimizationIntensity + "%";
-
-    if(currentARMScenario !== "NORMAL"){
-        applyARMScenario(
-            currentARMScenario,
-            false
-        );
-    }
-
-    addARMLog(
-        "Optimization intensity changed to "
-        + optimizationIntensity + "%"
-    );
-}
-
-/* ============================================================
-   ARM SCENARIO ENGINE
-============================================================ */
-
-function activateARMScenario(name){
-
-    currentARMScenario = name;
-
-    applyARMScenario(name,true);
-
-    addARMLog(
-        "ARM scenario activated: " + name
-    );
-
-    runARMOptimizationPipeline();
-}
-
-function applyARMScenario(name,runPipeline){
-
-    const profile =
-        armScenarioProfiles[name] ||
-        armScenarioProfiles.NORMAL;
-
-    const multiplier =
-        optimizationIntensity / 100;
-
-    armState = {
-
-        quantization:
-            Math.round(
-                profile.quantization * multiplier
-            ),
-
-        pruning:
-            Math.round(
-                profile.pruning * multiplier
-            ),
-
-        graphOptimization:
-            Math.round(
-                profile.graphOptimization * multiplier
-            ),
-
-        memoryOptimization:
-            Math.round(
-                profile.memoryOptimization * multiplier
-            ),
-
-        kernelOptimization:
-            Math.round(
-                profile.kernelOptimization * multiplier
-            ),
-
-        arm64Runtime:
-            Math.round(
-                profile.arm64Runtime * multiplier
-            )
-    };
-
-    updateARMMonitor();
-
-    setJSON(
-        "scenarioPanel",
-        {
-            scenario:name,
-            intensity:optimizationIntensity,
-            mode:"LOCAL_ARM_DETERMINISTIC_SIMULATOR",
-            platform:"ARM64 EDGE",
-            backendConnection:false
-        }
-    );
-
-    setJSON("state",armState);
-
-    if(runPipeline){
-        runARMOptimizationPipeline();
-    }
-}
-
-/* ============================================================
-   ARM MONITOR
-============================================================ */
-
-function updateARMMonitor(){
-
-    setText(
-        "domainQuantization",
-        armState.quantization
-    );
-
-    setText(
-        "domainPruning",
-        armState.pruning
-    );
-
-    setText(
-        "domainGraph",
-        armState.graphOptimization
-    );
-
-    setText(
-        "domainMemory",
-        armState.memoryOptimization
-    );
-
-    setText(
-        "domainKernel",
-        armState.kernelOptimization
-    );
-
-    setText(
-        "domainRuntime",
-        armState.arm64Runtime
-    );
-}
-
-/* ============================================================
-   ARM OPTIMIZATION PIPELINE
-============================================================ */
-
-function runARMOptimizationPipeline(){
-
-    activateStage("OBSERVE");
-
-    const observed = {
-        ...armState
-    };
-
-    activateStage("VERIFY");
-
-    const verification = {
-
-        verified:true,
-
-        deterministic:true,
-
-        platform:"ARM64",
-
-        backendConnected:false
-    };
-
-    activateStage("OPTIMIZE");
-
-    const optimization =
-        calculateOptimization(observed);
-
-    activateStage("ASSESS");
-
-    const assessment =
-        calculateARMAssessment(
-            optimization
-        );
-
-    activateStage("VALIDATE");
-
-    const validation = {
-
-        valid:true,
-
-        optimizationStable:
-            assessment.status === "STABLE",
-
-        platform:"ARM64 EDGE"
-    };
-
-    activateStage("UPDATE");
-
-    const decision =
-        generateARMDecision(
-            assessment
-        );
-
-    const result = {
-
-        pipeline:
-            "OBSERVE → VERIFY → OPTIMIZE → ASSESS → VALIDATE → UPDATE",
-
-        scenario:
-            currentARMScenario,
-
-        intensity:
-            optimizationIntensity,
-
-        observed,
-
-        verification,
-
-        optimization,
-
-        assessment,
-
-        validation,
-
-        decision,
-
-        execution:
-            "LOCAL SIMULATION ONLY"
-    };
-
-    setJSON(
-        "pipeline",
-        result
-    );
-
-    setJSON(
-        "assessment",
-        assessment
-    );
-
-    setJSON(
-        "decision",
-        decision
-    );
-
-    setJSON(
-        "validation",
-        validation
-    );
-
-    setText(
-        "costReduction",
-        "↓ " +
-        assessment.costReduction +
-        "%"
-    );
-
-    setText(
-        "throughput",
-        "↑ " +
-        assessment.throughput +
-        "x"
-    );
-
-    setText(
-        "efficiency",
-        assessment.efficiency +
-        " / 100"
-    );
-
-    setText(
-        "optimizationStatus",
-        assessment.status
-    );
-
-    updateARMAudit(
-        "ARM_OPTIMIZATION_PIPELINE_COMPLETE",
-        result
-    );
-
-    addARMLog(
-        "ARM optimization pipeline completed."
-    );
-}
-
-/* ============================================================
-   OPTIMIZATION ENGINE
-============================================================ */
-
-function calculateOptimization(state){
-
-    const average =
-        (
-            state.quantization +
-            state.pruning +
-            state.graphOptimization +
-            state.memoryOptimization +
-            state.kernelOptimization +
-            state.arm64Runtime
-        ) / 6;
-
-    return {
-
-        averageOptimization:
-            Number(average.toFixed(2)),
-
-        quantization:
-            state.quantization > 0,
-
-        pruning:
-            state.pruning > 0,
-
-        graphOptimization:
-            state.graphOptimization > 0,
-
-        memoryOptimization:
-            state.memoryOptimization > 0,
-
-        kernelOptimization:
-            state.kernelOptimization > 0,
-
-        arm64Runtime:
-            state.arm64Runtime > 0
-    };
-}
-
-/* ============================================================
-   ARM ASSESSMENT
-============================================================ */
-
-function calculateARMAssessment(optimization){
-
-    const level =
-        optimization.averageOptimization;
-
-    const costReduction =
-        Math.min(
-            68,
-            Math.round(level * 0.68)
-        );
-
-    const throughput =
-        Math.max(
-            1,
-            Number(
-                (1 + level / 100 * 1.4)
-                .toFixed(1)
-            )
-        );
-
-    const efficiency =
-        Math.min(
-            100,
-            Math.round(
-                45 + level * 0.55
-            )
-        );
-
-    let status;
-
-    if(level >= 75){
-        status = "STABLE";
-    }
-    else if(level >= 45){
-        status = "OPTIMIZING";
-    }
-    else{
-        status = "BASELINE";
-    }
-
-    return {
-
-        optimizationLevel:
-            Number(level.toFixed(2)),
-
-        costReduction,
-
-        throughput,
-
-        efficiency,
-
-        status,
-
-        targetPlatform:
-            "ARM64 EDGE",
-
-        backendConnection:false
-    };
-}
-
-/* ============================================================
-   ARM DECISION CORE
-============================================================ */
-
-function generateARMDecision(assessment){
-
-    let recommendation;
-
-    if(assessment.status === "STABLE"){
-
-        recommendation =
-            "DEPLOY OPTIMIZED ARM PROFILE";
-
-    }
-    else if(
-        assessment.status === "OPTIMIZING"
-    ){
-
-        recommendation =
-            "CONTINUE ARM OPTIMIZATION CYCLE";
-
-    }
-    else{
-
-        recommendation =
-            "MAINTAIN ARM BASELINE AND MONITOR";
-    }
-
-    return {
-
-        engine:
-            "NeuralEdge Optimizer",
-
-        recommendation,
-
-        optimizationStatus:
-            assessment.status,
-
-        platform:
-            "ARM64 EDGE",
-
-        execution:
-            "SIMULATION ONLY"
-    };
-}
-
-/* ============================================================
-   ARM SYSTEM RUN
-============================================================ */
-
-function runARMSystem(){
-
-    setText(
-        "systemStatus",
-        "SYSTEM STATUS: RUNNING — ARM SIMULATOR"
-    );
-
-    activateARMScenario(
-        currentARMScenario
-    );
-
-    setText(
-        "systemStatus",
-        "SYSTEM STATUS: READY — ARM SIMULATION COMPLETE"
-    );
-
-    updateARMAudit(
-        "ARM_SYSTEM_RUN_COMPLETE",
-        {
-            scenario:currentARMScenario,
-            intensity:optimizationIntensity
-        }
-    );
-}
-
-/* ============================================================
-   ARM SELF TEST
-============================================================ */
-
-function runARMSelfTest(){
-
-    const tests = [
-
-        {
-            test:"ARM DOM ELEMENTS",
-            result:
-                document.getElementById(
-                    "optimizationIntensity"
-                )
-                ? "PASS"
-                : "FAIL"
-        },
-
-        {
-            test:"ARM OPTIMIZATION PIPELINE",
-            result:
-                typeof runARMOptimizationPipeline ===
-                "function"
-                ? "PASS"
-                : "FAIL"
-        },
-
-        {
-            test:"ARM DOMAIN MONITOR",
-            result:
-                document.getElementById(
-                    "domainRuntime"
-                )
-                ? "PASS"
-                : "FAIL"
-        },
-
-        {
-            test:"ARM VALIDATION",
-            result:
-                typeof calculateARMAssessment ===
-                "function"
-                ? "PASS"
-                : "FAIL"
-        },
-
-        {
-            test:"ARM AUDIT CORE",
-            result:
-                typeof updateARMAudit ===
-                "function"
-                ? "PASS"
-                : "FAIL"
-        },
-
-        {
-            test:"ARM PIPELINE LOG",
-            result:
-                typeof addARMLog ===
-                "function"
-                ? "PASS"
-                : "FAIL"
-        }
-    ];
-
-    const passed =
-        tests.filter(
-            test =>
-                test.result === "PASS"
-        ).length;
-
-    const failed =
-        tests.length - passed;
-
-    const result = {
-
-        testType:
-            "NEURALEDGE ARM AUTHORITATIVE SELF-TEST",
-
-        timestamp:
-            nowISO(),
-
-        platform:
-            "ARM64 EDGE",
-
-        passed,
-
-        failed,
-
-        status:
-            failed === 0
-                ? "PASS"
-                : "FAIL",
-
-        tests
-    };
-
-    setJSON(
-        "selfTest",
-        result
-    );
-
-    setText(
-        "selfTestInterpretation",
-        failed === 0
-            ? "ARM SELF-TEST PASS — ALL CORE FUNCTIONS AVAILABLE."
-            : "ARM SELF-TEST FAIL — ONE OR MORE CORE FUNCTIONS UNAVAILABLE."
-    );
-
-    setJSON(
-        "faultIdentification",
-        failed === 0
-            ? {
-                fault:false,
-                message:
-                    "No ARM simulator fault identified."
-            }
-            : {
-                fault:true,
-                failedTests:
-                    tests.filter(
-                        test =>
-                            test.result === "FAIL"
-                    )
-            }
-    );
-
-    updateARMAudit(
-        "ARM_SELF_TEST",
-        result
-    );
-
-    addARMLog(
-        "ARM self-test: " +
-        result.status
-    );
-
-    return result;
-}
-
-/* ============================================================
-   ARM SELF TEST + CORRECTIVE ACTION
-============================================================ */
-
-function runARMTestAndCorrect(){
-
-    const result =
-        runARMSelfTest();
-
-    if(result.status === "PASS"){
-
-        setText(
-            "correctiveAction",
-            "NO CORRECTIVE ACTION REQUIRED.\n"
-            + "ARM SIMULATOR CORE VALIDATED."
-        );
-
-        runARMReTest();
-
-        return;
-    }
-
-    setText(
-        "correctiveAction",
-        "CORRECTIVE ACTION:\n"
-        + "REINITIALIZE ARM SIMULATOR STATE."
-    );
-
-    resetARMSystem();
-
-    runARMReTest();
-}
-
-/* ============================================================
-   ARM RE-TEST
-============================================================ */
-
-function runARMReTest(){
-
-    const result =
-        runARMSelfTest();
-
-    const retest = {
-
-        timestamp:
-            nowISO(),
-
-        status:
-            result.status === "PASS"
-                ? "RE-TEST PASS"
-                : "RE-TEST FAIL",
-
-        passed:
-            result.passed,
-
-        failed:
-            result.failed
-    };
-
-    setJSON(
-        "retest",
-        retest
-    );
-
-    updateARMAudit(
-        "ARM_RETEST_VALIDATION",
-        retest
-    );
-
-    addARMLog(
-        "ARM re-test validation: "
-        + retest.status
-    );
-}
-
-/* ============================================================
-   ARM DOMAIN INTEGRATION TEST
-============================================================ */
-
-function runARMIntegrationTest(){
-
-    const result = {
-
-        cockpit:
-            "CONNECTED",
-
-        domainIntegration:
-            "LOCAL ARM",
-
-        QuantizationEngine:
-            "AVAILABLE",
-
-        PruningEngine:
-            "AVAILABLE",
-
-        GraphOptimizationEngine:
-            "AVAILABLE",
-
-        MemoryOptimizationEngine:
-            "AVAILABLE",
-
-        KernelOptimizationEngine:
-            "AVAILABLE",
-
-        ARM64Runtime:
-            "AVAILABLE",
-
-        NeuralEdgeDecisionCore:
-            "AVAILABLE",
-
-        validation:
-            "AVAILABLE",
-
-        audit:
-            "AVAILABLE",
-
-        backend:
-            "NOT CONNECTED",
-
-        status:
-            "PASS"
-    };
-
-    setJSON(
-        "domainIntegration",
-        result
-    );
-
-    updateARMAudit(
-        "ARM_DOMAIN_INTEGRATION_TEST",
-        result
-    );
-
-    addARMLog(
-        "ARM domain integration test PASS."
-    );
-}
-
-/* ============================================================
-   AUDIT
-============================================================ */
-
-function updateARMAudit(event,data){
-
-    const record = {
-
-        id:
-            armAuditRecords.length + 1,
-
-        timestamp:
-            nowISO(),
-
-        event,
-
-        scenario:
-            currentARMScenario,
-
-        intensity:
-            optimizationIntensity,
-
-        platform:
-            "ARM64 EDGE",
-
-        data
-    };
-
-    armAuditRecords.push(record);
-
-    setJSON(
-        "audit",
-        armAuditRecords
-    );
-}
-
-/* ============================================================
-   PIPELINE LOG
-============================================================ */
-
-function addARMLog(message){
-
-    armPipelineLog.push({
-
-        timestamp:
-            nowISO(),
-
-        message
-    });
-
-    if(armPipelineLog.length > 100){
-        armPipelineLog.shift();
-    }
-
-    setJSON(
-        "pipelineLog",
-        armPipelineLog
-    );
-}
-
-/* ============================================================
-   RESET
-============================================================ */
-
-function resetARMScenario(){
-
-    currentARMScenario =
-        "NORMAL";
-
-    optimizationIntensity =
-        50;
-
-    const slider =
-        document.getElementById(
-            "optimizationIntensity"
-        );
-
-    slider.value = 50;
-
-    setText(
-        "intensityValue",
-        "50%"
-    );
-
-    document.getElementById(
-        "fill"
-    ).style.width = "50%";
-
-    applyARMScenario(
-        "NORMAL",
-        false
-    );
-
-    setText(
-        "scenarioPanel",
-        "ARM scenario reset."
-    );
-
-    addARMLog(
-        "ARM scenario reset."
-    );
-}
-
-function resetARMSystem(){
-
-    currentARMScenario =
-        "NORMAL";
-
-    optimizationIntensity =
-        50;
-
-    armState = {
-
-        quantization:0,
-        pruning:0,
-        graphOptimization:0,
-        memoryOptimization:0,
-        kernelOptimization:0,
-        arm64Runtime:0
-    };
-
-    updateARMMonitor();
-
-    const slider =
-        document.getElementById(
-            "optimizationIntensity"
-        );
-
-    slider.value = 50;
-
-    setText(
-        "intensityValue",
-        "50%"
-    );
-
-    document.getElementById(
-        "fill"
-    ).style.width = "50%";
-
-    setText(
-        "systemStatus",
-        "SYSTEM STATUS: READY — ARM SIMULATOR"
-    );
-
-    setText(
-        "scenarioPanel",
-        "ARM system reset."
-    );
-
-    setText(
-        "state",
-        "Waiting..."
-    );
-
-    setText(
-        "pipeline",
-        "ARM optimization pipeline waiting..."
-    );
-
-    setText(
-        "assessment",
-        "Waiting..."
-    );
-
-    setText(
-        "decision",
-        "Waiting..."
-    );
-
-    setText(
-        "validation",
-        "ARM validation not executed."
-    );
-
-    setText(
-        "costReduction",
-        "—"
-    );
-
-    setText(
-        "throughput",
-        "—"
-    );
-
-    setText(
-        "efficiency",
-        "—"
-    );
-
-    setText(
-        "optimizationStatus",
-        "WAITING"
-    );
-
-    addARMLog(
-        "ARM simulator reset."
-    );
-}
-
-/* ============================================================
-   INITIALIZATION
-============================================================ */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        updateARMMonitor();
-
-        setText(
-            "intensityValue",
-            "50%"
-        );
-
-        document.getElementById(
-            "fill"
-        ).style.width = "50%";
-
-        setText(
-            "systemStatus",
-            "SYSTEM STATUS: READY — ARM SIMULATOR"
-        );
-
-        addARMLog(
-            "NeuralEdge ARM simulator initialized."
-        );
-
-        updateARMAudit(
-            "ARM_SIMULATOR_INITIALIZED",
-            {
-                backendConnection:false,
-                deterministic:true,
-                platform:"ARM64 EDGE"
-            }
-        );
-    }
-);
-
-</script>
-
 <!-- ============================================================
-     SEXTANT PROTOCOL™ — BIODIESEL ENERGY MODULE
-     AUTHORITATIVE LOAD ORDER
+     BIODIESEL ENERGY RESILIENCE MODULE
 ============================================================ -->
 
-<script src="rules/energy/biodiesel/biodieselRules.js"></script>
-<script src="rules/energy/biodiesel/biodieselRuleEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselScenarioEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselTrialManoeuvre.js"></script>
-<script src="rules/energy/biodiesel/biodieselIntegration.js"></script>
-<script src="rules/energy/biodiesel/biodieselLoader.js"></script>
-</body>
-</html>
+<section class="card">
+
+<h3>🛢️ BIODIESEL ENERGY RESILIENCE MODULE</h3>
+
+<div class="simulator-banner">
+⚡ SEXTANT PROTOCOL™ ENERGY DOMAIN —
+BIODIESEL AUTHORITATIVE RULE ENGINE —
+LOCAL DETERMINISTIC VALIDATION
+</div>
+
+<div class="muted">
+
+BIODIESEL COCKPIT
+<br>↓<br>
+BIODIESEL DOMAIN INTEGRATION
+<br>↓<br>
+BIODIESEL RULE ENGINE
+<br>↓<br>
+BIODIESEL SCENARIO ENGINE
+<br>↓<br>
+TRIAL MANOEUVRE ENGINE
+<br>↓<br>
+VALIDATION / DECISION / AUDIT
+
+</div>
+
+<br>
+
+<div class="controls">
+
+<button
+type="button"
+class="energy-button"
+onclick="runBiodieselIntegrationTest()">
+🔌 BIODIESEL INTEGRATION TEST
+</button>
+
+<button
+type="button"
+class="energy-button"
+onclick="runBiodieselSelfTest()">
+🧪 BIODIESEL SELF-TEST
+</button>
+
+<button
+type="button"
+class="trial-button"
+onclick="runBiodieselTrialManoeuvre()">
+⚓ RUN BIODIESEL TRIAL MANOEUVRE
+</button>
+
+<button
+type="button"
+class="energy-button"
+onclick="runBiodieselScenario('NORMAL')">
+🛢️ BIODIESEL NORMAL
+</button>
+
+<button
+type="button"
+class="energy-button"
+onclick="runBiodieselScenario('FUEL_PRESSURE')">
+⚠️ FUEL PRESSURE
+</button>
+
+<button
+type="button"
+class="energy-button"
+onclick="runBiodieselScenario('ENERGY_SHORTAGE')">
+⚠️ ENERGY SHORTAGE
+</button>
+
+<button
+type="button"
+class="energy-button"
+onclick="runBiodieselScenario('FUEL_CONTAMINATION')">
+⚠️ FUEL CONTAMINATION
+</button>
+
+</div>
+
+</section>
+
+<!-- ============================================================
+     BIODIESEL SCENARIO RESULT
+============================================================ -->
+
+<section class="card">
+
+<h3>🧪 BIODIESEL SCENARIO RESULT</h3>
+
+<pre id="biodieselScenarioResult">
+Biodiesel scenario not executed.
+</pre>
+
+</section>
+
+<!-- ============================================================
+     BIODIESEL TRIAL MANOEUVRE
+============================================================ -->
+
+<section class="card">
+
+<h3>⚓ BIODIESEL TRIAL MANOEUVRE</h3>
+
+<div class="muted">
+Controlled simulation only.
+No physical engine command.
+No vessel actuation.
+No external system connection.
+</div>
+
+<pre id="biodieselTrialManoeuvre">
+Biodiesel trial manoeuvre not executed.
+</pre>
+
+</section>
+
+<!-- ============================================================
+     BIODIESEL VALIDATION
+============================================================ -->
+
+<section class="card">
+
+<h3>🔎 BIODIESEL VALIDATION</h3>
+
+<pre id="biodieselValidation">
+Biodiesel validation not executed.
+</pre>
+
+</section>
+
+<!-- ============================================================
+     BIODIESEL INTEGRATION
+============================================================ -->
+
+<section class="card">
+
+<h3>🔌 BIODIESEL DOMAIN INTEGRATION</h3>
+
+<pre id="biodieselIntegration">
+Biodiesel domain integration not executed.
+</pre>
+
+</section>
+
+<!-- ============================================================
+     BIODIESEL AUDIT
+============================================================ -->
+
+<section class="card">
+
+<h3>🧾 BIODIESEL AUDIT RECORD</h3>
+
+<pre
