@@ -1838,8 +1838,8 @@ VALIDATION / DECISION / AUDIT
 </footer>
 
 
-<!-- 
- =========================================================
+<!-
+<!-- =========================================================
      AUTHORITATIVE JAVASCRIPT LOAD ORDER
 ========================================================== -->
 
@@ -1847,8 +1847,14 @@ VALIDATION / DECISION / AUDIT
     SEXTANT PROTOCOL™ OPTIMIZER
     AUTHORITATIVE LOCAL DETERMINISTIC MODULE LOAD ORDER
 
-    IMPORTANT:
-    Biodiesel domain modules load BEFORE the ARM/UI orchestrator.
+    BIODIESEL:
+    RULES
+    → RULE ENGINE
+    → SCENARIO ENGINE
+    → TRIAL MANOEUVRE
+    → MODULE VALIDATION
+    → DOMAIN INTEGRATION
+    → ARM/UI ORCHESTRATOR
 
     Operational boundary:
     - Local deterministic simulation only
@@ -1864,9 +1870,13 @@ VALIDATION / DECISION / AUDIT
 
 <script src="biodieselRules.js"></script>
 
+<script src="biodieselRuleEngine.js"></script>
+
 <script src="biodieselScenarioEngine.js"></script>
 
 <script src="biodieselTrialManoeuvre.js"></script>
+
+<script src="biodieselModule.js"></script>
 
 <script src="biodieselDomainIntegration.js"></script>
 
