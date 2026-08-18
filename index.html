@@ -1,274 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sextant Protocol™ Optimizer | AI Computing Optimization & Validation Platform</title>
+<title>
+Sextant Protocol™ Optimizer | AI Computing Optimization & Validation Platform
+</title>
 
 <link rel="stylesheet" href="assets/css/styles.css">
 
 <style>
-*{box-sizing:border-box}
-
-body{
-    margin:0;
-    padding:20px;
-    background:#0b0f14;
-    color:#00ff88;
-    font-family:Arial,sans-serif;
+* {
+    box-sizing: border-box;
 }
 
-.header{
-    color:#fff;
-    font-size:24px;
-    font-weight:bold;
-    margin-bottom:6px;
+body {
+    margin: 0;
+    padding: 20px;
+    background: #0b0f14;
+    color: #00ff88;
+    font-family: Arial, sans-serif;
 }
 
-.subtitle{
-    color:#aaa;
-    line-height:1.6;
-    margin-bottom:20px;
+.header {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 6px;
 }
 
-.simulator-banner{
-    border:2px solid #00ff88;
-    background:#080d11;
-    color:#00ff88;
-    padding:12px;
-    margin-bottom:15px;
-    border-radius:8px;
-    text-align:center;
-    font-weight:bold;
+.subtitle {
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
-.card{
-    border:1px solid #00ff88;
-    padding:15px;
-    margin-bottom:15px;
-    border-radius:8px;
-    background:#10161d;
+.simulator-banner {
+    border: 2px solid #00ff88;
+    background: #080d11;
+    color: #00ff88;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
 }
 
-h3{
-    color:#fff;
-    margin-top:0;
-    margin-bottom:15px;
+.card {
+    border: 1px solid #00ff88;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background: #10161d;
 }
 
-.status{
-    font-size:20px;
-    font-weight:bold;
-    padding:12px;
-    border:1px solid #00ff88;
-    border-radius:6px;
-    background:#080d11;
-    margin-bottom:15px;
+h3 {
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
-.controls{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
+.status {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 12px;
+    border: 1px solid #00ff88;
+    border-radius: 6px;
+    background: #080d11;
+    margin-bottom: 15px;
 }
 
-button{
-    background:#00ff88;
-    color:#000;
-    border:2px solid #00ff88;
-    padding:14px 20px;
-    min-height:48px;
-    border-radius:6px;
-    font-weight:bold;
-    cursor:pointer;
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-button:hover{opacity:.85}
-
-.test-button{
-    background:#1b2730;
-    color:#00ff88;
+button {
+    background: #00ff88;
+    color: #000;
+    border: 2px solid #00ff88;
+    padding: 14px 20px;
+    min-height: 48px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.corrective-button{
-    background:#ffb000;
-    color:#000;
-    border-color:#ffb000;
+button:hover {
+    opacity: .85;
 }
 
-.reset-button{
-    background:#ff5555;
-    color:#fff;
-    border-color:#ff5555;
+.test-button {
+    background: #1b2730;
+    color: #00ff88;
 }
 
-.energy-button{
-    background:#006b45;
-    color:#fff;
-    border-color:#00ff88;
+.corrective-button {
+    background: #ffb000;
+    color: #000;
+    border-color: #ffb000;
 }
 
-.trial-button{
-    background:#174d73;
-    color:#fff;
-    border-color:#44baff;
+.reset-button {
+    background: #ff5555;
+    color: #fff;
+    border-color: #ff5555;
 }
 
-.metric{
-    display:flex;
-    justify-content:space-between;
-    gap:15px;
-    padding:11px 0;
-    border-bottom:1px solid #26313a;
+.energy-button {
+    background: #006b45;
+    color: #fff;
+    border-color: #00ff88;
 }
 
-.metric:last-child{
-    border-bottom:0;
+.trial-button {
+    background: #174d73;
+    color: #fff;
+    border-color: #44baff;
 }
 
-.metric strong{
-    color:#fff;
+.metric {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 11px 0;
+    border-bottom: 1px solid #26313a;
 }
 
-.badge{
-    color:#00ff88;
-    font-weight:bold;
+.metric:last-child {
+    border-bottom: 0;
 }
 
-.monitor{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:10px;
+.metric strong {
+    color: #fff;
 }
 
-.domain{
-    border:1px solid #00ff88;
-    padding:14px;
-    border-radius:6px;
-    background:#080d11;
-    text-align:center;
+.badge {
+    color: #00ff88;
+    font-weight: bold;
 }
 
-.domain-name{
-    color:#aaa;
-    font-size:13px;
+.monitor {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
 }
 
-.domain-value{
-    color:#fff;
-    font-size:24px;
-    font-weight:bold;
-    margin-top:5px;
+.domain {
+    border: 1px solid #00ff88;
+    padding: 14px;
+    border-radius: 6px;
+    background: #080d11;
+    text-align: center;
 }
 
-.domain-status{
-    color:#00ff88;
-    font-size:12px;
-    margin-top:5px;
+.domain-name {
+    color: #aaa;
+    font-size: 13px;
 }
 
-.pipeline{
-    padding:12px;
-    border:1px solid #00ff88;
-    border-radius:6px;
-    color:#fff;
-    overflow-x:auto;
-    white-space:nowrap;
+.domain-value {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5px;
 }
 
-.stage{
-    display:inline-block;
-    padding:8px;
-    margin:3px;
-    border:1px solid #00ff88;
-    border-radius:4px;
+.domain-status {
+    color: #00ff88;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
-.stage.active{
-    background:#00ff88;
-    color:#000;
+.pipeline {
+    padding: 12px;
+    border: 1px solid #00ff88;
+    border-radius: 6px;
+    color: #fff;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
-input[type="range"]{
-    width:100%;
-    accent-color:#00ff88;
-    min-height:30px;
+.stage {
+    display: inline-block;
+    padding: 8px;
+    margin: 3px;
+    border: 1px solid #00ff88;
+    border-radius: 4px;
 }
 
-.intensity{
-    color:#fff;
-    font-size:18px;
-    font-weight:bold;
+.stage.active {
+    background: #00ff88;
+    color: #000;
 }
 
-.bar{
-    width:100%;
-    height:18px;
-    background:#080d11;
-    border:1px solid #00ff88;
-    border-radius:5px;
-    margin-top:15px;
-    overflow:hidden;
+input[type="range"] {
+    width: 100%;
+    accent-color: #00ff88;
+    min-height: 35px;
+    cursor: pointer;
 }
 
-.fill{
-    width:0%;
-    height:100%;
-    background:#00ff88;
-    transition:width .3s;
+.intensity {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-pre{
-    white-space:pre-wrap;
-    word-break:break-word;
-    color:#00ff88;
-    line-height:1.5;
-    overflow-x:auto;
+.intensity-value {
+    color: #00ff88;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.muted{
-    color:#aaa;
-    font-size:13px;
-    line-height:1.6;
+.bar {
+    width: 100%;
+    height: 18px;
+    background: #080d11;
+    border: 1px solid #00ff88;
+    border-radius: 5px;
+    margin-top: 15px;
+    overflow: hidden;
 }
 
-.result-highlight{
-    color:#fff;
-    font-size:18px;
-    font-weight:bold;
+.fill {
+    width: 50%;
+    height: 100%;
+    background: #00ff88;
+    transition: width .15s ease;
 }
 
-.footer{
-    color:#777;
-    text-align:center;
-    padding:20px 5px;
-    line-height:1.7;
+pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #00ff88;
+    line-height: 1.5;
+    overflow-x: auto;
 }
 
-@media(max-width:600px){
-    body{padding:10px}
+.muted {
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.6;
+}
 
-    .header{font-size:21px}
+.footer {
+    color: #777;
+    text-align: center;
+    padding: 20px 5px;
+    line-height: 1.7;
+}
 
-    .card{padding:12px}
+@media(max-width:600px) {
 
-    .controls{
-        flex-direction:column;
+    body {
+        padding: 10px;
     }
 
-    .controls button{
-        width:100%;
+    .header {
+        font-size: 21px;
     }
 
-    .metric{
-        flex-direction:column;
-        gap:5px;
+    .card {
+        padding: 12px;
     }
 
-    .pipeline{
-        white-space:normal;
-        line-height:2;
+    .controls {
+        flex-direction: column;
+    }
+
+    .controls button {
+        width: 100%;
+    }
+
+    .metric {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .pipeline {
+        white-space: normal;
+        line-height: 2;
     }
 }
 </style>
@@ -277,12 +292,17 @@ pre{
 <body>
 
 <header class="header">
-🛰️ Sextant Protocol™ Optimizer — AI Computing Optimization & Validation Platform
+🛰️ Sextant Protocol™ Optimizer —
+AI Computing Optimization & Validation Platform
 </header>
 
 <div class="subtitle">
-<strong>Investor Preview — ARM64 Edge Optimization Simulator</strong><br>
-DATA → OPTIMIZATION → COMPUTE → VALIDATION<br>
+<strong>
+Investor Preview — ARM64 Edge Optimization Simulator
+</strong>
+<br>
+DATA → OPTIMIZATION → COMPUTE → VALIDATION
+<br>
 OBSERVE → VERIFY → OPTIMIZE → ASSESS → VALIDATE → UPDATE
 </div>
 
@@ -384,40 +404,79 @@ RESET ARM SYSTEM
 
 <div class="domain">
 <div class="domain-name">QUANTIZATION</div>
-<div class="domain-value" id="domainQuantization">0</div>
+<div class="domain-value" id="domainQuantization">50</div>
 <div class="domain-status">READY</div>
 </div>
 
 <div class="domain">
 <div class="domain-name">PRUNING</div>
-<div class="domain-value" id="domainPruning">0</div>
+<div class="domain-value" id="domainPruning">50</div>
 <div class="domain-status">READY</div>
 </div>
 
 <div class="domain">
 <div class="domain-name">GRAPH OPTIMIZATION</div>
-<div class="domain-value" id="domainGraph">0</div>
+<div class="domain-value" id="domainGraph">50</div>
 <div class="domain-status">READY</div>
 </div>
 
 <div class="domain">
 <div class="domain-name">MEMORY OPTIMIZATION</div>
-<div class="domain-value" id="domainMemory">0</div>
+<div class="domain-value" id="domainMemory">50</div>
 <div class="domain-status">READY</div>
 </div>
 
 <div class="domain">
 <div class="domain-name">KERNEL OPTIMIZATION</div>
-<div class="domain-value" id="domainKernel">0</div>
+<div class="domain-value" id="domainKernel">50</div>
 <div class="domain-status">READY</div>
 </div>
 
 <div class="domain">
 <div class="domain-name">ARM64 RUNTIME</div>
-<div class="domain-value" id="domainRuntime">0</div>
+<div class="domain-value" id="domainRuntime">50</div>
 <div class="domain-status">READY</div>
 </div>
 
+</div>
+
+</section>
+
+<!-- ============================================================
+     ARM INTENSITY CONTROL
+============================================================ -->
+
+<section class="card">
+
+<h3>🎚️ ARM OPTIMIZATION INTENSITY</h3>
+
+<div class="intensity">
+Optimization Intensity:
+<span id="intensityValue" class="intensity-value">50%</span>
+</div>
+
+<br>
+
+<input
+type="range"
+id="optimizationIntensity"
+min="0"
+max="100"
+step="1"
+value="50"
+aria-label="ARM optimization intensity">
+
+<div class="bar">
+<div
+id="fill"
+class="fill"
+style="width:50%;">
+</div>
+</div>
+
+<div class="muted">
+Move the intensity control to change the deterministic
+optimization workload and synchronize the ARM domain monitor.
 </div>
 
 </section>
@@ -462,37 +521,44 @@ ARM domain integration test not executed.
 
 <div class="controls">
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('QUANTIZATION')">
 ARM — QUANTIZATION
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('PRUNING')">
 ARM — PRUNING
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('GRAPH_OPTIMIZATION')">
 ARM — GRAPH OPTIMIZATION
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('MEMORY_OPTIMIZATION')">
 ARM — MEMORY OPTIMIZATION
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('KERNEL_OPTIMIZATION')">
 ARM — KERNEL OPTIMIZATION
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('ARM64_RUNTIME')">
 ARM — ARM64 RUNTIME
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('FULL_ARM_OPTIMIZATION')">
 ARM — FULL OPTIMIZATION
 </button>
@@ -511,32 +577,38 @@ ARM — FULL OPTIMIZATION
 
 <div class="controls">
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('NORMAL')">
 NORMAL
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('EDGE_LOAD')">
 EDGE LOAD
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('LATENCY_STRESS')">
 LATENCY STRESS
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('MEMORY_PRESSURE')">
 MEMORY PRESSURE
 </button>
 
-<button type="button" class="test-button"
+<button type="button"
+class="test-button"
 onclick="activateARMScenario('THERMAL_STRESS')">
 THERMAL STRESS
 </button>
 
-<button type="button" class="reset-button"
+<button type="button"
+class="reset-button"
 onclick="resetARMScenario()">
 RESET SCENARIO
 </button>
@@ -544,83 +616,8 @@ RESET SCENARIO
 </div>
 
 </section>
-/* ============================================================
-   ARM OPTIMIZATION INTENSITY
-   SINGLE SOURCE OF TRUTH
-============================================================ */
 
-let armOptimizationIntensity = 50;
-
-function getARMOptimizationIntensity() {
-
-    const slider = document.getElementById("optimizationIntensity");
-
-    if (!slider) {
-        console.error("ARM optimization intensity slider not found.");
-        return armOptimizationIntensity;
-    }
-
-    armOptimizationIntensity = Number(slider.value);
-
-    return armOptimizationIntensity;
-}
-
-
-function updateOptimizationIntensity() {
-
-    const intensity = getARMOptimizationIntensity();
-
-    const valueDisplay = document.getElementById("intensityValue");
-    const fill = document.getElementById("fill");
-
-    if (!valueDisplay || !fill) {
-        console.error("ARM optimization intensity display wiring error.");
-        return;
-    }
-
-    valueDisplay.textContent = `${intensity}%`;
-    fill.style.width = `${intensity}%`;
-
-    updateARMDomainMonitor();
-
-    console.log(
-        `ARM optimization intensity updated: ${intensity}%`
-    );
-}
-
-
-/* ============================================================
-   ARM DOMAIN MONITOR
-   SYNCHRONIZED WITH ARM INTENSITY
-============================================================ */
-
-function updateARMDomainMonitor() {
-
-    const intensity = getARMOptimizationIntensity();
-
-    const domains = [
-        "domainQuantization",
-        "domainPruning",
-        "domainGraph",
-        "domainMemory",
-        "domainKernel",
-        "domainRuntime"
-    ];
-
-    domains.forEach(id => {
-
-        const element = document.getElementById(id);
-
-        if (element) {
-            element.textContent = intensity;
-        }
-
-    });
-
-    console.log(
-        `ARM domain monitor synchronized: ${intensity}%`
-    );
-} ============================================================
+<!-- ============================================================
      ARM OPTIMIZATION PIPELINE
 ============================================================ -->
 
@@ -731,7 +728,9 @@ Waiting...
 
 <div class="metric">
 <span>ARM Optimization Status</span>
-<span class="badge" id="optimizationStatus">WAITING</span>
+<span class="badge" id="optimizationStatus">
+WAITING
+</span>
 </div>
 
 </section>
@@ -764,10 +763,6 @@ ARM self-test not executed.
 
 </section>
 
-<!-- ============================================================
-     ARM SELF TEST INTERPRETATION
-============================================================ -->
-
 <section class="card">
 
 <h3>🔎 ARM SELF-TEST INTERPRETATION</h3>
@@ -777,10 +772,6 @@ Waiting for ARM self-test...
 </pre>
 
 </section>
-
-<!-- ============================================================
-     ARM FAULT IDENTIFICATION
-============================================================ -->
 
 <section class="card">
 
@@ -792,10 +783,6 @@ No ARM fault assessment available.
 
 </section>
 
-<!-- ============================================================
-     ARM CORRECTIVE ACTION
-============================================================ -->
-
 <section class="card">
 
 <h3>🛠️ ARM CORRECTIVE ACTION</h3>
@@ -805,10 +792,6 @@ No corrective action available.
 </pre>
 
 </section>
-
-<!-- ============================================================
-     ARM RETEST
-============================================================ -->
 
 <section class="card">
 
@@ -820,10 +803,6 @@ ARM re-test not executed.
 
 </section>
 
-<!-- ============================================================
-     ARM AUDIT
-============================================================ -->
-
 <section class="card">
 
 <h3>🧾 ARM AUDIT RECORD</h3>
@@ -833,10 +812,6 @@ ARM audit waiting...
 </pre>
 
 </section>
-
-<!-- ============================================================
-     ARM PIPELINE LOG
-============================================================ -->
 
 <section class="card">
 
@@ -850,11 +825,22 @@ ARM pipeline log active.
 
 <!-- ============================================================
      BIODIESEL ENERGY RESILIENCE MODULE
-============================================================ --><section class="card"><h3>🛢️ BIODIESEL ENERGY RESILIENCE MODULE</h3><div class="simulator-banner">
+============================================================ -->
+
+<section class="card">
+
+<h3>🛢️ BIODIESEL ENERGY RESILIENCE MODULE</h3>
+
+<div class="simulator-banner">
+
 ⚡ SEXTANT PROTOCOL™ ENERGY DOMAIN —
 BIODIESEL AUTHORITATIVE RULE ENGINE —
 LOCAL DETERMINISTIC VALIDATION
-</div><div class="muted">
+
+</div>
+
+<div class="muted">
+
 BIODIESEL COCKPIT
 <br>↓<br>
 BIODIESEL DOMAIN INTEGRATION
@@ -866,7 +852,14 @@ BIODIESEL SCENARIO ENGINE
 TRIAL MANOEUVRE ENGINE
 <br>↓<br>
 VALIDATION / DECISION / AUDIT
-</div><br><div class="controls"><button type="button"
+
+</div>
+
+<br>
+
+<div class="controls">
+
+<button type="button"
 onclick="runBiodieselIntegrationTest()">
 🔌 BIODIESEL INTEGRATION TEST
 </button>
@@ -884,160 +877,3 @@ onclick="runBiodieselTestAndCorrect()">
 </button>
 
 <button type="button"
-class="test-button"
-onclick="runBiodieselScenario('NORMAL')">
-🛢️ BIODIESEL NORMAL
-</button>
-
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('FUEL_PRESSURE')">
-⚠️ FUEL PRESSURE
-</button>
-
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('ENERGY_SHORTAGE')">
-⚠️ ENERGY SHORTAGE
-</button>
-
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('FUEL_CONTAMINATION')">
-⚠️ FUEL CONTAMINATION
-</button>
-
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('FULL_BIODIESEL_STRESS')">
-⚠️ FULL BIODIESEL STRESS
-</button>
-
-<button type="button"
-class="trial-button"
-onclick="runBiodieselTrialManoeuvre()">
-⚓ RUN BIODIESEL TRIAL MANOEUVRE
-</button>
-
-</div></section><!-- ============================================================
-     BIODIESEL SYSTEM STATUS
-============================================================ --><section class="card"><h3>⚡ BIODIESEL ENERGY SYSTEM STATUS</h3><div class="metric">
-<span>Energy Domain</span>
-<strong id="biodieselDomainStatus">READY</strong>
-</div><div class="metric">
-<span>Rule Engine</span>
-<strong id="biodieselRuleEngineStatus">READY</strong>
-</div><div class="metric">
-<span>Scenario Engine</span>
-<strong id="biodieselScenarioEngineStatus">READY</strong>
-</div><div class="metric">
-<span>Trial Manoeuvre Engine</span>
-<strong id="biodieselTrialEngineStatus">READY</strong>
-</div><div class="metric">
-<span>Integration Layer</span>
-<strong id="biodieselIntegrationStatus">READY</strong>
-</div><div class="metric">
-<span>Backend</span>
-<span class="badge">LOCAL / NOT CONNECTED</span>
-</div></section><!-- ============================================================
-     BIODIESEL SCENARIO RESULT
-============================================================ --><section class="card"><h3>🧪 BIODIESEL SCENARIO RESULT</h3><pre id="biodieselScenarioResult">
-Biodiesel scenario not executed.
-</pre></section><!-- ============================================================
-     BIODIESEL TRIAL MANOEUVRE
-============================================================ --><section class="card"><h3>⚓ BIODIESEL TRIAL MANOEUVRE</h3><div class="muted">
-Controlled deterministic trial manoeuvre simulation.
-No physical engine command.
-No vessel actuation.
-No external system connection.
-Human/operator authority remains required for any real-world action.
-</div><br><div class="controls"><button type="button"
-class="trial-button"
-onclick="runBiodieselTrialManoeuvre()">
-▶ RUN TRIAL MANOEUVRE
-</button>
-
-<button type="button"
-class="test-button"
-onclick="validateBiodieselTrialManoeuvre()">
-🔎 VALIDATE TRIAL MANOEUVRE
-</button>
-
-<button type="button"
-class="reset-button"
-onclick="resetBiodieselTrialManoeuvre()">
-RESET TRIAL MANOEUVRE
-</button>
-
-</div><br><pre id="biodieselTrialManoeuvre">
-Biodiesel trial manoeuvre not executed.
-</pre></section><!-- ============================================================
-     BIODIESEL VALIDATION
-============================================================ --><section class="card"><h3>🔎 BIODIESEL VALIDATION</h3><pre id="biodieselValidation">
-Biodiesel validation not executed.
-</pre></section><!-- ============================================================
-     BIODIESEL DOMAIN INTEGRATION
-============================================================ --><section class="card"><h3>🔌 BIODIESEL DOMAIN INTEGRATION</h3><pre id="biodieselIntegration">
-Biodiesel domain integration not executed.
-</pre></section><!-- ============================================================
-     BIODIESEL SELF-TEST
-============================================================ --><section class="card"><h3>🧪 BIODIESEL SELF-TEST</h3><pre id="biodieselSelfTest">
-Biodiesel self-test not executed.
-</pre></section><!-- ============================================================
-     BIODIESEL SELF-TEST INTERPRETATION
-============================================================ --><section class="card"><h3>🔎 BIODIESEL SELF-TEST INTERPRETATION</h3><pre id="biodieselSelfTestInterpretation">
-Waiting for Biodiesel self-test...
-</pre></section><!-- ============================================================
-     BIODIESEL FAULT IDENTIFICATION
-============================================================ --><section class="card"><h3>⚠️ BIODIESEL FAULT IDENTIFICATION</h3><pre id="biodieselFaultIdentification">
-No Biodiesel fault assessment available.
-</pre></section><!-- ============================================================
-     BIODIESEL CORRECTIVE ACTION
-============================================================ --><section class="card"><h3>🛠️ BIODIESEL CORRECTIVE ACTION</h3><pre id="biodieselCorrectiveAction">
-No corrective action available.
-</pre></section><!-- ============================================================
-     BIODIESEL RE-TEST VALIDATION
-============================================================ --><section class="card"><h3>🔁 BIODIESEL RE-TEST VALIDATION</h3><pre id="biodieselRetest">
-Biodiesel re-test not executed.
-</pre></section><!-- ============================================================
-     BIODIESEL AUDIT
-============================================================ --><section class="card"><h3>🧾 BIODIESEL AUDIT RECORD</h3><pre id="biodieselAudit">
-Biodiesel audit waiting...
-</pre></section><!-- ============================================================
-     BIODIESEL PIPELINE LOG
-============================================================ --><section class="card"><h3>📜 BIODIESEL PIPELINE LOG</h3><pre id="biodieselPipelineLog">
-Biodiesel pipeline log waiting...
-</pre></section><!-- ============================================================
-     SEXTANT PROTOCOL™ — BIODIESEL ENERGY MODULE
-     AUTHORITATIVE LOAD ORDER
-============================================================ --><script src="rules/energy/biodiesel/biodieselRules.js"></script><script src="rules/energy/biodiesel/biodieselRuleEngine.js"></script><script src="rules/energy/biodiesel/biodieselScenarioEngine.js"></script><script src="rules/energy/biodiesel/biodieselTrialManoeuvre.js"></script><script src="rules/energy/biodiesel/biodieselIntegration.js"></script><script src="rules/energy/biodiesel/biodieselLoader.js"></script>
-<script src="rules/energy/biodiesel/biodieselLoader.js"></script>
-
-<!-- ============================================================
-     SEXTANT PROTOCOL™ OPTIMIZER — APPLICATION ORCHESTRATION
-============================================================ -->
-<script src="assets/js/app.js"></script>
-<!-- ============================================================
-     SEXTANT PROTOCOL™ — BIODIESEL ENERGY MODULE
-     AUTHORITATIVE LOAD ORDER
-============================================================ -->
-
-<script src="rules/energy/biodiesel/biodieselRuleRegistry.js"></script>
-<script src="rules/energy/biodiesel/biodieselRuleEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselScenarioEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselTrialManoeuvre.js"></script>
-<script src="rules/energy/biodiesel/biodieselIntegration.js"></script>
-<script src="rules/energy/biodiesel/biodieselDomainIntegration.js"></script>
-<script src="rules/energy/biodiesel/biodieselLoader.js"></script>
-
-<!-- ============================================================
-     APPLICATION ORCHESTRATION
-============================================================ -->
-
-<script src="assets/js/app.js"></script>
-
-</body>
-</html>
-
-</body>
-</html>
