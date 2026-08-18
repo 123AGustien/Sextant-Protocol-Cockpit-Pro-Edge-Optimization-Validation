@@ -9,8 +9,9 @@
  * authoritative Biodiesel Rule Engine.
  *
  * IMPORTANT:
- * - Biodiesel rules remain authoritative in BiodieselRuleEngine.
  * - No Biodiesel rules are duplicated here.
+ * - BiodieselRuleEngine remains authoritative.
+ * - Scenario thresholds remain in the rule engine.
  * - No backend connection.
  * - No Python.
  * - No physical execution.
@@ -34,89 +35,135 @@ const BIODIESEL_INTEGRATION_VERSION =
     "2.0.0";
 
 /* ============================================================
+   GLOBAL OBJECT
+============================================================ */
+
+const BIODIESEL_GLOBAL =
+    typeof globalThis !== "undefined"
+        ? globalThis
+        : (
+            typeof window !== "undefined"
+                ? window
+                : null
+        );
+
+/* ============================================================
    AUTHORITATIVE ENGINE DISCOVERY
 ============================================================ */
 
 /**
- * Locate the existing authoritative Biodiesel Rule Engine.
+ * The authoritative engine is:
  *
- * Authoritative priority:
+ * window.BiodieselRuleEngine
  *
- * 1. BiodieselRuleEngine
- * 2. BiodieselRuleAPI
- * 3. BiodieselIntegrationAPI
+ * Compatibility aliases are supported only so that
+ * existing cockpit wiring does not break.
  *
- * No rules are implemented in this integration layer.
+ * NO RULES ARE IMPLEMENTED HERE.
  */
 
 function getBiodieselRuleAPI() {
 
     if (
-        typeof window !== "undefined" &&
-        window.BiodieselRuleEngine
+        BIODIESEL_GLOBAL &&
+        BIODIESEL_GLOBAL.BiodieselRuleEngine
     ) {
-        return window.BiodieselRuleEngine;
+
+        return BIODIESEL_GLOBAL.BiodieselRuleEngine;
     }
 
     if (
-        typeof window !== "undefined" &&
-        window.BiodieselRuleAPI
+        BIODIESEL_GLOBAL &&
+        BIODIESEL_GLOBAL.BiodieselRuleAPI
     ) {
-        return window.BiodieselRuleAPI;
+
+        return BIODIESEL_GLOBAL.BiodieselRuleAPI;
     }
 
     if (
-        typeof window !== "undefined" &&
-        window.BiodieselIntegrationAPI
+        BIODIESEL_GLOBAL &&
+        BIODIESEL_GLOBAL.BiodieselIntegrationAPI
     ) {
-        return window.BiodieselIntegrationAPI;
-    }
 
-    if (
-        typeof globalThis !== "undefined" &&
-        globalThis.BiodieselRuleEngine
-    ) {
-        return globalThis.BiodieselRuleEngine;
-    }
-
-    if (
-        typeof globalThis !== "undefined" &&
-        globalThis.BiodieselRuleAPI
-    ) {
-        return globalThis.BiodieselRuleAPI;
-    }
-
-    if (
-        typeof globalThis !== "undefined" &&
-        globalThis.BiodieselIntegrationAPI
-    ) {
-        return globalThis.BiodieselIntegrationAPI;
+        return BIODIESEL_GLOBAL.BiodieselIntegrationAPI;
     }
 
     return null;
 }
 
 /* ============================================================
-   INTENSITY — EXISTING SIMULATOR SOURCE OF TRUTH
+   AUTHORITATIVE ENGINE STATUS
+============================================================ */
+
+function getBiodieselEngineStatus() {
+
+    const engine =
+        getBiodieselRuleAPI();
+
+    if (!engine) {
+
+        return {
+
+            available: false,
+
+            authoritativeEngine:
+                "BiodieselRuleEngine",
+
+            error:
+                "BIODIESEL_RULE_ENGINE_NOT_AVAILABLE"
+        };
+    }
+
+    return {
+
+        available: true,
+
+        authoritativeEngine:
+            "BiodieselRuleEngine",
+
+        version:
+            engine.version ||
+            "UNKNOWN",
+
+        evaluateAvailable:
+            typeof engine.evaluate ===
+            "function",
+
+        deriveSolutionAvailable:
+            typeof engine.deriveSolution ===
+            "function"
+    };
+}
+
+/* ============================================================
+   INTENSITY — SINGLE SIMULATOR SOURCE OF TRUTH
 ============================================================ */
 
 function getBiodieselIntensity() {
 
     if (
-        typeof window !== "undefined" &&
-        typeof window.getOptimizationIntensity ===
+        BIODIESEL_GLOBAL &&
+        typeof BIODIESEL_GLOBAL
+            .getOptimizationIntensity ===
             "function"
     ) {
+
         const value =
             Number(
-                window.getOptimizationIntensity()
+                BIODIESEL_GLOBAL
+                    .getOptimizationIntensity()
             );
 
-        if (Number.isFinite(value)) {
+        if (
+            Number.isFinite(value)
+        ) {
 
             return Math.max(
                 0,
-                Math.min(100, value)
+                Math.min(
+                    100,
+                    value
+                )
             );
         }
     }
@@ -134,16 +181,23 @@ function getBiodieselIntensity() {
     }
 
     const value =
-        Number(slider.value);
+        Number(
+            slider.value
+        );
 
-    if (!Number.isFinite(value)) {
+    if (
+        !Number.isFinite(value)
+    ) {
 
         return 50;
     }
 
     return Math.max(
         0,
-        Math.min(100, value)
+        Math.min(
+            100,
+            value
+        )
     );
 }
 
@@ -152,7 +206,8 @@ function getBiodieselIntensity() {
 ============================================================ */
 
 function createBiodieselState(
-    intensity = getBiodieselIntensity()
+    intensity =
+        getBiodieselIntensity()
 ) {
 
     return {
@@ -172,8 +227,24 @@ function createBiodieselState(
    AUTHORITATIVE RULE EVALUATION
 ============================================================ */
 
+/**
+ * IMPORTANT:
+ *
+ * BiodieselRuleEngine.evaluate()
+ * expects:
+ *
+ * evaluate(scenario, state)
+ *
+ * NOT:
+ *
+ * evaluate(domain, scenario, state)
+ *
+ * The integration layer does not alter the rule logic.
+ */
+
 function evaluateBiodieselRules(
-    state = createBiodieselState()
+    state =
+        createBiodieselState()
 ) {
 
     const ruleAPI =
@@ -191,59 +262,18 @@ function evaluateBiodieselRules(
             scenario:
                 BIODIESEL_SCENARIO,
 
+            ruleStatus:
+                "RULE_ENGINE_UNAVAILABLE",
+
             error:
                 "BIODIESEL_RULE_ENGINE_NOT_AVAILABLE"
         };
     }
 
-    try {
-
-        /* ----------------------------------------------------
-           AUTHORITATIVE ENGINE
-        ---------------------------------------------------- */
-
-        if (
-            typeof ruleAPI.evaluate ===
-            "function"
-        ) {
-
-            const result =
-                ruleAPI.evaluate(
-                    BIODIESEL_SCENARIO,
-                    state
-                );
-
-            if (
-                result &&
-                typeof result === "object"
-            ) {
-
-                return result;
-            }
-        }
-
-        /* ----------------------------------------------------
-           LEGACY COMPATIBILITY
-        ---------------------------------------------------- */
-
-        if (
-            typeof ruleAPI.evaluateBiodieselRules ===
-            "function"
-        ) {
-
-            const result =
-                ruleAPI.evaluateBiodieselRules(
-                    state
-                );
-
-            if (
-                result &&
-                typeof result === "object"
-            ) {
-
-                return result;
-            }
-        }
+    if (
+        typeof ruleAPI.evaluate !==
+        "function"
+    ) {
 
         return {
 
@@ -255,8 +285,53 @@ function evaluateBiodieselRules(
             scenario:
                 BIODIESEL_SCENARIO,
 
+            ruleStatus:
+                "RULE_EVALUATOR_UNAVAILABLE",
+
             error:
                 "BIODIESEL_RULE_EVALUATOR_NOT_AVAILABLE"
+        };
+    }
+
+    try {
+
+        const result =
+            ruleAPI.evaluate(
+                BIODIESEL_SCENARIO,
+                state
+            );
+
+        if (!result) {
+
+            return {
+
+                verified: false,
+
+                domain:
+                    BIODIESEL_DOMAIN,
+
+                scenario:
+                    BIODIESEL_SCENARIO,
+
+                ruleStatus:
+                    "EMPTY_RULE_RESULT",
+
+                error:
+                    "BIODIESEL_RULE_ENGINE_RETURNED_NO_RESULT"
+            };
+        }
+
+        return {
+
+            ...result,
+
+            domain:
+                result.domain ||
+                BIODIESEL_DOMAIN,
+
+            scenario:
+                result.scenario ||
+                BIODIESEL_SCENARIO
         };
 
     } catch (error) {
@@ -271,22 +346,27 @@ function evaluateBiodieselRules(
             scenario:
                 BIODIESEL_SCENARIO,
 
+            ruleStatus:
+                "RULE_EVALUATION_EXCEPTION",
+
             error:
                 "BIODIESEL_RULE_EVALUATION_FAILED",
 
             message:
                 error?.message ||
-                "Unknown Biodiesel rule evaluation error."
+                "Unknown Biodiesel rule error."
         };
     }
 }
 
 /* ============================================================
-   AUTHORITATIVE SOLUTION
+   AUTHORITATIVE SOLUTION DERIVATION
 ============================================================ */
 
 function deriveBiodieselSolution(
-    state = createBiodieselState(),
+    state =
+        createBiodieselState(),
+
     assessment = {}
 ) {
 
@@ -310,92 +390,10 @@ function deriveBiodieselSolution(
         };
     }
 
-    try {
-
-        /* ----------------------------------------------------
-           AUTHORITATIVE ENGINE
-        ---------------------------------------------------- */
-
-        if (
-            typeof ruleAPI.deriveSolution ===
-            "function"
-        ) {
-
-            const result =
-                ruleAPI.deriveSolution(
-                    BIODIESEL_SCENARIO,
-                    state
-                );
-
-            if (
-                result &&
-                typeof result === "object"
-            ) {
-
-                /*
-                 * The authoritative engine returns the
-                 * Captain AI Lena decision object.
-                 *
-                 * Add integration validity without
-                 * modifying the authoritative rule result.
-                 */
-
-                return {
-
-                    valid:
-                        result.ruleVerified === true,
-
-                    domain:
-                        result.domain ||
-                        BIODIESEL_DOMAIN,
-
-                    scenario:
-                        result.scenario ||
-                        BIODIESEL_SCENARIO,
-
-                    ...result
-                };
-            }
-        }
-
-        /* ----------------------------------------------------
-           LEGACY COMPATIBILITY
-        ---------------------------------------------------- */
-
-        if (
-            typeof ruleAPI.deriveBiodieselSolution ===
-            "function"
-        ) {
-
-            const result =
-                ruleAPI.deriveBiodieselSolution(
-                    state,
-                    assessment
-                );
-
-            if (
-                result &&
-                typeof result === "object"
-            ) {
-
-                return {
-
-                    valid:
-                        result.valid === true ||
-                        result.ruleVerified === true,
-
-                    domain:
-                        result.domain ||
-                        BIODIESEL_DOMAIN,
-
-                    scenario:
-                        result.scenario ||
-                        BIODIESEL_SCENARIO,
-
-                    ...result
-                };
-            }
-        }
+    if (
+        typeof ruleAPI.deriveSolution !==
+        "function"
+    ) {
 
         return {
 
@@ -409,6 +407,67 @@ function deriveBiodieselSolution(
 
             error:
                 "BIODIESEL_SOLUTION_DERIVER_NOT_AVAILABLE"
+        };
+    }
+
+    try {
+
+        /**
+         * Authoritative engine signature:
+         *
+         * deriveSolution(
+         *     scenario,
+         *     state
+         * )
+         *
+         * The existing engine derives the decision
+         * from the authoritative rule evaluation.
+         *
+         * The assessment parameter is retained at
+         * the integration boundary for future
+         * cockpit compatibility but is not used
+         * to modify authoritative rules.
+         */
+
+        const result =
+            ruleAPI.deriveSolution(
+                BIODIESEL_SCENARIO,
+                state
+            );
+
+        if (!result) {
+
+            return {
+
+                valid: false,
+
+                domain:
+                    BIODIESEL_DOMAIN,
+
+                scenario:
+                    BIODIESEL_SCENARIO,
+
+                error:
+                    "BIODIESEL_SOLUTION_EMPTY"
+            };
+        }
+
+        return {
+
+            valid:
+                result.ruleVerified === true,
+
+            domain:
+                result.domain ||
+                BIODIESEL_DOMAIN,
+
+            scenario:
+                result.scenario ||
+                BIODIESEL_SCENARIO,
+
+            result,
+
+            assessment
         };
 
     } catch (error) {
@@ -449,14 +508,51 @@ function runBiodieselDomain(
             intensity
         );
 
+    const engineStatus =
+        getBiodieselEngineStatus();
+
+    if (
+        !engineStatus.available
+    ) {
+
+        return {
+
+            status:
+                "BIODIESEL_RULE_ENGINE_UNAVAILABLE",
+
+            domain:
+                BIODIESEL_DOMAIN,
+
+            scenario:
+                BIODIESEL_SCENARIO,
+
+            intensity,
+
+            state,
+
+            engineStatus,
+
+            execution: {
+
+                authorized:
+                    false,
+
+                physicalExecution:
+                    false,
+
+                automaticExecution:
+                    false,
+
+                humanAuthorizationRequired:
+                    true
+            }
+        };
+    }
+
     const ruleAssessment =
         evaluateBiodieselRules(
             state
         );
-
-    /* --------------------------------------------------------
-       RULE VERIFICATION GATE
-    -------------------------------------------------------- */
 
     if (
         ruleAssessment.verified !== true
@@ -477,34 +573,32 @@ function runBiodieselDomain(
 
             state,
 
+            engineStatus,
+
             ruleAssessment,
 
             execution: {
 
-                authorized: false,
+                authorized:
+                    false,
 
-                physicalExecution: false,
+                physicalExecution:
+                    false,
 
-                automaticExecution: false,
+                automaticExecution:
+                    false,
 
-                humanAuthorizationRequired: true
+                humanAuthorizationRequired:
+                    true
             }
         };
     }
-
-    /* --------------------------------------------------------
-       AUTHORITATIVE SOLUTION
-    -------------------------------------------------------- */
 
     const solution =
         deriveBiodieselSolution(
             state,
             assessment
         );
-
-    /* --------------------------------------------------------
-       SOLUTION VALIDATION GATE
-    -------------------------------------------------------- */
 
     if (
         solution.valid !== true
@@ -525,34 +619,33 @@ function runBiodieselDomain(
 
             state,
 
+            engineStatus,
+
             ruleAssessment,
 
             solution,
 
             execution: {
 
-                authorized: false,
+                authorized:
+                    false,
 
-                physicalExecution: false,
+                physicalExecution:
+                    false,
 
-                automaticExecution: false,
+                automaticExecution:
+                    false,
 
-                humanAuthorizationRequired: true
+                humanAuthorizationRequired:
+                    true
             }
         };
     }
-
-    /* --------------------------------------------------------
-       FULL VALIDATED RESULT
-    -------------------------------------------------------- */
 
     return {
 
         status:
             "BIODIESEL_DOMAIN_VALIDATED",
-
-        integrationVersion:
-            BIODIESEL_INTEGRATION_VERSION,
 
         domain:
             BIODIESEL_DOMAIN,
@@ -564,19 +657,25 @@ function runBiodieselDomain(
 
         state,
 
+        engineStatus,
+
         ruleAssessment,
 
         solution,
 
         execution: {
 
-            authorized: false,
+            authorized:
+                false,
 
-            physicalExecution: false,
+            physicalExecution:
+                false,
 
-            automaticExecution: false,
+            automaticExecution:
+                false,
 
-            humanAuthorizationRequired: true
+            humanAuthorizationRequired:
+                true
         }
     };
 }
@@ -595,15 +694,15 @@ function runBiodieselIntegrationTest() {
             intensity
         );
 
-    const ruleAPI =
-        getBiodieselRuleAPI();
+    const engineStatus =
+        getBiodieselEngineStatus();
 
     const result = {
 
         test:
             "BIODIESEL_DOMAIN_INTEGRATION",
 
-        integrationVersion:
+        version:
             BIODIESEL_INTEGRATION_VERSION,
 
         domain:
@@ -616,30 +715,8 @@ function runBiodieselIntegrationTest() {
 
         state,
 
-        ruleAPIAvailable:
-            ruleAPI !== null,
-
-        authoritativeEngineDetected:
-            Boolean(
-                ruleAPI &&
-                (
-                    typeof ruleAPI.evaluate ===
-                        "function" ||
-                    typeof ruleAPI.evaluateBiodieselRules ===
-                        "function"
-                )
-            ),
-
-        solutionEngineDetected:
-            Boolean(
-                ruleAPI &&
-                (
-                    typeof ruleAPI.deriveSolution ===
-                        "function" ||
-                    typeof ruleAPI.deriveBiodieselSolution ===
-                        "function"
-                )
-            ),
+        authoritativeEngine:
+            engineStatus,
 
         safetyBoundary: {
 
@@ -652,28 +729,108 @@ function runBiodieselIntegrationTest() {
             automaticExecution:
                 false,
 
+            vesselActuation:
+                false,
+
+            externalConnection:
+                false,
+
             humanAuthorizationRequired:
                 true
+        },
+
+        checks: {
+
+            engineDetected:
+                engineStatus.available,
+
+            evaluateFunctionAvailable:
+                engineStatus.evaluateAvailable,
+
+            deriveSolutionFunctionAvailable:
+                engineStatus.deriveSolutionAvailable
         }
     };
 
     /* --------------------------------------------------------
-       TEST RESULT
+       ENGINE AVAILABILITY CHECK
     -------------------------------------------------------- */
 
-    result.passed =
-        result.ruleAPIAvailable &&
-        result.authoritativeEngineDetected &&
-        result.solutionEngineDetected &&
-        result.safetyBoundary.backendConnection === false &&
-        result.safetyBoundary.physicalExecution === false &&
-        result.safetyBoundary.automaticExecution === false &&
-        result.safetyBoundary.humanAuthorizationRequired === true;
+    if (
+        !engineStatus.available
+    ) {
 
-    result.status =
-        result.passed
-            ? "BIODIESEL_INTEGRATION_TEST_PASSED"
-            : "BIODIESEL_INTEGRATION_TEST_FAILED";
+        result.passed =
+            false;
+
+        result.status =
+            "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+        result.failureReason =
+            "AUTHORITATIVE_BIODIESEL_RULE_ENGINE_NOT_AVAILABLE";
+
+    } else if (
+        !engineStatus.evaluateAvailable
+    ) {
+
+        result.passed =
+            false;
+
+        result.status =
+            "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+        result.failureReason =
+            "AUTHORITATIVE_EVALUATE_FUNCTION_NOT_AVAILABLE";
+
+    } else if (
+        !engineStatus.deriveSolutionAvailable
+    ) {
+
+        result.passed =
+            false;
+
+        result.status =
+            "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+        result.failureReason =
+            "AUTHORITATIVE_DERIVE_SOLUTION_FUNCTION_NOT_AVAILABLE";
+
+    } else {
+
+        /* ----------------------------------------------------
+           LIVE AUTHORITATIVE RULE TEST
+        ---------------------------------------------------- */
+
+        const evaluation =
+            evaluateBiodieselRules(
+                state
+            );
+
+        result.evaluation =
+            evaluation;
+
+        result.checks.ruleEvaluationExecuted =
+            true;
+
+        result.checks.ruleVerified =
+            evaluation.verified === true;
+
+        result.passed =
+            evaluation.verified === true;
+
+        result.status =
+            result.passed
+                ? "BIODIESEL_INTEGRATION_TEST_PASSED"
+                : "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+        if (!result.passed) {
+
+            result.failureReason =
+                evaluation.error ||
+                evaluation.ruleStatus ||
+                "AUTHORITATIVE_RULE_VERIFICATION_FAILED";
+        }
+    }
 
     /* --------------------------------------------------------
        DISPLAY RESULT
@@ -697,36 +854,41 @@ function runBiodieselIntegrationTest() {
     }
 
     /* --------------------------------------------------------
-       AUDIT LOG
+       AUDIT EVENT
     -------------------------------------------------------- */
 
     if (
-        typeof window !== "undefined" &&
+        BIODIESEL_GLOBAL &&
         Array.isArray(
-            window.biodieselAuditLog
+            BIODIESEL_GLOBAL
+                .biodieselAuditLog
         )
     ) {
 
-        window.biodieselAuditLog.push({
+        BIODIESEL_GLOBAL
+            .biodieselAuditLog
+            .push({
 
-            timestamp:
-                new Date().toISOString(),
+                timestamp:
+                    new Date()
+                        .toISOString(),
 
-            message:
-                result.passed
-                    ? "Biodiesel domain integration test PASS."
-                    : "Biodiesel domain integration test FAIL.",
+                test:
+                    result.test,
 
-            status:
-                result.status
-        });
+                status:
+                    result.status,
+
+                passed:
+                    result.passed
+            });
     }
 
     return result;
 }
 
 /* ============================================================
-   FULL BIODIESEL SELF-TEST
+   BIODIESEL SELF-TEST
 ============================================================ */
 
 function runBiodieselSelfTest() {
@@ -737,52 +899,55 @@ function runBiodieselSelfTest() {
     const result = {
 
         test:
-            "BIODIESEL_DOMAIN_SELF_TEST",
+            "BIODIESEL_SELF_TEST",
 
-        integration,
+        domain:
+            BIODIESEL_DOMAIN,
+
+        scenario:
+            BIODIESEL_SCENARIO,
+
+        passed:
+            integration.passed === true,
 
         checks: {
 
+            integration:
+                integration.passed === true,
+
             ruleEngineDetected:
-                integration.authoritativeEngineDetected,
+                integration
+                    .authoritativeEngine
+                    ?.available === true,
 
-            solutionEngineDetected:
-                integration.solutionEngineDetected,
+            ruleEvaluation:
+                integration
+                    .checks
+                    ?.ruleVerified === true,
 
-            intensityAvailable:
-                Number.isFinite(
-                    integration.intensity
-                ),
+            safetyBoundary:
+                integration
+                    .safetyBoundary
+                    ?.physicalExecution === false,
 
-            stateCreated:
-                Boolean(
-                    integration.state
-                ),
-
-            safetyBoundaryIntact:
-                integration.safetyBoundary
-                    .backendConnection === false &&
-                integration.safetyBoundary
-                    .physicalExecution === false &&
-                integration.safetyBoundary
-                    .automaticExecution === false &&
-                integration.safetyBoundary
-                    .humanAuthorizationRequired === true
+            humanAuthority:
+                integration
+                    .safetyBoundary
+                    ?.humanAuthorizationRequired === true
         }
     };
-
-    result.passed =
-        integration.passed &&
-        result.checks.ruleEngineDetected &&
-        result.checks.solutionEngineDetected &&
-        result.checks.intensityAvailable &&
-        result.checks.stateCreated &&
-        result.checks.safetyBoundaryIntact;
 
     result.status =
         result.passed
             ? "BIODIESEL_SELF_TEST_PASSED"
             : "BIODIESEL_SELF_TEST_FAILED";
+
+    result.failedTests =
+        Object.values(
+            result.checks
+        ).filter(
+            value => value !== true
+        ).length;
 
     return result;
 }
@@ -791,41 +956,57 @@ function runBiodieselSelfTest() {
    SELF-TEST + CORRECTIVE ACTION
 ============================================================ */
 
-function runBiodieselSelfTestCorrectiveAction() {
+/**
+ * Corrective action is intentionally limited to
+ * simulator state/reporting.
+ *
+ * It does NOT modify Biodiesel rules.
+ * It does NOT execute a physical action.
+ */
+
+function runBiodieselSelfTestAndCorrectiveAction() {
 
     const selfTest =
         runBiodieselSelfTest();
 
-    /*
-     * No automatic modification of the authoritative
-     * Biodiesel Rule Engine is permitted.
-     *
-     * Corrective action is limited to reporting.
-     */
-
     const result = {
 
-        status:
-            selfTest.passed
-                ? "BIODIESEL_SELF_TEST_PASS"
-                : "BIODIESEL_CORRECTIVE_ACTION_REQUIRED",
+        test:
+            "BIODIESEL_SELF_TEST_CORRECTIVE_ACTION",
 
         selfTest,
 
-        correctiveAction:
-            selfTest.passed
-                ? "NO_CORRECTIVE_ACTION_REQUIRED"
-                : "INSPECT_AUTHORITATIVE_BIODIESEL_ENGINE_AND_SCRIPT_LOAD_ORDER",
+        correctiveAction: {
 
-        automaticModification:
-            false,
+            executed:
+                false,
 
-        physicalExecution:
-            false,
+            physicalExecution:
+                false,
+
+            automaticExecution:
+                false,
+
+            action:
+                selfTest.passed
+                    ? "NO_CORRECTIVE_ACTION_REQUIRED"
+                    : "REQUEST_ADDITIONAL_DIAGNOSTICS"
+        },
 
         humanAuthorizationRequired:
             true
     };
+
+    result.retest =
+        runBiodieselSelfTest();
+
+    result.passed =
+        result.retest.passed === true;
+
+    result.status =
+        result.passed
+            ? "BIODIESEL_CORRECTIVE_RETEST_PASSED"
+            : "BIODIESEL_CORRECTIVE_RETEST_FAILED";
 
     return result;
 }
@@ -847,6 +1028,8 @@ const BiodieselDomainIntegrationAPI = {
 
     getBiodieselRuleAPI,
 
+    getBiodieselEngineStatus,
+
     getBiodieselIntensity,
 
     createBiodieselState,
@@ -861,7 +1044,7 @@ const BiodieselDomainIntegrationAPI = {
 
     runBiodieselSelfTest,
 
-    runBiodieselSelfTestCorrectiveAction
+    runBiodieselSelfTestAndCorrectiveAction
 };
 
 /* ============================================================
@@ -884,6 +1067,19 @@ if (
     window.runBiodieselSelfTest =
         runBiodieselSelfTest;
 
-    window.runBiodieselSelfTestCorrectiveAction =
-        runBiodieselSelfTestCorrectiveAction;
+    window.runBiodieselSelfTestAndCorrectiveAction =
+        runBiodieselSelfTestAndCorrectiveAction;
+}
+
+/* ============================================================
+   GLOBAL EXPORT
+============================================================ */
+
+if (
+    BIODIESEL_GLOBAL
+) {
+
+    BIODIESEL_GLOBAL
+        .BiodieselDomainIntegrationAPI =
+            BiodieselDomainIntegrationAPI;
 }
