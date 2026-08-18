@@ -1839,26 +1839,25 @@ VALIDATION / DECISION / AUDIT
 
 
 <!-- =========================================================
-     JAVASCRIPT LOAD ORDER
+     AUTHORITATIVE JAVASCRIPT LOAD ORDER
 ========================================================== -->
 
 <!--
-    IMPORTANT:
+    BIODIESEL AUTHORITATIVE MODULES
 
-    Keep the authoritative Biodiesel modules BEFORE app.js.
-
-    Adjust paths only if your repository uses a different
-    directory structure.
+    These modules are located at the repository root.
+    They must load BEFORE app.js.
 -->
 
-<script src="assets/js/biodieselRuleRegistry.js"></script>
-<script src="assets/js/biodieselRuleEngine.js"></script>
-<script src="assets/js/biodieselScenarioEngine.js"></script>
-<script src="assets/js/biodieselTrialManoeuvre.js"></script>
-<script src="assets/js/biodieselIntegration.js"></script>
-<script src="assets/js/biodieselDomainIntegration.js"></script>
+<script src="biodieselRules.js"></script>
+<script src="biodieselScenarioEngine.js"></script>
+<script src="biodieselTrialManoeuvre.js"></script>
+<script src="biodieselDomainIntegration.js"></script>
 
-<!-- ARM / SCREEN ORCHESTRATOR -->
+<!-- =========================================================
+     ARM / SCREEN ORCHESTRATOR
+========================================================== -->
+
 <script src="assets/js/app.js"></script>
 
 </body>
