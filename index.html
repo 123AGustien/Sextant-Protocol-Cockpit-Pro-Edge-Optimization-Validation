@@ -1,1248 +1,2044 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>
-Sextant Protocol™ Optimizer | AI Computing Optimization & Validation Platform
-</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<link rel="stylesheet" href="assets/css/styles.css">
+    <meta
+        name="description"
+        content="Sextant Protocol ARM64 Edge Optimization and Validation Cockpit"
+    >
 
-<style>
-* {
-    box-sizing: border-box;
-}
+    <meta
+        name="theme-color"
+        content="#07111f"
+    >
 
-body {
-    margin: 0;
-    padding: 20px;
-    background: #0b0f14;
-    color: #00ff88;
-    font-family: Arial, sans-serif;
-}
+    <title>
+        Sextant Protocol™ Optimizer — ARM64 Validation Cockpit
+    </title>
 
-.header {
-    color: #fff;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
+    <style>
 
-.subtitle {
-    color: #aaa;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-.simulator-banner {
-    border: 2px solid #00ff88;
-    background: #080d11;
-    color: #00ff88;
-    padding: 12px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-.card {
-    border: 1px solid #00ff88;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    background: #10161d;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background:
+                radial-gradient(
+                    circle at top,
+                    #10253d 0%,
+                    #07111f 42%,
+                    #030912 100%
+                );
+            color: #e7f4ff;
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            min-height: 100vh;
+        }
 
-h3 {
-    color: #fff;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
+        button,
+        input,
+        select {
+            font: inherit;
+        }
 
-.status {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 12px;
-    border: 1px solid #00ff88;
-    border-radius: 6px;
-    background: #080d11;
-    margin-bottom: 15px;
-}
+        button {
+            cursor: pointer;
+        }
 
-.controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+        pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+        }
 
-button {
-    background: #00ff88;
-    color: #000;
-    border: 2px solid #00ff88;
-    padding: 14px 20px;
-    min-height: 48px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        /* ====================================================
+           HEADER
+        ==================================================== */
 
-button:hover {
-    opacity: .85;
-}
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
 
-.test-button {
-    background: #1b2730;
-    color: #00ff88;
-}
+            background:
+                rgba(3, 9, 18, 0.96);
 
-.corrective-button {
-    background: #ffb000;
-    color: #000;
-    border-color: #ffb000;
-}
+            border-bottom:
+                1px solid rgba(80, 180, 255, 0.20);
 
-.reset-button {
-    background: #ff5555;
-    color: #fff;
-    border-color: #ff5555;
-}
+            backdrop-filter:
+                blur(14px);
 
-.energy-button {
-    background: #006b45;
-    color: #fff;
-    border-color: #00ff88;
-}
+            padding: 18px 20px;
+        }
 
-.trial-button {
-    background: #174d73;
-    color: #fff;
-    border-color: #44baff;
-}
+        .header-inner {
+            max-width: 1500px;
+            margin: auto;
 
-.metric {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 11px 0;
-    border-bottom: 1px solid #26313a;
-}
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
 
-.metric:last-child {
-    border-bottom: 0;
-}
+        .brand h1 {
+            margin: 0;
+            font-size: clamp(20px, 4vw, 32px);
+            letter-spacing: 1px;
+        }
 
-.metric strong {
-    color: #fff;
-}
+        .brand p {
+            margin: 6px 0 0;
+            color: #8db6d9;
+            font-size: 13px;
+        }
 
-.badge {
-    color: #00ff88;
-    font-weight: bold;
-}
+        .status-badge {
+            padding: 9px 14px;
+            border-radius: 999px;
 
-.monitor {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-}
+            background:
+                rgba(40, 190, 120, 0.12);
 
-.domain {
-    border: 1px solid #00ff88;
-    padding: 14px;
-    border-radius: 6px;
-    background: #080d11;
-    text-align: center;
-}
+            border:
+                1px solid rgba(40, 220, 140, 0.35);
 
-.domain-name {
-    color: #aaa;
-    font-size: 13px;
-}
+            color: #61f0a5;
+            font-weight: 700;
+            font-size: 12px;
 
-.domain-value {
-    color: #fff;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 5px;
-}
+            white-space: nowrap;
+        }
 
-.domain-status {
-    color: #00ff88;
-    font-size: 12px;
-    margin-top: 5px;
-}
+        /* ====================================================
+           MAIN
+        ==================================================== */
 
-.pipeline {
-    padding: 12px;
-    border: 1px solid #00ff88;
-    border-radius: 6px;
-    color: #fff;
-    overflow-x: auto;
-    white-space: nowrap;
-}
+        .container {
+            max-width: 1500px;
+            margin: auto;
+            padding: 22px 16px 60px;
+        }
 
-.stage {
-    display: inline-block;
-    padding: 8px;
-    margin: 3px;
-    border: 1px solid #00ff88;
-    border-radius: 4px;
-}
+        .warning {
+            border:
+                1px solid rgba(255, 185, 70, 0.35);
 
-.stage.active {
-    background: #00ff88;
-    color: #000;
-}
+            background:
+                rgba(255, 170, 40, 0.08);
 
-input[type="range"] {
-    width: 100%;
-    accent-color: #00ff88;
-    min-height: 35px;
-    cursor: pointer;
-}
+            color: #ffd58a;
 
-.intensity {
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-}
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
 
-.intensity-value {
-    color: #00ff88;
-    font-size: 24px;
-    font-weight: bold;
-}
+            font-size: 13px;
+            line-height: 1.6;
+        }
 
-.bar {
-    width: 100%;
-    height: 18px;
-    background: #080d11;
-    border: 1px solid #00ff88;
-    border-radius: 5px;
-    margin-top: 15px;
-    overflow: hidden;
-}
+        .warning strong {
+            color: #fff0c5;
+        }
 
-.fill {
-    width: 50%;
-    height: 100%;
-    background: #00ff88;
-    transition: width .15s ease;
-}
+        /* ====================================================
+           GRID
+        ==================================================== */
 
-pre {
-    white-space: pre-wrap;
-    word-break: break-word;
-    color: #00ff88;
-    line-height: 1.5;
-    overflow-x: auto;
-}
+        .grid {
+            display: grid;
+            grid-template-columns:
+                repeat(12, minmax(0, 1fr));
+            gap: 16px;
+        }
 
-.muted {
-    color: #aaa;
-    font-size: 13px;
-    line-height: 1.6;
-}
+        .card {
+            grid-column: span 12;
 
-.footer {
-    color: #777;
-    text-align: center;
-    padding: 20px 5px;
-    line-height: 1.7;
-}
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18, 42, 66, 0.86),
+                    rgba(7, 18, 31, 0.94)
+                );
 
-@media(max-width:600px) {
+            border:
+                1px solid rgba(100, 180, 240, 0.18);
 
-    body {
-        padding: 10px;
-    }
+            border-radius: 16px;
 
-    .header {
-        font-size: 21px;
-    }
+            padding: 18px;
 
-    .card {
-        padding: 12px;
-    }
+            box-shadow:
+                0 12px 40px rgba(0, 0, 0, 0.28);
 
-    .controls {
-        flex-direction: column;
-    }
+            overflow: hidden;
+        }
 
-    .controls button {
-        width: 100%;
-    }
+        .half {
+            grid-column: span 6;
+        }
 
-    .metric {
-        flex-direction: column;
-        gap: 5px;
-    }
+        .third {
+            grid-column: span 4;
+        }
 
-    .pipeline {
-        white-space: normal;
-        line-height: 2;
-    }
-}
-</style>
+        @media (max-width: 900px) {
+
+            .half,
+            .third {
+                grid-column: span 12;
+            }
+
+            .header-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+        .card-title {
+            margin: 0 0 5px;
+
+            color: #9dd7ff;
+
+            font-size: 17px;
+            font-weight: 800;
+
+            letter-spacing: 0.5px;
+        }
+
+        .card-subtitle {
+            color: #6f91ad;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+
+        /* ====================================================
+           SYSTEM STATUS
+        ==================================================== */
+
+        .status-panel {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+            gap: 10px;
+        }
+
+        .status-box {
+            background:
+                rgba(0, 0, 0, 0.22);
+
+            border:
+                1px solid rgba(100, 180, 240, 0.13);
+
+            border-radius: 12px;
+            padding: 13px;
+        }
+
+        .status-label {
+            color: #6f91ad;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-value {
+            margin-top: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #d9f0ff;
+        }
+
+        /* ====================================================
+           CONTROLS
+        ==================================================== */
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .btn {
+            border: 1px solid rgba(110, 190, 255, 0.28);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(45, 115, 170, 0.34),
+                    rgba(15, 48, 76, 0.55)
+                );
+
+            color: #dff4ff;
+
+            border-radius: 10px;
+
+            padding: 10px 13px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            transition:
+                transform 0.15s ease,
+                border-color 0.15s ease,
+                background 0.15s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+
+            border-color:
+                rgba(100, 205, 255, 0.65);
+
+            background:
+                rgba(45, 125, 190, 0.45);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-green {
+            border-color:
+                rgba(60, 230, 145, 0.35);
+
+            background:
+                rgba(30, 170, 100, 0.15);
+
+            color: #75f2b0;
+        }
+
+        .btn-orange {
+            border-color:
+                rgba(255, 180, 70, 0.35);
+
+            background:
+                rgba(220, 125, 20, 0.13);
+
+            color: #ffd18a;
+        }
+
+        .btn-red {
+            border-color:
+                rgba(255, 90, 90, 0.35);
+
+            background:
+                rgba(190, 40, 40, 0.13);
+
+            color: #ff9b9b;
+        }
+
+        /* ====================================================
+           INTENSITY
+        ==================================================== */
+
+        .intensity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .intensity-value {
+            font-size: 22px;
+            font-weight: 900;
+            color: #72d8ff;
+        }
+
+        .slider-wrap {
+            position: relative;
+            padding: 8px 0;
+        }
+
+        #optimizationIntensity {
+            width: 100%;
+            appearance: none;
+            height: 9px;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            border-radius: 999px;
+            outline: none;
+        }
+
+        #optimizationIntensity::-webkit-slider-thumb {
+            appearance: none;
+
+            width: 23px;
+            height: 23px;
+
+            border-radius: 50%;
+
+            background: #62d6ff;
+
+            border:
+                3px solid #06121e;
+
+            box-shadow:
+                0 0 16px rgba(80, 210, 255, 0.7);
+        }
+
+        #optimizationIntensity::-moz-range-thumb {
+            width: 23px;
+            height: 23px;
+
+            border-radius: 50%;
+
+            background: #62d6ff;
+
+            border:
+                3px solid #06121e;
+        }
+
+        .progress {
+            height: 7px;
+            margin-top: 8px;
+
+            background:
+                rgba(255, 255, 255, 0.07);
+
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        #fill {
+            height: 100%;
+            width: 50%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #277cff,
+                    #48dcff,
+                    #62f1b2
+                );
+
+            transition:
+                width 0.15s ease;
+        }
+
+        .scale {
+            display: flex;
+            justify-content: space-between;
+
+            color: #5d7b94;
+            font-size: 10px;
+
+            margin-top: 5px;
+        }
+
+        /* ====================================================
+           SCENARIO GRID
+        ==================================================== */
+
+        .scenario-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(145px, 1fr));
+
+            gap: 9px;
+        }
+
+        .scenario {
+            min-height: 48px;
+
+            border:
+                1px solid rgba(100, 180, 240, 0.16);
+
+            background:
+                rgba(0, 0, 0, 0.20);
+
+            color: #a9cce7;
+
+            border-radius: 10px;
+
+            padding: 9px;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .scenario:hover {
+            border-color:
+                rgba(100, 210, 255, 0.55);
+
+            color: #e8f8ff;
+        }
+
+        /* ====================================================
+           PIPELINE
+        ==================================================== */
+
+        .pipeline {
+            display: grid;
+
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            gap: 7px;
+
+            margin-bottom: 15px;
+        }
+
+        .stage {
+            padding: 12px 5px;
+
+            text-align: center;
+
+            border:
+                1px solid rgba(100, 180, 240, 0.13);
+
+            background:
+                rgba(0, 0, 0, 0.20);
+
+            border-radius: 10px;
+
+            color: #64839d;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            transition:
+                all 0.2s ease;
+        }
+
+        .stage.active {
+            color: #dff9ff;
+
+            border-color:
+                rgba(70, 220, 255, 0.75);
+
+            background:
+                rgba(20, 150, 200, 0.20);
+
+            box-shadow:
+                0 0 18px rgba(40, 200, 255, 0.16);
+        }
+
+        @media (max-width: 700px) {
+
+            .pipeline {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        .output {
+            background:
+                #020810;
+
+            border:
+                1px solid rgba(100, 180, 240, 0.13);
+
+            border-radius: 10px;
+
+            padding: 13px;
+
+            min-height: 90px;
+
+            color: #a9d7f4;
+
+            font-family:
+                "SFMono-Regular",
+                Consolas,
+                "Liberation Mono",
+                monospace;
+
+            font-size: 11px;
+
+            line-height: 1.55;
+
+            overflow: auto;
+        }
+
+        /* ====================================================
+           DOMAIN MONITOR
+        ==================================================== */
+
+        .domain-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(150px, 1fr));
+
+            gap: 9px;
+        }
+
+        .domain-box {
+            border:
+                1px solid rgba(100, 180, 240, 0.14);
+
+            background:
+                rgba(0, 0, 0, 0.20);
+
+            border-radius: 11px;
+
+            padding: 11px;
+        }
+
+        .domain-name {
+            color: #7396b0;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .domain-number {
+            color: #73ddff;
+            font-size: 19px;
+            font-weight: 900;
+            margin-top: 5px;
+        }
+
+        /* ====================================================
+           METRICS
+        ==================================================== */
+
+        .metric-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+        .metric {
+            text-align: center;
+
+            padding: 14px 8px;
+
+            background:
+                rgba(0, 0, 0, 0.20);
+
+            border:
+                1px solid rgba(100, 180, 240, 0.13);
+
+            border-radius: 12px;
+        }
+
+        .metric-label {
+            color: #6687a1;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            margin-top: 5px;
+
+            color: #74e0ff;
+
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        /* ====================================================
+           SAFETY
+        ==================================================== */
+
+        .safety {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 9px;
+        }
+
+        .safety-item {
+            border-radius: 10px;
+            padding: 11px;
+
+            background:
+                rgba(40, 190, 110, 0.07);
+
+            border:
+                1px solid rgba(60, 220, 140, 0.18);
+
+            color: #8ff0b8;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* ====================================================
+           AUDIT
+        ==================================================== */
+
+        .audit {
+            max-height: 350px;
+            overflow: auto;
+        }
+
+        /* ====================================================
+           FOOTER
+        ==================================================== */
+
+        footer {
+            max-width: 1500px;
+            margin: auto;
+
+            padding: 20px 16px 35px;
+
+            color: #55748c;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+    </style>
 </head>
 
 <body>
 
+<!-- ==========================================================
+     HEADER
+=========================================================== -->
+
 <header class="header">
-🛰️ Sextant Protocol™ Optimizer —
-AI Computing Optimization & Validation Platform
+
+    <div class="header-inner">
+
+        <div class="brand">
+
+            <h1>
+                🛰️ SEXTANT PROTOCOL™ OPTIMIZER
+            </h1>
+
+            <p>
+                ARM64 EDGE OPTIMIZATION / VALIDATION COCKPIT
+            </p>
+
+        </div>
+
+        <div class="status-badge">
+            LOCAL DETERMINISTIC SIMULATION
+        </div>
+
+    </div>
+
 </header>
 
-<div class="subtitle">
-<strong>
-Investor Preview — ARM64 Edge Optimization Simulator
-</strong>
-<br>
-DATA → OPTIMIZATION → COMPUTE → VALIDATION
-<br>
-OBSERVE → VERIFY → OPTIMIZE → ASSESS → VALIDATE → UPDATE
-</div>
-
-<div class="simulator-banner">
-🧪 SELF-CONTAINED ARM SIMULATOR —
-LOCAL DETERMINISTIC EXECUTION —
-NO BACKEND CONNECTION
-</div>
-
-<div class="status" id="systemStatus">
-SYSTEM STATUS: READY — ARM SIMULATOR
-</div>
-
-<!-- ============================================================
-     ARM SYSTEM CONTROLS
-============================================================ -->
-
-<section class="card">
-
-<h3>🎛️ ARM SYSTEM CONTROLS</h3>
-
-<div class="controls">
-
-<button type="button" onclick="runARMSystem()">
-▶ RUN ARM SYSTEM
-</button>
-
-<button type="button"
-class="test-button"
-onclick="runARMSelfTest()">
-🧪 RUN ARM SELF-TEST
-</button>
-
-<button type="button"
-class="corrective-button"
-onclick="runARMTestAndCorrect()">
-🛠️ ARM SELF-TEST + CORRECTIVE ACTION
-</button>
-
-<button type="button"
-onclick="runARMIntegrationTest()">
-🔌 RUN ARM DOMAIN INTEGRATION TEST
-</button>
-
-<button type="button"
-class="reset-button"
-onclick="resetARMSystem()">
-RESET ARM SYSTEM
-</button>
-
-</div>
-
-</section>
-
-<!-- ============================================================
-     ARM SYSTEM OVERVIEW
-============================================================ -->
-
-<section class="card">
-
-<h3>🧠 ARM SYSTEM OVERVIEW</h3>
-
-<div class="metric">
-<span>Model Compression</span>
-<strong id="compression">68% Reduction</strong>
-</div>
-
-<div class="metric">
-<span>Latency Improvement</span>
-<strong id="latency">2.4x Faster</strong>
-</div>
-
-<div class="metric">
-<span>Target Platform</span>
-<strong>ARM64 Edge</strong>
-</div>
-
-<div class="metric">
-<span>Deployment Mode</span>
-<span class="badge">Production Simulation</span>
-</div>
-
-<div class="metric">
-<span>Backend Connection</span>
-<strong>NOT CONNECTED</strong>
-</div>
-
-</section>
-
-<!-- ============================================================
-     ARM DOMAIN MONITOR
-============================================================ -->
-
-<section class="card">
-
-<h3>📊 ARM DOMAIN MONITOR</h3>
-
-<div class="monitor">
-
-<div class="domain">
-<div class="domain-name">QUANTIZATION</div>
-<div class="domain-value" id="domainQuantization">50</div>
-<div class="domain-status">READY</div>
-</div>
-
-<div class="domain">
-<div class="domain-name">PRUNING</div>
-<div class="domain-value" id="domainPruning">50</div>
-<div class="domain-status">READY</div>
-</div>
-
-<div class="domain">
-<div class="domain-name">GRAPH OPTIMIZATION</div>
-<div class="domain-value" id="domainGraph">50</div>
-<div class="domain-status">READY</div>
-</div>
-
-<div class="domain">
-<div class="domain-name">MEMORY OPTIMIZATION</div>
-<div class="domain-value" id="domainMemory">50</div>
-<div class="domain-status">READY</div>
-</div>
-
-<div class="domain">
-<div class="domain-name">KERNEL OPTIMIZATION</div>
-<div class="domain-value" id="domainKernel">50</div>
-<div class="domain-status">READY</div>
-</div>
-
-<div class="domain">
-<div class="domain-name">ARM64 RUNTIME</div>
-<div class="domain-value" id="domainRuntime">50</div>
-<div class="domain-status">READY</div>
-</div>
-
-</div>
-
-</section>
-
-<!-- ============================================================
-     ARM INTENSITY CONTROL
-============================================================ -->
-
-<section class="card">
-
-<h3>🎚️ ARM OPTIMIZATION INTENSITY</h3>
-
-<div class="intensity">
-Optimization Intensity:
-<span id="intensityValue" class="intensity-value">50%</span>
-</div>
-
-<br>
-
-<input
-type="range"
-id="optimizationIntensity"
-min="0"
-max="100"
-step="1"
-value="50"
-aria-label="ARM optimization intensity">
-
-<div class="bar">
-<div
-id="fill"
-class="fill"
-style="width:50%;">
-</div>
-</div>
-
-<div class="muted">
-Move the intensity control to change the deterministic
-optimization workload and synchronize the ARM domain monitor.
-</div>
-
-</section>
-
-<!-- ============================================================
-     ARM DOMAIN INTEGRATION
-============================================================ -->
-
-<section class="card">
-
-<h3>🔌 ARM DOMAIN INTEGRATION LAYER</h3>
-
-<div class="muted">
-ARM OPTIMIZER COCKPIT
-<br>↓<br>
-LOCAL ARM DOMAIN INTEGRATION
-<br>↓<br>
-ARM OPTIMIZATION ENGINES
-<br>↓<br>
-NEURALEDGE DECISION CORE
-<br>↓<br>
-OPTIMIZATION PIPELINE
-<br>↓<br>
-RESULT / VALIDATION / AUDIT
-</div>
-
-<br>
-
-<pre id="domainIntegration">
-ARM domain integration test not executed.
-</pre>
-
-</section>
-
-<!-- ============================================================
-     ARM OPTIMIZATION DOMAINS
-============================================================ -->
-
-<section class="card">
-
-<h3>⚙️ ARM OPTIMIZATION DOMAINS</h3>
-
-<div class="controls">
-
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('QUANTIZATION')">
-ARM — QUANTIZATION
-</button>
-
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('PRUNING')">
-ARM — PRUNING
-</button>
-
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('GRAPH_OPTIMIZATION')">
-ARM — GRAPH OPTIMIZATION
-</button>
-
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('MEMORY_OPTIMIZATION')">
-ARM — MEMORY OPTIMIZATION
-</button>
-
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('KERNEL_OPTIMIZATION')">
-ARM — KERNEL OPTIMIZATION
-</button>
-
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('ARM64_RUNTIME')">
-ARM — ARM64 RUNTIME
-</button>
-
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('FULL_ARM_OPTIMIZATION')">
-ARM — FULL OPTIMIZATION
-</button>
-
-</div>
-
-</section>
-
-<!-- ============================================================
-     ARM SCENARIO CONTROL
-============================================================ -->
-
-<section class="card">
-
-<h3>🎛️ ARM SCENARIO CONTROL</h3>
-
-<div class="controls">
 
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('NORMAL')">
-NORMAL
-</button>
+<main class="container">
 
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('EDGE_LOAD')">
-EDGE LOAD
-</button>
+    <!-- ======================================================
+         SAFETY BOUNDARY
+    ======================================================= -->
 
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('LATENCY_STRESS')">
-LATENCY STRESS
-</button>
+    <div class="warning">
 
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('MEMORY_PRESSURE')">
-MEMORY PRESSURE
-</button>
+        <strong>
+            OPERATIONAL BOUNDARY
+        </strong>
 
-<button type="button"
-class="test-button"
-onclick="activateARMScenario('THERMAL_STRESS')">
-THERMAL STRESS
-</button>
+        <br>
 
-<button type="button"
-class="reset-button"
-onclick="resetARMScenario()">
-RESET SCENARIO
-</button>
+        This cockpit is a local deterministic simulation and
+        validation interface.
 
-</div>
+        <br>
 
-</section>
+        Backend connection:
+        <strong>DISABLED</strong>
 
-<!-- ============================================================
-     ARM OPTIMIZATION PIPELINE
-============================================================ -->
+        &nbsp;|&nbsp;
 
-<section class="card">
+        Physical execution:
+        <strong>DISABLED</strong>
 
-<h3>🛰️ ARM OPTIMIZATION PIPELINE</h3>
+        &nbsp;|&nbsp;
 
-<div class="pipeline">
+        Autonomous execution:
+        <strong>PROHIBITED</strong>
 
-<span class="stage" id="stageOBSERVE">OBSERVE</span>
-→
-<span class="stage" id="stageVERIFY">VERIFY</span>
-→
-<span class="stage" id="stageOPTIMIZE">OPTIMIZE</span>
-→
-<span class="stage" id="stageASSESS">ASSESS</span>
-→
-<span class="stage" id="stageVALIDATE">VALIDATE</span>
-→
-<span class="stage" id="stageUPDATE">UPDATE</span>
+        &nbsp;|&nbsp;
 
-</div>
+        Human authorization:
+        <strong>REQUIRED</strong>
 
-<pre id="pipeline">
-ARM optimization pipeline waiting...
-</pre>
+    </div>
 
-</section>
 
-<!-- ============================================================
-     ARM SCENARIO PANEL
-============================================================ -->
+    <div class="grid">
 
-<section class="card">
 
-<h3>🧪 ARM SCENARIO PANEL</h3>
+        <!-- ==================================================
+             SYSTEM STATUS
+        =================================================== -->
 
-<pre id="scenarioPanel">
-Waiting...
-</pre>
+        <section class="card">
 
-</section>
+            <h2 class="card-title">
+                SYSTEM STATUS
+            </h2>
 
-<!-- ============================================================
-     RAW ARM STATE
-============================================================ -->
+            <div class="card-subtitle">
+                Sextant Optimizer operational boundary
+            </div>
 
-<section class="card">
+            <div class="status-panel">
 
-<h3>📊 RAW ARM SYSTEM STATE</h3>
+                <div class="status-box">
 
-<pre id="state">
-Waiting...
-</pre>
+                    <div class="status-label">
+                        System
+                    </div>
 
-</section>
+                    <div
+                        id="systemStatus"
+                        class="status-value"
+                    >
+                        SYSTEM STATUS: READY — ARM SIMULATOR
+                    </div>
 
-<!-- ============================================================
-     ARM SYSTEM ASSESSMENT
-============================================================ -->
+                </div>
 
-<section class="card">
 
-<h3>⚠️ ARM SYSTEM ASSESSMENT</h3>
+                <div class="status-box">
 
-<pre id="assessment">
-Waiting...
-</pre>
+                    <div class="status-label">
+                        Optimization
+                    </div>
 
-</section>
+                    <div
+                        id="optimizationStatus"
+                        class="status-value"
+                    >
+                        WAITING
+                    </div>
 
-<!-- ============================================================
-     NEURALEDGE DECISION
-============================================================ -->
+                </div>
 
-<section class="card">
 
-<h3>🧠 NEURALEDGE OPTIMIZATION DECISION</h3>
+                <div class="status-box">
 
-<pre id="decision">
-Waiting...
-</pre>
+                    <div class="status-label">
+                        Domain
+                    </div>
 
-</section>
+                    <div class="status-value">
+                        ARM64
+                    </div>
 
-<!-- ============================================================
-     EXECUTION RESULTS
-============================================================ -->
+                </div>
 
-<section class="card">
 
-<h3>📈 EXECUTION RESULTS</h3>
+                <div class="status-box">
 
-<div class="metric">
-<span>Inference Cost Reduction</span>
-<strong id="costReduction">—</strong>
-</div>
+                    <div class="status-label">
+                        Backend
+                    </div>
 
-<div class="metric">
-<span>Throughput Increase</span>
-<strong id="throughput">—</strong>
-</div>
+                    <div class="status-value">
+                        NOT CONNECTED
+                    </div>
 
-<div class="metric">
-<span>Edge Efficiency Score</span>
-<strong id="efficiency">—</strong>
-</div>
+                </div>
 
-<div class="metric">
-<span>ARM Optimization Status</span>
-<span class="badge" id="optimizationStatus">
-WAITING
-</span>
-</div>
 
-</section>
+                <div class="status-box">
 
-<!-- ============================================================
-     ARM VALIDATION
-============================================================ -->
+                    <div class="status-label">
+                        Physical Execution
+                    </div>
 
-<section class="card">
+                    <div class="status-value">
+                        DISABLED
+                    </div>
 
-<h3>🔎 ARM VALIDATION</h3>
+                </div>
 
-<pre id="validation">
-ARM validation not executed.
-</pre>
 
-</section>
+                <div class="status-box">
 
-<!-- ============================================================
-     ARM SELF TEST
-============================================================ -->
+                    <div class="status-label">
+                        Human Authority
+                    </div>
 
-<section class="card">
+                    <div class="status-value">
+                        REQUIRED
+                    </div>
 
-<h3>🧪 ARM SELF-TEST</h3>
+                </div>
 
-<pre id="selfTest">
-ARM self-test not executed.
-</pre>
+            </div>
 
-</section>
+        </section>
 
-<section class="card">
 
-<h3>🔎 ARM SELF-TEST INTERPRETATION</h3>
+        <!-- ==================================================
+             ARM INTENSITY
+        =================================================== -->
 
-<pre id="selfTestInterpretation">
-Waiting for ARM self-test...
-</pre>
+        <section class="card half">
 
-</section>
+            <h2 class="card-title">
+                ARM OPTIMIZATION INTENSITY
+            </h2>
 
-<section class="card">
+            <div class="card-subtitle">
+                Single source of truth for simulated workload
+            </div>
 
-<h3>⚠️ ARM FAULT IDENTIFICATION</h3>
+            <div class="intensity-header">
 
-<pre id="faultIdentification">
-No ARM fault assessment available.
-</pre>
+                <span>
+                    Optimization workload
+                </span>
 
-</section>
+                <span
+                    id="intensityValue"
+                    class="intensity-value"
+                >
+                    50%
+                </span>
 
-<section class="card">
+            </div>
 
-<h3>🛠️ ARM CORRECTIVE ACTION</h3>
+            <div class="slider-wrap">
 
-<pre id="correctiveAction">
-No corrective action available.
-</pre>
+                <input
+                    id="optimizationIntensity"
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value="50"
+                    aria-label="ARM optimization intensity"
+                >
 
-</section>
+                <div class="progress">
 
-<section class="card">
+                    <div id="fill"></div>
 
-<h3>🔁 ARM RE-TEST VALIDATION</h3>
+                </div>
 
-<pre id="retest">
-ARM re-test not executed.
-</pre>
+                <div class="scale">
+                    <span>0%</span>
+                    <span>25%</span>
+                    <span>50%</span>
+                    <span>75%</span>
+                    <span>100%</span>
+                </div>
 
-</section>
+            </div>
 
-<section class="card">
+        </section>
 
-<h3>🧾 ARM AUDIT RECORD</h3>
 
-<pre id="audit">
-ARM audit waiting...
-</pre>
+        <!-- ==================================================
+             ARM SCENARIOS
+        =================================================== -->
 
-</section>
+        <section class="card half">
 
-<section class="card">
+            <h2 class="card-title">
+                ARM SCENARIO CONTROL
+            </h2>
 
-<h3>📜 ARM PIPELINE LOG</h3>
+            <div class="card-subtitle">
+                Deterministic scenario routing
+            </div>
 
-<pre id="pipelineLog">
-ARM pipeline log active.
-</pre>
+            <div class="scenario-grid">
 
-</section>
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('NORMAL')"
+                >
+                    NORMAL
+                </button>
 
-<!-- ============================================================
-     BIODIESEL ENERGY RESILIENCE MODULE
-============================================================ -->
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('QUANTIZATION_STRESS')"
+                >
+                    QUANTIZATION STRESS
+                </button>
 
-<section class="card">
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('PRUNING_STRESS')"
+                >
+                    PRUNING STRESS
+                </button>
 
-<h3>🛢️ BIODIESEL ENERGY RESILIENCE MODULE</h3>
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('GRAPH_OPTIMIZATION')"
+                >
+                    GRAPH OPTIMIZATION
+                </button>
 
-<div class="simulator-banner">
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('MEMORY_PRESSURE')"
+                >
+                    MEMORY PRESSURE
+                </button>
 
-⚡ SEXTANT PROTOCOL™ ENERGY DOMAIN —
-BIODIESEL AUTHORITATIVE RULE ENGINE —
-LOCAL DETERMINISTIC VALIDATION
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('KERNEL_STRESS')"
+                >
+                    KERNEL STRESS
+                </button>
 
-</div>
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('ARM64_RUNTIME')"
+                >
+                    ARM64 RUNTIME
+                </button>
 
-<div class="muted">
+                <button
+                    class="scenario"
+                    onclick="activateARMScenario('EDGE_COMPUTE_STRESS')"
+                >
+                    EDGE COMPUTE
+                </button>
 
-BIODIESEL COCKPIT
-<br>↓<br>
-BIODIESEL DOMAIN INTEGRATION
-<br>↓<br>
-BIODIESEL RULE ENGINE
-<br>↓<br>
-BIODIESEL SCENARIO ENGINE
-<br>↓<br>
-TRIAL MANOEUVRE ENGINE
-<br>↓<br>
-VALIDATION / DECISION / AUDIT
+            </div>
 
-</div>
+            <div style="height:10px"></div>
 
-<br>
+            <button
+                class="btn btn-orange"
+                onclick="resetARMScenario()"
+            >
+                RESET ARM SCENARIO
+            </button>
 
-<div class="controls">
+            <div style="height:12px"></div>
 
-<button type="button"
-onclick="runBiodieselIntegrationTest()">
-🔌 BIODIESEL INTEGRATION TEST
-</button>
+            <pre
+                id="scenarioPanel"
+                class="output"
+            >Waiting...</pre>
 
-<button type="button"
-class="test-button"
-onclick="runBiodieselSelfTest()">
-🧪 BIODIESEL SELF-TEST
-</button>
+        </section>
 
-<button type="button"
-class="corrective-button"
-onclick="runBiodieselTestAndCorrect()">
-🛠️ SELF-TEST + CORRECTIVE ACTION
-</button>
 
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('NORMAL')">
-🛢️ BIODIESEL NORMAL
-</button>
+        <!-- ==================================================
+             PIPELINE
+        =================================================== -->
 
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('FUEL_PRESSURE')">
-⚠️ FUEL PRESSURE
-</button>
+        <section class="card">
 
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('ENERGY_SHORTAGE')">
-⚠️ ENERGY SHORTAGE
-</button>
+            <h2 class="card-title">
+                GOLDEN OPTIMIZATION PIPELINE
+            </h2>
 
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('FUEL_CONTAMINATION')">
-⚠️ FUEL CONTAMINATION
-</button>
+            <div class="card-subtitle">
+                OBSERVE → VERIFY → OPTIMIZE → ASSESS →
+                VALIDATE → UPDATE
+            </div>
 
-<button type="button"
-class="test-button"
-onclick="runBiodieselScenario('FULL_BIODIESEL_STRESS')">
-⚠️ FULL BIODIESEL STRESS
-</button>
+            <div class="pipeline">
 
-<button type="button"
-class="trial-button"
-onclick="runBiodieselTrialManoeuvre()">
-⚓ RUN BIODIESEL TRIAL MANOEUVRE
-</button>
+                <div
+                    id="stageOBSERVE"
+                    class="stage"
+                >
+                    OBSERVE
+                </div>
 
-</div>
+                <div
+                    id="stageVERIFY"
+                    class="stage"
+                >
+                    VERIFY
+                </div>
 
-</section>
+                <div
+                    id="stageOPTIMIZE"
+                    class="stage"
+                >
+                    OPTIMIZE
+                </div>
 
-<!-- ============================================================
-     BIODIESEL SYSTEM STATUS
-============================================================ -->
+                <div
+                    id="stageASSESS"
+                    class="stage"
+                >
+                    ASSESS
+                </div>
 
-<section class="card">
+                <div
+                    id="stageVALIDATE"
+                    class="stage"
+                >
+                    VALIDATE
+                </div>
 
-<h3>⚡ BIODIESEL ENERGY SYSTEM STATUS</h3>
+                <div
+                    id="stageUPDATE"
+                    class="stage"
+                >
+                    UPDATE
+                </div>
 
-<div class="metric">
-<span>Energy Domain</span>
-<strong id="biodieselDomainStatus">READY</strong>
-</div>
+            </div>
 
-<div class="metric">
-<span>Rule Engine</span>
-<strong id="biodieselRuleEngineStatus">READY</strong>
-</div>
+            <pre
+                id="pipeline"
+                class="output"
+            >Waiting for ARM optimization cycle...</pre>
 
-<div class="metric">
-<span>Scenario Engine</span>
-<strong id="biodieselScenarioEngineStatus">READY</strong>
-</div>
+        </section>
 
-<div class="metric">
-<span>Trial Manoeuvre Engine</span>
-<strong id="biodieselTrialEngineStatus">READY</strong>
-</div>
 
-<div class="metric">
-<span>Integration Layer</span>
-<strong id="biodieselIntegrationStatus">READY</strong>
-</div>
+        <!-- ==================================================
+             ARM CONTROL
+        =================================================== -->
 
-<div class="metric">
-<span>Backend</span>
-<span class="badge">LOCAL / NOT CONNECTED</span>
-</div>
+        <section class="card">
 
-</section>
+            <h2 class="card-title">
+                ARM SYSTEM CONTROL
+            </h2>
 
-<!-- ============================================================
-     BIODIESEL SCENARIO RESULT
-============================================================ -->
+            <div class="card-subtitle">
+                Simulation and deterministic validation controls
+            </div>
 
-<section class="card">
+            <div class="controls">
 
-<h3>🧪 BIODIESEL SCENARIO RESULT</h3>
+                <button
+                    class="btn btn-green"
+                    onclick="runARMSystem()"
+                >
+                    ▶ RUN ARM OPTIMIZATION
+                </button>
 
-<pre id="biodieselScenarioResult">
-Biodiesel scenario not executed.
-</pre>
+                <button
+                    class="btn"
+                    onclick="runARMSelfTest()"
+                >
+                    RUN ARM SELF-TEST
+                </button>
 
-</section>
+                <button
+                    class="btn btn-orange"
+                    onclick="runARMTestAndCorrect()"
+                >
+                    SELF-TEST + CORRECT
+                </button>
 
-<!-- ============================================================
-     BIODIESEL TRIAL MANOEUVRE
-============================================================ -->
+                <button
+                    class="btn"
+                    onclick="runARMIntegrationTest()"
+                >
+                    RUN DOMAIN INTEGRATION TEST
+                </button>
 
-<section class="card">
+                <button
+                    class="btn"
+                    onclick="runARMValidation()"
+                >
+                    RUN VALIDATION
+                </button>
 
-<h3>⚓ BIODIESEL TRIAL MANOEUVRE</h3>
+                <button
+                    class="btn btn-red"
+                    onclick="resetARMSystem()"
+                >
+                    RESET ARM SYSTEM
+                </button>
 
-<div class="muted">
+            </div>
 
-Controlled deterministic trial manoeuvre simulation.
-<br>
-No physical engine command.
-<br>
-No vessel actuation.
-<br>
-No external system connection.
-<br>
-Human/operator authority remains required for any real-world action.
+        </section>
 
-</div>
 
-<br>
+        <!-- ==================================================
+             ARM DOMAIN MONITOR
+        =================================================== -->
 
-<div class="controls">
+        <section class="card">
 
-<button type="button"
-class="trial-button"
-onclick="runBiodieselTrialManoeuvre()">
-▶ RUN TRIAL MANOEUVRE
-</button>
+            <h2 class="card-title">
+                ARM64 DOMAIN MONITOR
+            </h2>
 
-<button type="button"
-class="test-button"
-onclick="validateBiodieselTrialManoeuvre()">
-🔎 VALIDATE TRIAL MANOEUVRE
-</button>
+            <div class="card-subtitle">
+                Current simulated optimization intensity
+            </div>
 
-<button type="button"
-class="reset-button"
-onclick="resetBiodieselTrialManoeuvre()">
-RESET TRIAL MANOEUVRE
-</button>
+            <div class="domain-grid">
 
-</div>
+                <div class="domain-box">
 
-<br>
+                    <div class="domain-name">
+                        QUANTIZATION
+                    </div>
 
-<pre id="biodieselTrialManoeuvre">
-Biodiesel trial manoeuvre not executed.
-</pre>
+                    <div
+                        id="domainQuantization"
+                        class="domain-number"
+                    >
+                        50
+                    </div>
 
-</section>
+                </div>
 
-<!-- ============================================================
-     BIODIESEL VALIDATION
-============================================================ -->
 
-<section class="card">
+                <div class="domain-box">
 
-<h3>🔎 BIODIESEL VALIDATION</h3>
+                    <div class="domain-name">
+                        PRUNING
+                    </div>
 
-<pre id="biodieselValidation">
-Biodiesel validation not executed.
-</pre>
+                    <div
+                        id="domainPruning"
+                        class="domain-number"
+                    >
+                        50
+                    </div>
 
-</section>
+                </div>
 
-<!-- ============================================================
-     BIODIESEL DOMAIN INTEGRATION
-============================================================ -->
 
-<section class="card">
+                <div class="domain-box">
 
-<h3>🔌 BIODIESEL DOMAIN INTEGRATION</h3>
+                    <div class="domain-name">
+                        GRAPH OPTIMIZATION
+                    </div>
 
-<pre id="biodieselIntegration">
-Biodiesel domain integration not executed.
-</pre>
+                    <div
+                        id="domainGraph"
+                        class="domain-number"
+                    >
+                        50
+                    </div>
 
-</section>
+                </div>
 
-<!-- ============================================================
-     BIODIESEL SELF-TEST
-============================================================ -->
 
-<section class="card">
+                <div class="domain-box">
 
-<h3>🧪 BIODIESEL SELF-TEST</h3>
+                    <div class="domain-name">
+                        MEMORY OPTIMIZATION
+                    </div>
 
-<pre id="biodieselSelfTest">
-Biodiesel self-test not executed.
-</pre>
+                    <div
+                        id="domainMemory"
+                        class="domain-number"
+                    >
+                        50
+                    </div>
 
-</section>
+                </div>
 
-<section class="card">
 
-<h3>🔎 BIODIESEL SELF-TEST INTERPRETATION</h3>
+                <div class="domain-box">
 
-<pre id="biodieselSelfTestInterpretation">
-Waiting for Biodiesel self-test...
-</pre>
+                    <div class="domain-name">
+                        KERNEL OPTIMIZATION
+                    </div>
 
-</section>
+                    <div
+                        id="domainKernel"
+                        class="domain-number"
+                    >
+                        50
+                    </div>
 
-<section class="card">
+                </div>
 
-<h3>⚠️ BIODIESEL FAULT IDENTIFICATION</h3>
 
-<pre id="biodieselFaultIdentification">
-No Biodiesel fault assessment available.
-</pre>
+                <div class="domain-box">
 
-</section>
+                    <div class="domain-name">
+                        ARM64 RUNTIME
+                    </div>
 
-<section class="card">
+                    <div
+                        id="domainRuntime"
+                        class="domain-number"
+                    >
+                        50
+                    </div>
 
-<h3>🛠️ BIODIESEL CORRECTIVE ACTION</h3>
+                </div>
 
-<pre id="biodieselCorrectiveAction">
-No corrective action available.
-</pre>
+            </div>
 
-</section>
+        </section>
 
-<section class="card">
 
-<h3>🔁 BIODIESEL RE-TEST VALIDATION</h3>
+        <!-- ==================================================
+             ARM STATE
+        =================================================== -->
 
-<pre id="biodieselRetest">
-Biodiesel re-test not executed.
-</pre>
+        <section class="card half">
 
-</section>
+            <h2 class="card-title">
+                ARM STATE
+            </h2>
 
-<section class="card">
+            <pre
+                id="state"
+                class="output"
+            >Waiting...</pre>
 
-<h3>🧾 BIODIESEL AUDIT RECORD</h3>
+        </section>
 
-<pre id="biodieselAudit">
-Biodiesel audit waiting...
-</pre>
 
-</section>
+        <!-- ==================================================
+             ARM ASSESSMENT
+        =================================================== -->
 
-<section class="card">
+        <section class="card half">
 
-<h3>📜 BIODIESEL PIPELINE LOG</h3>
+            <h2 class="card-title">
+                ARM ASSESSMENT
+            </h2>
 
-<pre id="biodieselPipelineLog">
-Biodiesel pipeline log waiting...
-</pre>
+            <pre
+                id="assessment"
+                class="output"
+            >Waiting...</pre>
 
-</section>
+        </section>
 
-<!-- ============================================================
+
+        <!-- ==================================================
+             ARM DECISION
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                ARM DECISION
+            </h2>
+
+            <pre
+                id="decision"
+                class="output"
+            >Waiting...</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             ARM METRICS
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                SIMULATED OPTIMIZATION METRICS
+            </h2>
+
+            <div class="metric-grid">
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Cost Reduction
+                    </div>
+
+                    <div
+                        id="costReduction"
+                        class="metric-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Throughput
+                    </div>
+
+                    <div
+                        id="throughput"
+                        class="metric-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-label">
+                        Efficiency
+                    </div>
+
+                    <div
+                        id="efficiency"
+                        class="metric-value"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ARM VALIDATION
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                ARM VALIDATION
+            </h2>
+
+            <pre
+                id="validation"
+                class="output"
+            >ARM validation not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             ARM SELF TEST
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                ARM SELF-TEST
+            </h2>
+
+            <pre
+                id="selfTest"
+                class="output"
+            >ARM self-test not executed.</pre>
+
+            <div style="height:10px"></div>
+
+            <pre
+                id="selfTestInterpretation"
+                class="output"
+            >Waiting for ARM self-test...</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             ARM FAULT / CORRECTION
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                FAULT IDENTIFICATION
+            </h2>
+
+            <pre
+                id="faultIdentification"
+                class="output"
+            >No ARM fault assessment available.</pre>
+
+        </section>
+
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                CORRECTIVE ACTION
+            </h2>
+
+            <pre
+                id="correctiveAction"
+                class="output"
+            >No corrective action available.</pre>
+
+            <div style="height:10px"></div>
+
+            <pre
+                id="retest"
+                class="output"
+            >ARM re-test not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             DOMAIN INTEGRATION
+        =================================================== -->
+
+        <section class="card">
+
+            <h2 class="card-title">
+                DOMAIN INTEGRATION
+            </h2>
+
+            <pre
+                id="domainIntegration"
+                class="output"
+            >ARM domain integration test not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL DOMAIN
+        =================================================== -->
+
+        <section class="card">
+
+            <h2 class="card-title">
+                🟢 BIODIESEL RESILIENCE DOMAIN
+            </h2>
+
+            <div class="card-subtitle">
+                Authoritative Biodiesel Rule Registry / Rule Engine
+                integration
+            </div>
+
+            <div class="status-panel">
+
+                <div class="status-box">
+
+                    <div class="status-label">
+                        Domain
+                    </div>
+
+                    <div
+                        id="biodieselDomainStatus"
+                        class="status-value"
+                    >
+                        READY
+                    </div>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <div class="status-label">
+                        Rule Registry
+                    </div>
+
+                    <div class="status-value">
+                        AUTHORITATIVE
+                    </div>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <div class="status-label">
+                        Rule Engine
+                    </div>
+
+                    <div
+                        id="biodieselRuleEngineStatus"
+                        class="status-value"
+                    >
+                        UNAVAILABLE
+                    </div>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <div class="status-label">
+                        Scenario Engine
+                    </div>
+
+                    <div
+                        id="biodieselScenarioEngineStatus"
+                        class="status-value"
+                    >
+                        UNAVAILABLE
+                    </div>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <div class="status-label">
+                        Trial Engine
+                    </div>
+
+                    <div
+                        id="biodieselTrialEngineStatus"
+                        class="status-value"
+                    >
+                        UNAVAILABLE
+                    </div>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <div class="status-label">
+                        Integration
+                    </div>
+
+                    <div
+                        id="biodieselIntegrationStatus"
+                        class="status-value"
+                    >
+                        UNAVAILABLE
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL SCENARIO
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL SCENARIO CONTROL
+            </h2>
+
+            <div class="scenario-grid">
+
+                <button
+                    class="scenario"
+                    onclick="runBiodieselScenario('BIODIESEL_SHORTAGE')"
+                >
+                    BIODIESEL SHORTAGE
+                </button>
+
+                <button
+                    class="scenario"
+                    onclick="runBiodieselScenario('FUEL_SUPPLY_DISRUPTION')"
+                >
+                    FUEL SUPPLY DISRUPTION
+                </button>
+
+                <button
+                    class="scenario"
+                    onclick="runBiodieselScenario('ENERGY_STRESS')"
+                >
+                    ENERGY STRESS
+                </button>
+
+                <button
+                    class="scenario"
+                    onclick="runBiodieselScenario('SUPPLY_CHAIN_STRESS')"
+                >
+                    SUPPLY CHAIN STRESS
+                </button>
+
+            </div>
+
+            <div style="height:12px"></div>
+
+            <pre
+                id="biodieselScenarioResult"
+                class="output"
+            >Biodiesel scenario not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL CONTROLS
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL VALIDATION CONTROL
+            </h2>
+
+            <div class="controls">
+
+                <button
+                    class="btn btn-green"
+                    onclick="runBiodieselIntegrationTest()"
+                >
+                    RUN INTEGRATION TEST
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="runBiodieselSelfTest()"
+                >
+                    RUN SELF-TEST
+                </button>
+
+                <button
+                    class="btn btn-orange"
+                    onclick="runBiodieselTestAndCorrect()"
+                >
+                    SELF-TEST + CORRECT
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="runBiodieselTrialManoeuvre()"
+                >
+                    RUN TRIAL MANOEUVRE
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="validateBiodieselTrialManoeuvre()"
+                >
+                    VALIDATE TRIAL
+                </button>
+
+                <button
+                    class="btn btn-red"
+                    onclick="resetBiodieselTrialManoeuvre()"
+                >
+                    RESET BIODIESEL
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL INTEGRATION
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL INTEGRATION RESULT
+            </h2>
+
+            <pre
+                id="biodieselIntegration"
+                class="output"
+            >Integration test not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL SELF TEST
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL SELF-TEST
+            </h2>
+
+            <pre
+                id="biodieselSelfTest"
+                class="output"
+            >Biodiesel self-test not executed.</pre>
+
+            <div style="height:10px"></div>
+
+            <pre
+                id="biodieselSelfTestInterpretation"
+                class="output"
+            >Waiting for Biodiesel self-test...</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL FAULT
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL FAULT IDENTIFICATION
+            </h2>
+
+            <pre
+                id="biodieselFaultIdentification"
+                class="output"
+            >No Biodiesel integration fault assessment available.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL CORRECTIVE ACTION
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL CORRECTIVE ACTION
+            </h2>
+
+            <pre
+                id="biodieselCorrectiveAction"
+                class="output"
+            >No corrective action available.</pre>
+
+            <div style="height:10px"></div>
+
+            <pre
+                id="biodieselRetest"
+                class="output"
+            >Biodiesel re-test not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL TRIAL MANOEUVRE
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL TRIAL MANOEUVRE
+            </h2>
+
+            <div class="card-subtitle">
+                Simulation-only manoeuvre evaluation
+            </div>
+
+            <pre
+                id="biodieselTrialManoeuvre"
+                class="output"
+            >Biodiesel trial manoeuvre not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL VALIDATION
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL TRIAL VALIDATION
+            </h2>
+
+            <pre
+                id="biodieselValidation"
+                class="output"
+            >Biodiesel validation not executed.</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             SAFETY BOUNDARY
+        =================================================== -->
+
+        <section class="card">
+
+            <h2 class="card-title">
+                EXECUTION SAFETY BOUNDARY
+            </h2>
+
+            <div class="safety">
+
+                <div class="safety-item">
+                    ✓ LOCAL DETERMINISTIC SIMULATION
+                </div>
+
+                <div class="safety-item">
+                    ✓ BACKEND CONNECTION DISABLED
+                </div>
+
+                <div class="safety-item">
+                    ✓ PHYSICAL EXECUTION DISABLED
+                </div>
+
+                <div class="safety-item">
+                    ✓ VESSEL ACTUATION DISABLED
+                </div>
+
+                <div class="safety-item">
+                    ✓ EXTERNAL CONNECTION DISABLED
+                </div>
+
+                <div class="safety-item">
+                    ✓ HUMAN AUTHORIZATION REQUIRED
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ARM AUDIT
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                ARM AUDIT LOG
+            </h2>
+
+            <pre
+                id="audit"
+                class="output audit"
+            >[]</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             BIODIESEL AUDIT
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL AUDIT LOG
+            </h2>
+
+            <pre
+                id="biodieselAudit"
+                class="output audit"
+            >[]</pre>
+
+        </section>
+
+
+        <!-- ==================================================
+             PIPELINE LOGS
+        =================================================== -->
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                ARM PIPELINE LOG
+            </h2>
+
+            <pre
+                id="pipelineLog"
+                class="output audit"
+            >[]</pre>
+
+        </section>
+
+
+        <section class="card half">
+
+            <h2 class="card-title">
+                BIODIESEL PIPELINE LOG
+            </h2>
+
+            <pre
+                id="biodieselPipelineLog"
+                class="output audit"
+            >[]</pre>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- ==========================================================
      FOOTER
-============================================================ -->
+=========================================================== -->
 
-<footer class="footer">
+<footer>
 
-SEXTANT PROTOCOL™ OPTIMIZER
-<br>
-ARM64 EDGE OPTIMIZATION / VALIDATION
-<br>
-BIODIESEL ENERGY RESILIENCE MODULE
-<br><br>
-LOCAL DETERMINISTIC SIMULATION
-<br>
-NO BACKEND CONNECTION
-<br>
-NO AUTONOMOUS PHYSICAL EXECUTION
-<br>
-HUMAN AUTHORIZATION REQUIRED
+    <strong>
+        Sextant Protocol™ Optimizer
+    </strong>
+
+    <br>
+
+    ARM64 Edge Optimization / Validation Cockpit
+
+    <br>
+
+    OBSERVE → VERIFY → OPTIMIZE → ASSESS → VALIDATE → UPDATE
+
+    <br>
+
+    Local deterministic simulation only.
+    No backend connection.
+    No autonomous physical execution.
+    Human authorization required.
 
 </footer>
 
-<!-- ============================================================
-     BIODIESEL AUTHORITATIVE LOAD ORDER
-============================================================ -->
 
-<script src="rules/energy/biodiesel/biodieselRuleRegistry.js"></script>
-<script src="rules/energy/biodiesel/biodieselRuleEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselScenarioEngine.js"></script>
-<script src="rules/energy/biodiesel/biodieselTrialManoeuvre.js"></script>
-<script src="rules/energy/biodiesel/biodieselIntegration.js"></script>
-<script src="rules/energy/biodiesel/biodieselDomainIntegration.js"></script>
-<script src="rules/energy/biodiesel/biodieselLoader.js"></script>
+<!-- ==========================================================
+     AUTHORITATIVE MODULE LOAD ORDER
+     
+     IMPORTANT:
+     The Biodiesel modules must load BEFORE app.js
+     so app.js can discover them through window.*.
+     
+     Replace these filenames with the exact filenames
+     used by your repository if different.
+=========================================================== -->
 
-<!-- ============================================================
-     APPLICATION ORCHESTRATION
-     LOADED ONCE
-============================================================ -->
+<!-- Biodiesel Rule Registry -->
+<script src="assets/js/biodieselRuleRegistry.js"></script>
+
+<!-- Biodiesel Rule Engine -->
+<script src="assets/js/biodieselRuleEngine.js"></script>
+
+<!-- Biodiesel Scenario Engine -->
+<script src="assets/js/biodieselScenarioEngine.js"></script>
+
+<!-- Biodiesel Trial Manoeuvre -->
+<script src="assets/js/biodieselTrialManoeuvre.js"></script>
+
+<!-- Biodiesel Integration -->
+<script src="assets/js/biodieselIntegration.js"></script>
+
+<!-- Biodiesel Domain Integration -->
+<script src="assets/js/biodieselDomainIntegration.js"></script>
+
+
+<!-- ==========================================================
+     MAIN SCREEN ORCHESTRATOR
+=========================================================== -->
 
 <script src="assets/js/app.js"></script>
 
-<!-- ============================================================
-     ARM INTENSITY SCREEN WIRING
-============================================================ -->
-
-<script>
-"use strict";
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const slider =
-        document.getElementById("optimizationIntensity");
-
-    const valueDisplay =
-        document.getElementById("intensityValue");
-
-    const fill =
-        document.getElementById("fill");
-
-    function syncIntensity() {
-
-        if (!slider || !valueDisplay || !fill) {
-
-            console.error(
-                "ARM intensity control wiring failed.",
-                {
-                    slider: !!slider,
-                    valueDisplay: !!valueDisplay,
-                    fill: !!fill
-                }
-            );
-
-            return;
-        }
-
-        const intensity =
-            Number(slider.value);
-
-        valueDisplay.textContent =
-            `${intensity}%`;
-
-        fill.style.width =
-            `${intensity}%`;
-
-        if (typeof ARM_STATE !== "undefined") {
-
-            ARM_STATE.intensity =
-                intensity;
-        }
-
-        if (
-            typeof updateARMDomainMonitor ===
-            "function"
-        ) {
-
-            updateARMDomainMonitor();
-        }
-
-        console.log(
-            `ARM optimization intensity ACTIVE: ${intensity}%`
-        );
-    }
-
-    slider.addEventListener(
-        "input",
-        syncIntensity
-    );
-
-    slider.addEventListener(
-        "change",
-        syncIntensity
-    );
-
-    syncIntensity();
-
-});
-</script>
 
 </body>
 </html>
