@@ -1838,27 +1838,49 @@ VALIDATION / DECISION / AUDIT
 </footer>
 
 
-<!-- =========================================================
+<!-- 
+ =========================================================
      AUTHORITATIVE JAVASCRIPT LOAD ORDER
 ========================================================== -->
 
 <!--
-    BIODIESEL AUTHORITATIVE MODULES
+    SEXTANT PROTOCOL™ OPTIMIZER
+    AUTHORITATIVE LOCAL DETERMINISTIC MODULE LOAD ORDER
 
-    These modules are located at the repository root.
-    They must load BEFORE app.js.
+    IMPORTANT:
+    Biodiesel domain modules load BEFORE the ARM/UI orchestrator.
+
+    Operational boundary:
+    - Local deterministic simulation only
+    - Backend connection disabled
+    - Physical execution disabled
+    - Autonomous execution prohibited
+    - Human authorization required
 -->
 
+<!-- =========================================================
+     BIODIESEL AUTHORITATIVE MODULES
+========================================================== -->
+
 <script src="biodieselRules.js"></script>
+
 <script src="biodieselScenarioEngine.js"></script>
+
 <script src="biodieselTrialManoeuvre.js"></script>
+
 <script src="biodieselDomainIntegration.js"></script>
+
 
 <!-- =========================================================
      ARM / SCREEN ORCHESTRATOR
 ========================================================== -->
 
 <script src="assets/js/app.js"></script>
+
+
+<!-- =========================================================
+     END OF AUTHORITATIVE JAVASCRIPT LOAD ORDER
+========================================================== -->
 
 </body>
 </html>
