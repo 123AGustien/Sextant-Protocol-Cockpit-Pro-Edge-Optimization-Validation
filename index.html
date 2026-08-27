@@ -412,8 +412,511 @@
 <header>
 
     <h1>
-        🛰️  
-        adfghjk         
+        🛰️  <!-- =========================================================
+     SEXTANT PROTOCOL™ COCKPIT PRO
+     EDGE OPTIMIZATION / DEPLOYMENT VALIDATION
+========================================================= -->
+
+<section class="section">
+
+    <h2>🎛️ EDGE OPTIMIZATION CONTROLS</h2>
+
+    <div class="status-grid">
+
+        <button type="button"
+                onclick="runOptimizationSystem()">
+            ▶ RUN OPTIMIZATION
+        </button>
+
+        <button type="button"
+                onclick="runOptimizationSelfTest()">
+            🧪 RUN SELF-TEST
+        </button>
+
+        <button type="button"
+                onclick="runOptimizationTestAndCorrect()">
+            🛠️ SELF-TEST + CORRECTIVE ACTION
+        </button>
+
+        <button type="button"
+                onclick="runOptimizationIntegrationTest()">
+            🔌 RUN DOMAIN INTEGRATION TEST
+        </button>
+
+        <button type="button"
+                onclick="runOptimizationValidation()">
+            🔎 RUN VALIDATION
+        </button>
+
+        <button type="button"
+                onclick="resetOptimizationSystem()">
+            RESET OPTIMIZATION SYSTEM
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OPTIMIZATION INTENSITY
+========================================================= -->
+
+<section class="section">
+
+    <h2>🎛️ OPTIMIZATION INTENSITY</h2>
+
+    <p>
+        <strong>
+            Single source of truth for simulated workload
+        </strong>
+    </p>
+
+    <div class="slider-container">
+
+        <input
+            id="optimizationIntensity"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+        >
+
+        <div class="slider-labels">
+            <span>0%</span>
+            <span>25%</span>
+            <span>50%</span>
+            <span>75%</span>
+            <span>100%</span>
+        </div>
+
+        <div
+            id="intensityValue"
+            class="status-value">
+            50%
+        </div>
+
+        <div class="progress-track">
+            <div
+                id="fill"
+                class="progress-fill"
+                style="width:50%;">
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OPTIMIZATION SCENARIO CONTROL
+========================================================= -->
+
+<section class="section">
+
+    <h2>🎛️ OPTIMIZATION SCENARIO CONTROL</h2>
+
+    <p>
+        Deterministic scenario routing
+    </p>
+
+    <div class="status-grid">
+
+        <button type="button"
+                onclick="activateOptimizationScenario('NORMAL')">
+            NORMAL
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('QUANTIZATION_STRESS')">
+            QUANTIZATION STRESS
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('PRUNING_STRESS')">
+            PRUNING STRESS
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('GRAPH_OPTIMIZATION')">
+            GRAPH OPTIMIZATION
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('MEMORY_PRESSURE')">
+            MEMORY PRESSURE
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('KERNEL_STRESS')">
+            KERNEL STRESS
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('RUNTIME')">
+            RUNTIME
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('EDGE_LOAD')">
+            EDGE LOAD
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('LATENCY_STRESS')">
+            LATENCY STRESS
+        </button>
+
+        <button type="button"
+                onclick="activateOptimizationScenario('THERMAL_STRESS')">
+            THERMAL STRESS
+        </button>
+
+        <button type="button"
+                onclick="resetOptimizationScenario()">
+            RESET SCENARIO
+        </button>
+
+    </div>
+
+    <pre id="scenarioPanel">Waiting...</pre>
+
+</section>
+
+
+<!-- =========================================================
+     GOLDEN OPTIMIZATION PIPELINE
+========================================================= -->
+
+<section class="section">
+
+    <h2>🛰️ GOLDEN OPTIMIZATION PIPELINE</h2>
+
+    <div class="status-grid">
+
+        <div id="stageOBSERVE"
+             class="status-card">
+            OBSERVE
+        </div>
+
+        <div id="stageVERIFY"
+             class="status-card">
+            VERIFY
+        </div>
+
+        <div id="stageOPTIMIZE"
+             class="status-card">
+            OPTIMIZE
+        </div>
+
+        <div id="stageASSESS"
+             class="status-card">
+            ASSESS
+        </div>
+
+        <div id="stageVALIDATE"
+             class="status-card">
+            VALIDATE
+        </div>
+
+        <div id="stageUPDATE"
+             class="status-card">
+            UPDATE
+        </div>
+
+    </div>
+
+    <pre id="pipeline">Waiting...</pre>
+
+</section>
+
+
+<!-- =========================================================
+     EDGE OPTIMIZATION DOMAIN MONITOR
+========================================================= -->
+
+<section class="section">
+
+    <h2>📊 EDGE OPTIMIZATION DOMAIN MONITOR</h2>
+
+    <p>
+        Current simulated optimization intensity
+    </p>
+
+    <div class="status-grid">
+
+        <div class="status-card">
+            <span class="status-label">
+                QUANTIZATION
+            </span>
+            <span
+                id="domainQuantization"
+                class="status-value">
+                50
+            </span>
+        </div>
+
+        <div class="status-card">
+            <span class="status-label">
+                PRUNING
+            </span>
+            <span
+                id="domainPruning"
+                class="status-value">
+                50
+            </span>
+        </div>
+
+        <div class="status-card">
+            <span class="status-label">
+                GRAPH OPTIMIZATION
+            </span>
+            <span
+                id="domainGraph"
+                class="status-value">
+                50
+            </span>
+        </div>
+
+        <div class="status-card">
+            <span class="status-label">
+                MEMORY OPTIMIZATION
+            </span>
+            <span
+                id="domainMemory"
+                class="status-value">
+                50
+            </span>
+        </div>
+
+        <div class="status-card">
+            <span class="status-label">
+                KERNEL OPTIMIZATION
+            </span>
+            <span
+                id="domainKernel"
+                class="status-value">
+                50
+            </span>
+        </div>
+
+        <div class="status-card">
+            <span class="status-label">
+                RUNTIME EFFICIENCY
+            </span>
+            <span
+                id="domainRuntime"
+                class="status-value">
+                50
+            </span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DOMAIN INTEGRATION
+========================================================= -->
+
+<section class="section">
+
+    <h2>🔌 DOMAIN INTEGRATION LAYER</h2>
+
+    <pre id="domainIntegration">
+Domain integration test not executed.
+    </pre>
+
+</section>
+
+
+<!-- =========================================================
+     RAW SYSTEM STATE
+========================================================= -->
+
+<section class="section">
+
+    <h2>📊 RAW SYSTEM STATE</h2>
+
+    <pre id="state">Waiting...</pre>
+
+</section>
+
+
+<!-- =========================================================
+     SYSTEM ASSESSMENT
+========================================================= -->
+
+<section class="section">
+
+    <h2>⚠️ SYSTEM ASSESSMENT</h2>
+
+    <pre id="assessment">Waiting...</pre>
+
+</section>
+
+
+<!-- =========================================================
+     NEURALEDGE OPTIMIZATION DECISION
+========================================================= -->
+
+<section class="section">
+
+    <h2>🧠 NEURALEDGE OPTIMIZATION DECISION</h2>
+
+    <pre id="decision">Waiting...</pre>
+
+</section>
+
+
+<!-- =========================================================
+     SIMULATED OPTIMIZATION METRICS
+========================================================= -->
+
+<section class="section">
+
+    <h2>📈 SIMULATED OPTIMIZATION METRICS</h2>
+
+    <div class="status-grid">
+
+        <div class="status-card">
+            <span class="status-label">
+                Inference Cost Reduction
+            </span>
+            <span
+                id="costReduction"
+                class="status-value">
+                —
+            </span>
+        </div>
+
+        <div class="status-card">
+            <span class="status-label">
+                Throughput Increase
+            </span>
+            <span
+                id="throughput"
+                class="status-value">
+                —
+            </span>
+        </div>
+
+        <div class="status-card">
+            <span class="status-label">
+                Edge Efficiency Score
+            </span>
+            <span
+                id="efficiency"
+                class="status-value">
+                —
+            </span>
+        </div>
+
+    </div>
+
+    <p id="optimizationStatus">
+        WAITING
+    </p>
+
+</section>
+
+
+<!-- =========================================================
+     OPTIMIZATION VALIDATION
+========================================================= -->
+
+<section class="section">
+
+    <h2>🔎 OPTIMIZATION VALIDATION</h2>
+
+    <pre id="validation">
+Optimization validation not executed.
+    </pre>
+
+</section>
+
+
+<!-- =========================================================
+     SYSTEM SELF-TEST
+========================================================= -->
+
+<section class="section">
+
+    <h2>🧪 SYSTEM SELF-TEST</h2>
+
+    <pre id="selfTest">
+Self-test not executed.
+    </pre>
+
+</section>
+
+
+<section class="section">
+
+    <h3>🔎 SELF-TEST INTERPRETATION</h3>
+
+    <pre id="selfTestInterpretation">
+Waiting for self-test...
+    </pre>
+
+</section>
+
+
+<section class="section">
+
+    <h3>⚠️ FAULT IDENTIFICATION</h3>
+
+    <pre id="faultIdentification">
+No fault assessment available.
+    </pre>
+
+</section>
+
+
+<section class="section">
+
+    <h3>🛠️ CORRECTIVE ACTION</h3>
+
+    <pre id="correctiveAction">
+No corrective action available.
+    </pre>
+
+</section>
+
+
+<section class="section">
+
+    <h3>🔁 RE-TEST VALIDATION</h3>
+
+    <pre id="retest">
+Re-test not executed.
+    </pre>
+
+</section>
+
+
+<!-- =========================================================
+     EDGE AUDIT
+========================================================= -->
+
+<section class="section">
+
+    <h2>🧾 OPTIMIZATION AUDIT RECORD</h2>
+
+    <pre id="audit">[]</pre>
+
+    <h3>📜 OPTIMIZATION PIPELINE LOG</h3>
+
+    <pre id="pipelineLog">[]</pre>
+
+</section>
+        
+
+
+        
 
                 
     <!-- =====================================================
