@@ -1,3 +1,8 @@
+
+The Edge simulator tunes.
+The Latency simulator measures.
+The Biodiesel domain demonstrates portability into an Indonesian energy-resilience application.
+
 # 🛰️ SEXTANT PROTOCOL™ COCKPIT PRO
 ## Edge Optimization & Deployment Validation Platform
 
