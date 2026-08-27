@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Sextant Protocol™ Cockpit Pro — Edge Optimization and Deployment Validation Platform"
+>
+
+<title>
+    Sextant Protocol™ Cockpit Pro — Edge Optimization & Deployment Validation
+</title>
+
+<style>
+
+/* =========================================================
+   SEXTANT PROTOCOL™ COCKPIT PRO
+   EDGE OPTIMIZATION / DEPLOYMENT VALIDATION
+   SCREEN STYLING ONLY
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    background: #05090d;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+h1 {
+    margin: 8px 0;
+    text-align: center;
+    color: #00ff88;
+    font-size: 24px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 12px;
+}
+
+.simulator-banner {
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #00ff88;
+    border-radius: 6px;
+    background: #080d11;
+    color: #00ff88;
+    text-align: center;
+    font-weight: bold;
+}
+
+.status {
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #00ff88;
+    border-radius: 6px;
+    background: #080d11;
+    color: #00ff88;
+    text-align: center;
+    font-weight: bold;
+}
+
+.panel {
+    margin-bottom: 12px;
+    padding: 15px;
+    border: 1px solid #26343d;
+    border-radius: 8px;
+    background: #080d11;
+}
+
+.title {
+    margin-bottom: 10px;
+    color: #00ff88;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.muted {
+    color: #aaa;
+    font-size: 13px;
+}
+
+button {
+    min-height: 44px;
+    padding: 10px 14px;
+    border: 1px solid #00ff88;
+    border-radius: 6px;
+    background: #111a20;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #17242c;
+}
+
+button:active {
+    transform: scale(.98);
+}
+
+.control-buttons,
+.scenario-controls,
+.validation-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.self-test-button {
+    color: #00ff88;
+    border-color: #00ff88;
+}
+
+.corrective-button {
+    background: #ffb000;
+    color: #000;
+    border-color: #ffb000;
+}
+
+.danger {
+    background: #ff5555;
+    color: #fff;
+    border-color: #ff5555;
+}
+
+.scenario-button {
+    color: #00ff88;
+    border-color: #00ff88;
+}
+
+.monitor {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.domain {
+    padding: 12px;
+    border: 1px solid #00ff88;
+    border-radius: 6px;
+    background: #080d11;
+    text-align: center;
+}
+
+.domain-name {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.domain-value {
+    margin-top: 5px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.pipeline {
+    padding: 10px;
+    border: 1px solid #00ff88;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.stage {
+    display: inline-block;
+    margin: 3px;
+    padding: 8px;
+    border: 1px solid #00ff88;
+    border-radius: 4px;
+}
+
+.stage.active {
+    background: #00ff88;
+    color: #000;
+}
+
+input[type="range"] {
+    width: 100%;
+    min-height: 30px;
+    accent-color: #00ff88;
+    cursor: pointer;
+}
+
+.intensity-value {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background: #18232a;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #00ff88;
+}
+
+pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+    color: #00ff88;
+    line-height: 1.5;
+}
+
+.solution {
+    margin-top: 8px;
+    padding: 10px;
+    border-left: 3px solid #00ff88;
+    background: #080d11;
+    white-space: pre-wrap;
+}
+
+.domain-integration {
+    border: 1px solid #00bfff;
+    background: #080d11;
+}
+
+.execution-boundary {
+    border: 2px solid #ffb000;
+    padding: 15px;
+    border-radius: 8px;
+    background: #080d11;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    .panel {
+        padding: 12px;
+    }
+
+    .control-buttons,
+    .scenario-controls,
+    .validation-controls {
+        flex-direction: column;
+    }
+
+    .control-buttons button,
+    .scenario-controls button,
+    .validation-controls button {
+        width: 100%;
+        min-height: 52px;
+    }
+
+    .pipeline {
+        white-space: normal;
+        line-height: 2;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<h1>
+    🛰️ SEXTANT PROTOCOL™ COCKPIT PRO
+</h1>
+
+<div class="subtitle">
+
+    <strong>
+        Edge Optimization & Deployment Validation Platform
+    </strong>
+
+    <br>
+
+    Independent AI optimization,
+    benchmarking and deployment-efficiency research
+
+    <br><br>
+
+    OBSERVE → VERIFY → OPTIMIZE → ASSESS → VALIDATE → UPDATE
+
+</div>
+
+
+<div class="simulator-banner">
+
+    🧪 SELF-CONTAINED SIMULATOR —
+    LOCAL DETERMINISTIC EXECUTION —
+    NO BACKEND CONNECTION
+
+</div>
+
+
+<div
+    class="status"
+    id="systemStatus"
+>
+    SYSTEM STATUS: READY — EDGE OPTIMIZATION
+</div>
+
+
+<!-- =====================================================
+     EDGE OPTIMIZATION CONTROLS
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🎛️ EDGE OPTIMIZATION CONTROLS
+    </div>
+
+    <div class="control-buttons">
+
+        <button
+            type="button"
+            onclick="runOptimizationSystem()"
+        >
+            ▶ RUN OPTIMIZATION
+        </button>
+
+        <button
+            type="button"
+            class="self-test-button"
+            onclick="runOptimizationSelfTest()"
+        >
+            🧪 RUN SELF-TEST
+        </button>
+
+        <button
+            type="button"
+            class="corrective-button"
+            onclick="runOptimizationTestAndCorrect()"
+        >
+            🛠️ SELF-TEST + CORRECTIVE ACTION
+        </button>
+
+        <button
+            type="button"
+            onclick="runOptimizationIntegrationTest()"
+        >
+            🔌 RUN DOMAIN INTEGRATION TEST
+        </button>
+
+        <button
+            type="button"
+            onclick="runOptimizationValidation()"
+        >
+            🔎 RUN VALIDATION
+        </button>
+
+        <button
+            type="button"
+            class="danger"
+            onclick="resetOptimizationSystem()"
+        >
+            RESET OPTIMIZATION SYSTEM
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OPTIMIZATION INTENSITY
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🎛️ OPTIMIZATION INTENSITY
+    </div>
+
+    <p>
+        <strong>
+            Single source of truth for simulated workload
+        </strong>
+    </p>
+
+    <input
+        id="optimizationIntensity"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value="50"
+        oninput="updateOptimizationIntensity()"
+    >
+
+    <div class="muted">
+        0% &nbsp;
+        25% &nbsp;
+        50% &nbsp;
+        75% &nbsp;
+        100%
+    </div>
+
+    <div
+        id="intensityValue"
+        class="intensity-value"
+    >
+        50%
+    </div>
+
+    <div class="progress-track">
+
+        <div
+            id="fill"
+            class="progress-fill"
+            style="width:50%;"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OPTIMIZATION SCENARIO CONTROL
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🎛️ OPTIMIZATION SCENARIO CONTROL
+    </div>
+
+    <div class="muted">
+        Deterministic scenario routing
+    </div>
+
+    <br>
+
+    <div class="scenario-controls">
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('NORMAL')"
+        >
+            NORMAL
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('QUANTIZATION_STRESS')"
+        >
+            QUANTIZATION STRESS
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('PRUNING_STRESS')"
+        >
+            PRUNING STRESS
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('GRAPH_OPTIMIZATION')"
+        >
+            GRAPH OPTIMIZATION
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('MEMORY_PRESSURE')"
+        >
+            MEMORY PRESSURE
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('KERNEL_STRESS')"
+        >
+            KERNEL STRESS
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('RUNTIME')"
+        >
+            RUNTIME
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('EDGE_LOAD')"
+        >
+            EDGE LOAD
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('LATENCY_STRESS')"
+        >
+            LATENCY STRESS
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateOptimizationScenario('THERMAL_STRESS')"
+        >
+            THERMAL STRESS
+        </button>
+
+        <button
+            type="button"
+            class="danger"
+            onclick="resetOptimizationScenario()"
+        >
+            RESET SCENARIO
+        </button>
+
+    </div>
+
+    <br>
+
+    <pre id="scenarioPanel">Waiting...</pre>
+
+</section>
+
+
+<!-- =====================================================
+     GOLDEN OPTIMIZATION PIPELINE
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🛰️ GOLDEN OPTIMIZATION PIPELINE
+    </div>
+
+    <div class="pipeline">
+
+        <span
+            id="stageOBSERVE"
+            class="stage"
+        >
+            OBSERVE
+        </span>
+
+        →
+
+        <span
+            id="stageVERIFY"
+            class="stage"
+        >
+            VERIFY
+        </span>
+
+        →
+
+        <span
+            id="stageOPTIMIZE"
+            class="stage"
+        >
+            OPTIMIZE
+        </span>
+
+        →
+
+        <span
+            id="stageASSESS"
+            class="stage"
+        >
+            ASSESS
+        </span>
+
+        →
+
+        <span
+            id="stageVALIDATE"
+            class="stage"
+        >
+            VALIDATE
+        </span>
+
+        →
+
+        <span
+            id="stageUPDATE"
+            class="stage"
+        >
+            UPDATE
+        </span>
+
+    </div>
+
+    <br>
+
+    <pre id="pipeline">
+Optimization pipeline waiting...
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     EDGE OPTIMIZATION DOMAIN MONITOR
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        📊 EDGE OPTIMIZATION DOMAIN MONITOR
+    </div>
+
+    <div class="muted">
+        Current simulated optimization intensity
+    </div>
+
+    <br>
+
+    <div class="monitor">
+
+        <div class="domain">
+            <div class="domain-name">
+                QUANTIZATION
+            </div>
+            <div
+                id="domainQuantization"
+                class="domain-value"
+            >
+                50
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                PRUNING
+            </div>
+            <div
+                id="domainPruning"
+                class="domain-value"
+            >
+                50
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                GRAPH OPTIMIZATION
+            </div>
+            <div
+                id="domainGraph"
+                class="domain-value"
+            >
+                50
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                MEMORY OPTIMIZATION
+            </div>
+            <div
+                id="domainMemory"
+                class="domain-value"
+            >
+                50
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                KERNEL OPTIMIZATION
+            </div>
+            <div
+                id="domainKernel"
+                class="domain-value"
+            >
+                50
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                RUNTIME EFFICIENCY
+            </div>
+            <div
+                id="domainRuntime"
+                class="domain-value"
+            >
+                50
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DOMAIN INTEGRATION
+====================================================== -->
+
+<section class="panel domain-integration">
+
+    <div class="title">
+        🔌 DOMAIN INTEGRATION LAYER
+    </div>
+
+    <pre id="domainIntegration">
+Sextant Protocol™ Cockpit Pro
+        ↓
+LOCAL DOMAIN INTEGRATION
+        ↓
+EDGE OPTIMIZATION
+        ↓
+NEURALEDGE DECISION SUPPORT
+        ↓
+OPTIMIZATION PIPELINE
+        ↓
+RESULT / VALIDATION / AUDIT
+
+Domain integration test not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     RAW SYSTEM STATE
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        📊 RAW SYSTEM STATE
+    </div>
+
+    <pre id="state">
+Waiting...
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     SYSTEM ASSESSMENT
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        ⚠️ SYSTEM ASSESSMENT
+    </div>
+
+    <pre id="assessment">
+Waiting...
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     NEURALEDGE OPTIMIZATION DECISION
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🧠 NEURALEDGE OPTIMIZATION DECISION
+    </div>
+
+    <pre id="decision">
+Waiting...
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     SIMULATED OPTIMIZATION METRICS
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        📈 SIMULATED OPTIMIZATION METRICS
+    </div>
+
+    <div class="monitor">
+
+        <div class="domain">
+
+            <div class="domain-name">
+                INFERENCE COST REDUCTION
+            </div>
+
+            <div
+                id="costReduction"
+                class="domain-value"
+            >
+                —
+            </div>
+
+        </div>
+
+        <div class="domain">
+
+            <div class="domain-name">
+                THROUGHPUT INCREASE
+            </div>
+
+            <div
+                id="throughput"
+                class="domain-value"
+            >
+                —
+            </div>
+
+        </div>
+
+        <div class="domain">
+
+            <div class="domain-name">
+                EDGE EFFICIENCY SCORE
+            </div>
+
+            <div
+                id="efficiency"
+                class="domain-value"
+            >
+                —
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <strong id="optimizationStatus">
+        WAITING
+    </strong>
+
+</section>
+
+
+<!-- =====================================================
+     OPTIMIZATION VALIDATION
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🔎 OPTIMIZATION VALIDATION
+    </div>
+
+    <pre id="validation">
+Optimization validation not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     SYSTEM SELF-TEST
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🧪 SYSTEM SELF-TEST
+    </div>
+
+    <pre id="selfTest">
+Self-test not executed.
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        🔎 SELF-TEST INTERPRETATION
+    </div>
+
+    <pre id="selfTestInterpretation">
+Waiting for self-test...
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        ⚠️ FAULT IDENTIFICATION
+    </div>
+
+    <pre id="faultIdentification">
+No fault assessment available.
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        🛠️ CORRECTIVE ACTION
+    </div>
+
+    <pre id="correctiveAction">
+No corrective action available.
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        🔁 RE-TEST VALIDATION
+    </div>
+
+    <pre id="retest">
+Re-test not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     EDGE AUDIT
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🧾 OPTIMIZATION AUDIT RECORD
+    </div>
+
+    <pre id="audit">[]</pre>
+
+    <br>
+
+    <div class="title">
+        📜 OPTIMIZATION PIPELINE LOG
+    </div>
+
+    <pre id="pipelineLog">[]</pre>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL ENERGY RESILIENCE MODULE
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🛢️ BIODIESEL ENERGY RESILIENCE MODULE
+    </div>
+
+    <div class="subtitle">
+        ⚡ SEXTANT PROTOCOL™ ENERGY DOMAIN
+    </div>
+
+    <pre>
+BIODIESEL COCKPIT
+        ↓
+BIODIESEL DOMAIN INTEGRATION
+        ↓
+BIODIESEL RULE ENGINE
+        ↓
+BIODIESEL SCENARIO ENGINE
+        ↓
+TRIAL MANOEUVRE ENGINE
+        ↓
+VALIDATION / DECISION / AUDIT
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL STATUS
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🛢️ BIODIESEL MODULE STATUS
+    </div>
+
+    <div class="monitor">
+
+        <div class="domain">
+            <div class="domain-name">
+                ENERGY DOMAIN
+            </div>
+            <div
+                id="biodieselEnergyDomain"
+                class="domain-value"
+            >
+                READY
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                RULE ENGINE
+            </div>
+            <div
+                id="biodieselRuleEngine"
+                class="domain-value"
+            >
+                CONNECTED
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                SCENARIO ENGINE
+            </div>
+            <div
+                id="biodieselScenarioEngine"
+                class="domain-value"
+            >
+                CONNECTED
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                TRIAL MANOEUVRE
+            </div>
+            <div
+                id="biodieselTrialEngine"
+                class="domain-value"
+            >
+                CONNECTED
+            </div>
+        </div>
+
+        <div class="domain">
+            <div class="domain-name">
+                INTEGRATION
+            </div>
+            <div
+                id="biodieselIntegration"
+                class="domain-value"
+            >
+                UNAVAILABLE
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL SCENARIO CONTROL
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🛢️ BIODIESEL SCENARIO CONTROL
+    </div>
+
+    <div class="muted">
+        Deterministic energy-resilience scenario routing
+    </div>
+
+    <br>
+
+    <div class="scenario-controls">
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateBiodieselScenario('BIODIESEL_SHORTAGE')"
+        >
+            BIODIESEL SHORTAGE
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateBiodieselScenario('FUEL_SUPPLY_DISRUPTION')"
+        >
+            FUEL SUPPLY DISRUPTION
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateBiodieselScenario('ENERGY_STRESS')"
+        >
+            ENERGY STRESS
+        </button>
+
+        <button
+            type="button"
+            class="scenario-button"
+            onclick="activateBiodieselScenario('SUPPLY_CHAIN_STRESS')"
+        >
+            SUPPLY CHAIN STRESS
+        </button>
+
+    </div>
+
+    <br>
+
+    <pre id="biodieselScenarioPanel">
+Biodiesel scenario not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL VALIDATION CONTROL
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🧪 BIODIESEL VALIDATION CONTROL
+    </div>
+
+    <div class="validation-controls">
+
+        <button
+            type="button"
+            onclick="runBiodieselIntegrationTest()"
+        >
+            🔌 RUN INTEGRATION TEST
+        </button>
+
+        <button
+            type="button"
+            class="self-test-button"
+            onclick="runBiodieselSelfTest()"
+        >
+            🧪 RUN SELF-TEST
+        </button>
+
+        <button
+            type="button"
+            class="corrective-button"
+            onclick="runBiodieselSelfTestAndCorrect()"
+        >
+            🛠️ SELF-TEST + CORRECTIVE ACTION
+        </button>
+
+        <button
+            type="button"
+            onclick="runBiodieselTrialManoeuvre()"
+        >
+            ⚓ RUN BIODIESEL TRIAL MANOEUVRE
+        </button>
+
+        <button
+            type="button"
+            onclick="validateBiodieselTrialManoeuvre()"
+        >
+            🔎 VALIDATE TRIAL MANOEUVRE
+        </button>
+
+        <button
+            type="button"
+            class="danger"
+            onclick="resetBiodiesel()"
+        >
+            RESET BIODIESEL
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL DOMAIN INTEGRATION
+====================================================== -->
+
+<section class="panel domain-integration">
+
+    <div class="title">
+        🔌 BIODIESEL DOMAIN INTEGRATION
+    </div>
+
+    <pre id="biodieselDomainIntegration">
+Biodiesel domain integration test not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL SELF-TEST
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🧪 BIODIESEL SELF-TEST
+    </div>
+
+    <pre id="biodieselSelfTest">
+Biodiesel self-test not executed.
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        🔎 BIODIESEL SELF-TEST INTERPRETATION
+    </div>
+
+    <pre id="biodieselSelfTestInterpretation">
+Waiting for Biodiesel self-test...
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        ⚠️ BIODIESEL FAULT IDENTIFICATION
+    </div>
+
+    <pre id="biodieselFaultIdentification">
+No Biodiesel integration fault assessment available.
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        🛠️ BIODIESEL CORRECTIVE ACTION
+    </div>
+
+    <pre id="biodieselCorrectiveAction">
+No corrective action available.
+    </pre>
+
+</section>
+
+
+<section class="panel">
+
+    <div class="title">
+        🔁 BIODIESEL RE-TEST VALIDATION
+    </div>
+
+    <pre id="biodieselRetest">
+Biodiesel re-test not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL TRIAL MANOEUVRE
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        ⚓ BIODIESEL TRIAL MANOEUVRE
+    </div>
+
+    <div class="muted">
+        Controlled deterministic trial manoeuvre simulation.
+    </div>
+
+    <br>
+
+    <div class="solution">
+
+✓ Simulation only
+✓ No physical engine command
+✓ No vessel actuation
+✓ No external system connection
+✓ Human/operator authority required
+
+    </div>
+
+    <br>
+
+    <pre id="biodieselTrialManoeuvre">
+Biodiesel trial manoeuvre not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL TRIAL VALIDATION
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🔎 BIODIESEL TRIAL VALIDATION
+    </div>
+
+    <pre id="biodieselValidation">
+Biodiesel validation not executed.
+    </pre>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL AUDIT
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🧾 BIODIESEL AUDIT RECORD
+    </div>
+
+    <pre id="biodieselAudit">[]</pre>
+
+    <br>
+
+    <div class="title">
+        📜 BIODIESEL PIPELINE LOG
+    </div>
+
+    <pre id="biodieselPipelineLog">[]</pre>
+
+</section>
+
+
+<!-- =====================================================
+     EXECUTION SAFETY BOUNDARY
+====================================================== -->
+
+<section class="panel">
+
+    <div class="title">
+        🛡️ EXECUTION SAFETY BOUNDARY
+    </div>
+
+    <div class="execution-boundary">
+
+✓ LOCAL DETERMINISTIC SIMULATION
+
+✓ BACKEND CONNECTION DISABLED
+
+✓ PHYSICAL EXECUTION DISABLED
+
+✓ VESSEL ACTUATION DISABLED
+
+✓ EXTERNAL CONNECTION DISABLED
+
+✓ HUMAN AUTHORIZATION REQUIRED
+
+    </div>
+
+</section>
+
+
+<footer class="panel">
+
+    <div class="title">
+        Sextant Protocol™ Cockpit Pro
+    </div>
+
+    Edge Optimization & Deployment Validation Platform
+
+    <br>
+
+    Independent AI optimization,
+    benchmarking and deployment-efficiency research
+
+    <br><br>
+
+    OBSERVE → VERIFY → OPTIMIZE → ASSESS → VALIDATE → UPDATE
+
+    <br>
+
+    Local deterministic simulation only.
+
+    <br>
+
+    No backend connection.
+
+    <br>
+
+    No autonomous physical execution.
+
+    <br>
+
+    Human authorization required.
+
+</footer>
+
+
+<!-- =====================================================
+     AUTHORITATIVE JAVASCRIPT LOAD ORDER
+====================================================== -->
+
+<!--
+    SEXTANT PROTOCOL™ COCKPIT PRO
+
+    LOCAL DETERMINISTIC MODULE LOAD ORDER
+
+    BIODIESEL:
+    RULES
+    → RULE ENGINE
+    → SCENARIO ENGINE
+    → TRIAL MANOEUVRE
+    → MODULE VALIDATION
+    → DOMAIN INTEGRATION
+    → UI ORCHESTRATOR
+
+    EDGE:
+    OPTIMIZATION STATE
+    → OPTIMIZATION SCENARIO
+    → OPTIMIZATION PIPELINE
+    → ASSESSMENT
+    → VALIDATION
+    → AUDIT
+
+    OPERATIONAL BOUNDARY:
+    - Local deterministic simulation only
+    - Backend connection disabled
+    - Physical execution disabled
+    - Autonomous execution prohibited
+    - Human authorization required
+-->
+
+
+<!-- =====================================================
+     BIODIESEL AUTHORITATIVE MODULES
+====================================================== -->
+
+<script src="biodieselRules.js"></script>
+
+<script src="biodieselRuleEngine.js"></script>
+
+<script src="biodieselScenarioEngine.js"></script>
+
+<script src="biodieselTrialManoeuvre.js"></script>
+
+<script src="biodieselModule.js"></script>
+
+<script src="biodieselDomainIntegration.js"></script>
+
+
+<!-- =====================================================
+     EDGE OPTIMIZATION UI ORCHESTRATOR
+====================================================== -->
+
+<script src="assets/js/app.js"></script>
+
+
+<!-- =====================================================
+     END OF AUTHORITATIVE JAVASCRIPT LOAD ORDER
+====================================================== -->
+
+</body>
+</html>
