@@ -1610,4 +1610,224 @@ VALIDATION / DECISION / AUDIT
     </div>
 
 </section>
+    <!-- =====================================================
+     BIODIESEL ENERGY RESILIENCE MODULE
+====================================================== -->
+
+<section class="section biodiesel">
+
+    <h2>
+        🛢️ BIODIESEL ENERGY RESILIENCE MODULE
+    </h2>
+
+    <p>
+        ⚡ SEXTANT PROTOCOL™ ENERGY DOMAIN
+    </p>
+
+    <div class="output">
+
+BIODIESEL COCKPIT
+        ↓
+BIODIESEL DOMAIN INTEGRATION
+        ↓
+BIODIESEL RULE ENGINE
+        ↓
+BIODIESEL SCENARIO ENGINE
+        ↓
+TRIAL MANOEUVRE ENGINE
+        ↓
+VALIDATION / DECISION / AUDIT
+
+    </div>
+
+    <br>
+
+    <div class="status-grid">
+
+        <div class="status-card">
+
+            <span class="status-label">
+                Energy Domain
+            </span>
+
+            <span
+                id="biodieselDomainStatus"
+                class="status-value ready"
+            >
+                READY
+            </span>
+
+        </div>
+
+        <div class="status-card">
+
+            <span class="status-label">
+                Rule Engine
+            </span>
+
+            <span
+                id="biodieselRuleEngineStatus"
+                class="status-value ready"
+            >
+                CONNECTED
+            </span>
+
+        </div>
+
+        <div class="status-card">
+
+            <span class="status-label">
+                Scenario Engine
+            </span>
+
+            <span
+                id="biodieselScenarioEngineStatus"
+                class="status-value ready"
+            >
+                CONNECTED
+            </span>
+
+        </div>
+
+        <div class="status-card">
+
+            <span class="status-label">
+                Trial Manoeuvre Engine
+            </span>
+
+            <span
+                id="biodieselTrialEngineStatus"
+                class="status-value ready"
+            >
+                CONNECTED
+            </span>
+
+        </div>
+
+        <div class="status-card">
+
+            <span class="status-label">
+                Integration
+            </span>
+
+            <span
+                id="biodieselIntegrationStatus"
+                class="status-value warning"
+            >
+                UNAVAILABLE
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL SCENARIO CONTROL
+====================================================== -->
+
+<section class="section biodiesel">
+
+    <h2>
+        🛢️ BIODIESEL SCENARIO CONTROL
+    </h2>
+
+    <p>
+        Deterministic energy-resilience scenario routing
+    </p>
+
+    <div class="scenario-grid">
+
+        <button
+            onclick="runBiodieselScenario('BIODIESEL_SHORTAGE')"
+        >
+            BIODIESEL SHORTAGE
+        </button>
+
+        <button
+            onclick="runBiodieselScenario('FUEL_SUPPLY_DISRUPTION')"
+        >
+            FUEL SUPPLY DISRUPTION
+        </button>
+
+        <button
+            onclick="runBiodieselScenario('ENERGY_STRESS')"
+        >
+            ENERGY STRESS
+        </button>
+
+        <button
+            onclick="runBiodieselScenario('SUPPLY_CHAIN_STRESS')"
+        >
+            SUPPLY CHAIN STRESS
+        </button>
+
+    </div>
+
+    <br>
+
+    <div
+        id="biodieselScenarioResult"
+        class="output"
+    >
+        Biodiesel scenario not executed.
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BIODIESEL VALIDATION CONTROL
+====================================================== -->
+
+<section class="section biodiesel">
+
+    <h2>
+        🧪 BIODIESEL VALIDATION CONTROL
+    </h2>
+
+    <div class="control-grid">
+
+        <button
+            onclick="runBiodieselIntegrationTest()"
+        >
+            🔌 RUN INTEGRATION TEST
+        </button>
+
+        <button
+            onclick="runBiodieselSelfTest()"
+        >
+            🧪 RUN SELF-TEST
+        </button>
+
+        <button
+            onclick="runBiodieselTestAndCorrect()"
+        >
+            🛠️ SELF-TEST + CORRECTIVE ACTION
+        </button>
+
+        <button
+            onclick="runBiodieselTrialManoeuvre()"
+        >
+            ⚓ RUN BIODIESEL TRIAL MANOEUVRE
+        </button>
+
+        <button
+            onclick="validateBiodieselTrialManoeuvre()"
+        >
+            🔎 VALIDATE TRIAL MANOEUVRE
+        </button>
+
+        <button
+            class="danger-button"
+            onclick="resetBiodieselTrialManoeuvre()"
+        >
+            RESET BIODIESEL
+        </button>
+
+    </div>
+
+</section>
     
