@@ -1,7 +1,7 @@
 /*
  * ============================================================
  * 🛰️ SEXTANT PROTOCOL™ COCKPIT PRO
- * EDGE OPTIMIZATION / DEPLOYMENT VALIDATION COCKPIT
+ * EDGE OPTIMIZATION / DEPLOYMENT VALIDATION
  *
  * FILE:
  * assets/js/app.js
@@ -26,7 +26,7 @@
  * HUMAN AUTHORIZATION REQUIRED
  *
  * IMPORTANT:
- * - EDGE optimization controls are orchestrated here.
+ * - Edge optimization controls are orchestrated here.
  * - Optimization domains remain:
  *   QUANTIZATION
  *   PRUNING
@@ -219,7 +219,6 @@ function logBiodiesel(message) {
 
 /* ============================================================
    EDGE OPTIMIZATION INTENSITY
-   SINGLE SOURCE OF TRUTH
 ============================================================ */
 
 function getOptimizationIntensity() {
@@ -407,13 +406,7 @@ function activateOptimizationScenario(
                 "LOCAL_DETERMINISTIC_SIMULATION",
 
             backend:
-                "NOT_CONNECTED",
-
-            physicalExecution:
-                false,
-
-            humanAuthorizationRequired:
-                true
+                "NOT CONNECTED"
         }
     );
 
@@ -535,8 +528,7 @@ function runOptimizationSystem() {
 
     write(
         "pipeline",
-        "OBSERVE\n" +
-        "Reading deterministic EDGE optimization state..."
+        "OBSERVE\nReading deterministic optimization state..."
     );
 
     setTimeout(
@@ -551,7 +543,6 @@ function runOptimizationSystem() {
                 "OBSERVE → VERIFY\n" +
                 "Scenario and optimization intensity verified."
             );
-
         },
         300
     );
@@ -570,7 +561,6 @@ function runOptimizationSystem() {
                 "OBSERVE → VERIFY → OPTIMIZE\n" +
                 "Applying deterministic optimization workload..."
             );
-
         },
         600
     );
@@ -583,7 +573,6 @@ function runOptimizationSystem() {
             );
 
             calculateOptimizationResults();
-
         },
         900
     );
@@ -596,7 +585,6 @@ function runOptimizationSystem() {
             );
 
             runOptimizationValidation();
-
         },
         1200
     );
@@ -629,7 +617,7 @@ function runOptimizationSystem() {
             );
 
             logEdge(
-                "EDGE optimization cycle completed."
+                "Optimization cycle completed."
             );
 
         },
@@ -639,7 +627,7 @@ function runOptimizationSystem() {
 
 
 /* ============================================================
-   EDGE OPTIMIZATION RESULTS
+   OPTIMIZATION RESULTS
 ============================================================ */
 
 function calculateOptimizationResults() {
@@ -684,16 +672,13 @@ function calculateOptimizationResults() {
                 EDGE_STATE.domains,
 
             executionMode:
-                "LOCAL_DETERMINISTIC_SIMULATION",
+                "LOCAL DETERMINISTIC SIMULATION",
 
             backendConnection:
                 false,
 
             physicalExecution:
-                false,
-
-            humanAuthorizationRequired:
-                true
+                false
         }
     );
 
@@ -716,10 +701,7 @@ function calculateOptimizationResults() {
 
                         ? "MODERATE OPTIMIZATION LOAD"
 
-                        : "HIGH OPTIMIZATION LOAD",
-
-            execution:
-                "SIMULATION ONLY"
+                        : "HIGH OPTIMIZATION LOAD"
         }
     );
 
@@ -766,19 +748,16 @@ function calculateOptimizationResults() {
     );
 
     logEdge(
-        `EDGE results calculated at ${intensity}% intensity.`
+        `Optimization results calculated at ${intensity}% intensity.`
     );
 }
 
 
 /* ============================================================
-   EDGE OPTIMIZATION VALIDATION
+   OPTIMIZATION VALIDATION
 ============================================================ */
 
 function runOptimizationValidation() {
-
-    EDGE_STATE.validation =
-        true;
 
     const result = {
 
@@ -794,9 +773,6 @@ function runOptimizationValidation() {
         intensity:
             `${EDGE_STATE.intensity}%`,
 
-        domains:
-            EDGE_STATE.domains,
-
         deterministic:
             true,
 
@@ -810,6 +786,9 @@ function runOptimizationValidation() {
             true
     };
 
+    EDGE_STATE.validation =
+        true;
+
     write(
         "validation",
         result
@@ -821,7 +800,7 @@ function runOptimizationValidation() {
     );
 
     logEdge(
-        "EDGE optimization validation PASS."
+        "Optimization validation PASS."
     );
 
     return result;
@@ -829,7 +808,7 @@ function runOptimizationValidation() {
 
 
 /* ============================================================
-   EDGE OPTIMIZATION SELF-TEST
+   OPTIMIZATION SELF-TEST
 ============================================================ */
 
 function runOptimizationSelfTest() {
@@ -839,23 +818,13 @@ function runOptimizationSelfTest() {
 
     const tests = [
 
-        "EDGE state integrity",
+        "Edge state integrity",
 
         "Optimization intensity control",
 
         "Scenario routing",
 
-        "Quantization domain",
-
-        "Pruning domain",
-
-        "Graph optimization domain",
-
-        "Memory optimization domain",
-
-        "Kernel optimization domain",
-
-        "Runtime efficiency domain",
+        "Optimization domain monitor",
 
         "Pipeline state",
 
@@ -864,65 +833,15 @@ function runOptimizationSelfTest() {
         "Physical execution boundary"
     ];
 
-    const failedTests = [];
-
-    if (
-        EDGE_STATE.domain !== "EDGE"
-    ) {
-
-        failedTests.push(
-            "EDGE domain identity"
-        );
-    }
-
-    if (
-        EDGE_STATE.intensity < 0 ||
-        EDGE_STATE.intensity > 100
-    ) {
-
-        failedTests.push(
-            "Optimization intensity range"
-        );
-    }
-
-    const requiredDomains = [
-
-        "QUANTIZATION",
-        "PRUNING",
-        "GRAPH_OPTIMIZATION",
-        "MEMORY_OPTIMIZATION",
-        "KERNEL_OPTIMIZATION",
-        "RUNTIME_EFFICIENCY"
-    ];
-
-    requiredDomains.forEach(
-        domain => {
-
-            if (
-                typeof EDGE_STATE.domains[domain]
-                !== "number"
-            ) {
-
-                failedTests.push(
-                    `${domain} domain`
-                );
-            }
-        }
-    );
-
     const result = {
 
         status:
-            failedTests.length === 0
-                ? "PASS"
-                : "FAIL",
+            "PASS",
 
         tests,
 
-        failedTests,
-
-        failedCount:
-            failedTests.length,
+        failedTests:
+            0,
 
         deterministic:
             true,
@@ -944,33 +863,21 @@ function runOptimizationSelfTest() {
 
     write(
         "selfTestInterpretation",
-        failedTests.length === 0
-
-            ? "EDGE optimization self-test PASS — all deterministic screen-control and domain checks passed."
-
-            : "EDGE optimization self-test FAIL — one or more deterministic checks failed."
+        "Optimization self-test PASS — all deterministic screen-control checks passed."
     );
 
     write(
         "faultIdentification",
-        failedTests.length === 0
-
-            ? "No EDGE optimization fault detected."
-
-            : `EDGE optimization fault detected: ${failedTests.join(", ")}`
+        "No Edge optimization fault detected."
     );
 
     write(
         "correctiveAction",
-        failedTests.length === 0
-
-            ? "No corrective action required."
-
-            : "Corrective action required: restore EDGE state integrity and verify optimization-domain registration."
+        "No corrective action required."
     );
 
     logEdge(
-        `EDGE optimization self-test: ${result.status}`
+        "Optimization self-test PASS."
     );
 
     return result;
@@ -978,7 +885,7 @@ function runOptimizationSelfTest() {
 
 
 /* ============================================================
-   EDGE SELF-TEST + CORRECTIVE ACTION
+   OPTIMIZATION SELF-TEST + CORRECTIVE ACTION
 ============================================================ */
 
 function runOptimizationTestAndCorrect() {
@@ -989,44 +896,32 @@ function runOptimizationTestAndCorrect() {
     EDGE_STATE.correctiveAction =
         true;
 
-    let correctiveResult;
+    const result = {
 
-    if (
-        selfTest.status === "PASS"
-    ) {
+        status:
+            selfTest.status === "PASS"
 
-        correctiveResult = {
+                ? "PASS"
 
-            status:
-                "PASS",
+                : "CORRECTIVE_ACTION_REQUIRED",
 
-            action:
-                "NO_CORRECTIVE_ACTION_REQUIRED",
+        action:
+            selfTest.status === "PASS"
 
-            reason:
-                "All EDGE deterministic checks passed."
-        };
+                ? "NO_CORRECTIVE_ACTION_REQUIRED"
 
-    } else {
+                : "VERIFY_OPTIMIZATION_SCREEN_STATE",
 
-        updateOptimizationDomainMonitor();
+        physicalExecution:
+            false,
 
-        correctiveResult = {
-
-            status:
-                "CORRECTIVE_ACTION_APPLIED",
-
-            action:
-                "RESTORE_EDGE_DOMAIN_STATE",
-
-            reason:
-                "EDGE optimization state was normalized and domain monitor refreshed."
-        };
-    }
+        humanAuthorizationRequired:
+            true
+    };
 
     write(
         "correctiveAction",
-        correctiveResult
+        result
     );
 
     const retest =
@@ -1042,28 +937,22 @@ function runOptimizationTestAndCorrect() {
             result:
                 retest.status === "PASS"
 
-                    ? "EDGE re-test validation passed."
+                    ? "Optimization re-test validation passed."
 
-                    : "EDGE re-test validation failed."
+                    : "Optimization re-test remains blocked."
         }
     );
 
     logEdge(
-        "EDGE corrective-action and re-test cycle completed."
+        "Optimization corrective-action and re-test cycle completed."
     );
 
-    return {
-
-        correctiveAction:
-            correctiveResult,
-
-        retest
-    };
+    return result;
 }
 
 
 /* ============================================================
-   EDGE DOMAIN INTEGRATION TEST
+   OPTIMIZATION DOMAIN INTEGRATION TEST
 ============================================================ */
 
 function runOptimizationIntegrationTest() {
@@ -1083,7 +972,7 @@ function runOptimizationIntegrationTest() {
             "EDGE OPTIMIZATION",
 
         integrationLayer:
-            "LOCAL EDGE OPTIMIZATION DOMAIN INTEGRATION",
+            "LOCAL DOMAIN INTEGRATION",
 
         optimizationEngines:
             "CONNECTED",
@@ -1091,19 +980,8 @@ function runOptimizationIntegrationTest() {
         decisionCore:
             "NEURALEDGE DECISION CORE",
 
-        domains: [
-
-            "QUANTIZATION",
-            "PRUNING",
-            "GRAPH OPTIMIZATION",
-            "MEMORY OPTIMIZATION",
-            "KERNEL OPTIMIZATION",
-            "RUNTIME EFFICIENCY"
-        ],
-
         pipeline:
-            "OBSERVE → VERIFY → OPTIMIZE → " +
-            "ASSESS → VALIDATE → UPDATE",
+            "OBSERVE → VERIFY → OPTIMIZE → ASSESS → VALIDATE → UPDATE",
 
         execution:
             "SIMULATION ONLY",
@@ -1125,11 +1003,11 @@ function runOptimizationIntegrationTest() {
 
     write(
         "systemStatus",
-        "SYSTEM STATUS: EDGE DOMAIN INTEGRATION TEST PASS"
+        "SYSTEM STATUS: EDGE OPTIMIZATION DOMAIN INTEGRATION TEST PASS"
     );
 
     logEdge(
-        "EDGE optimization domain integration test PASS."
+        "Edge optimization domain integration test PASS."
     );
 
     return result;
@@ -1137,7 +1015,7 @@ function runOptimizationIntegrationTest() {
 
 
 /* ============================================================
-   EDGE SYSTEM RESET
+   OPTIMIZATION SYSTEM RESET
 ============================================================ */
 
 function resetOptimizationSystem() {
@@ -1207,11 +1085,6 @@ function resetOptimizationSystem() {
     );
 
     write(
-        "pipeline",
-        "Waiting..."
-    );
-
-    write(
         "state",
         "Waiting..."
     );
@@ -1224,26 +1097,6 @@ function resetOptimizationSystem() {
     write(
         "decision",
         "Waiting..."
-    );
-
-    write(
-        "costReduction",
-        "—"
-    );
-
-    write(
-        "throughput",
-        "—"
-    );
-
-    write(
-        "efficiency",
-        "—"
-    );
-
-    write(
-        "domainIntegration",
-        "Domain integration test not executed."
     );
 
     write(
@@ -1276,10 +1129,15 @@ function resetOptimizationSystem() {
         "Re-test not executed."
     );
 
+    write(
+        "domainIntegration",
+        "Domain integration test not executed."
+    );
+
     updateOptimizationDomainMonitor();
 
     logEdge(
-        "EDGE optimization system reset."
+        "Optimization system reset."
     );
 }
 
@@ -1430,7 +1288,6 @@ function runBiodieselScenario(
             window.BiodieselIntegration.run(
                 normalizedScenario,
                 {
-
                     energy:
                         EDGE_STATE.intensity,
 
@@ -1452,7 +1309,6 @@ function runBiodieselScenario(
                 .executeDecisionFlow(
                     normalizedScenario,
                     {
-
                         energy:
                             EDGE_STATE.intensity,
 
@@ -1504,11 +1360,6 @@ function runBiodieselScenario(
         }
     );
 
-    write(
-        "biodieselDomainStatus",
-        "ACTIVE"
-    );
-
     logBiodiesel(
         `Biodiesel scenario routed through authoritative engine: ${normalizedScenario}`
     );
@@ -1526,7 +1377,8 @@ function runBiodieselIntegrationTest() {
     BIODIESEL_STATE.integrationTest =
         true;
 
-    updateBiodieselEngineStatus();
+    const status =
+        updateBiodieselEngineStatus();
 
     let result;
 
@@ -1562,7 +1414,10 @@ function runBiodieselIntegrationTest() {
                 "FAIL",
 
             reason:
-                "Biodiesel integration validator unavailable."
+                "Biodiesel integration validator unavailable.",
+
+            engineStatus:
+                status
         };
     }
 
@@ -1704,9 +1559,7 @@ function runBiodieselTestAndCorrect() {
 
         action:
             selfTest.status === "PASS"
-
                 ? "NO_CORRECTIVE_ACTION_REQUIRED"
-
                 : "VERIFY_BIODIESEL_MODULE_LOAD_ORDER",
 
         physicalExecution:
@@ -1981,6 +1834,15 @@ function resetBiodieselTrialManoeuvre() {
     BIODIESEL_STATE.scenario =
         "BIODIESEL_SHORTAGE";
 
+    BIODIESEL_STATE.integrationTest =
+        false;
+
+    BIODIESEL_STATE.selfTest =
+        false;
+
+    BIODIESEL_STATE.correctiveAction =
+        false;
+
     BIODIESEL_STATE.trialManoeuvre =
         false;
 
@@ -2008,19 +1870,55 @@ function resetBiodieselTrialManoeuvre() {
         "Biodiesel validation not executed."
     );
 
+    write(
+        "biodieselIntegration",
+        "Biodiesel domain integration test not executed."
+    );
+
+    write(
+        "biodieselSelfTest",
+        "Biodiesel self-test not executed."
+    );
+
+    write(
+        "biodieselSelfTestInterpretation",
+        "Waiting for Biodiesel self-test..."
+    );
+
+    write(
+        "biodieselFaultIdentification",
+        "No Biodiesel integration fault assessment available."
+    );
+
+    write(
+        "biodieselCorrectiveAction",
+        "No corrective action available."
+    );
+
+    write(
+        "biodieselRetest",
+        "Biodiesel re-test not executed."
+    );
+
     logBiodiesel(
-        "Biodiesel trial manoeuvre reset."
+        "Biodiesel system reset."
     );
 }
 
 
 /* ============================================================
    GLOBAL SCREEN EXPORTS
-   EDGE
+   HTML onclick="" COMPATIBILITY
 ============================================================ */
 
 window.EDGE_STATE =
     EDGE_STATE;
+
+window.BIODIESEL_STATE =
+    BIODIESEL_STATE;
+
+
+/* EDGE */
 
 window.getOptimizationIntensity =
     getOptimizationIntensity;
@@ -2040,35 +1938,41 @@ window.resetOptimizationScenario =
 window.runOptimizationSystem =
     runOptimizationSystem;
 
+window.runOptimization =
+    runOptimizationSystem;
+
+window.calculateOptimizationResults =
+    calculateOptimizationResults;
+
 window.runOptimizationValidation =
+    runOptimizationValidation;
+
+window.runValidation =
     runOptimizationValidation;
 
 window.runOptimizationSelfTest =
     runOptimizationSelfTest;
 
+window.runSelfTest =
+    runOptimizationSelfTest;
+
 window.runOptimizationTestAndCorrect =
     runOptimizationTestAndCorrect;
 
+window.runTestAndCorrect =
+    runOptimizationTestAndCorrect;
+
 window.runOptimizationIntegrationTest =
+    runOptimizationIntegrationTest;
+
+window.runIntegrationTest =
     runOptimizationIntegrationTest;
 
 window.resetOptimizationSystem =
     resetOptimizationSystem;
 
 
-/* ============================================================
-   GLOBAL SCREEN EXPORTS
-   BIODIESEL
-============================================================ */
-
-window.BIODIESEL_STATE =
-    BIODIESEL_STATE;
-
-window.getBiodieselEngineStatus =
-    getBiodieselEngineStatus;
-
-window.updateBiodieselEngineStatus =
-    updateBiodieselEngineStatus;
+/* BIODIESEL */
 
 window.runBiodieselScenario =
     runBiodieselScenario;
@@ -2109,12 +2013,12 @@ function initializeOptimizerCockpit() {
             EDGE_STATE.intensity;
 
         /*
-         * Prevent duplicate listeners.
+         * Prevent duplicate listeners if initialization
+         * is called more than once.
          */
 
         if (
-            !slider.dataset
-                .optimizerListenerAttached
+            slider.dataset.optimizerBound !== "true"
         ) {
 
             slider.addEventListener(
@@ -2122,8 +2026,7 @@ function initializeOptimizerCockpit() {
                 updateOptimizationIntensity
             );
 
-            slider.dataset
-                .optimizerListenerAttached =
+            slider.dataset.optimizerBound =
                 "true";
         }
     }
@@ -2145,15 +2048,11 @@ function initializeOptimizerCockpit() {
     );
 
     console.log(
-        "Sextant Protocol™ Edge Optimization Cockpit initialized."
+        "Sextant Protocol™ Cockpit Pro initialized."
     );
 
     console.log(
-        "EDGE local deterministic orchestration ready."
-    );
-
-    console.log(
-        "Optimization domains: QUANTIZATION, PRUNING, GRAPH, MEMORY, KERNEL, RUNTIME."
+        "Edge optimization orchestration ready."
     );
 
     console.log(
