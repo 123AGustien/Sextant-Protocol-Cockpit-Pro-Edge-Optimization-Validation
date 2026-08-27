@@ -1668,3 +1668,496 @@ function runOptimizationIntegrationTest() {
 
     return result;
 }
+/* ============================================================
+   BIODIESEL ENGINE AVAILABILITY
+============================================================ */
+
+function getBiodieselEngineStatus() {
+
+    return {
+
+        ruleRegistry:
+            Boolean(
+                window.BiodieselRuleRegistry
+            ),
+
+        ruleEngine:
+            Boolean(
+                window.BiodieselRuleEngine
+            ),
+
+        scenarioEngine:
+            Boolean(
+                window.BiodieselScenarioEngine
+            ),
+
+        trialManoeuvre:
+            Boolean(
+                window.BiodieselTrialManoeuvre
+            ),
+
+        integration:
+            Boolean(
+                window.BiodieselIntegration
+            ),
+
+        domainIntegration:
+            Boolean(
+                window.BiodieselDomainIntegration
+            )
+    };
+}
+
+
+/* ============================================================
+   BIODIESEL SCREEN STATUS
+============================================================ */
+
+function updateBiodieselEngineStatus() {
+
+    const status =
+        getBiodieselEngineStatus();
+
+    write(
+        "biodieselDomainStatus",
+        status.domainIntegration
+            ? "ACTIVE"
+            : "READY"
+    );
+
+    write(
+        "biodieselRuleEngineStatus",
+        status.ruleEngine
+            ? "CONNECTED"
+            : "UNAVAILABLE"
+    );
+
+    write(
+        "biodieselScenarioEngineStatus",
+        status.scenarioEngine
+            ? "CONNECTED"
+            : "UNAVAILABLE"
+    );
+
+    write(
+        "biodieselTrialEngineStatus",
+        status.trialManoeuvre
+            ? "CONNECTED"
+            : "UNAVAILABLE"
+    );
+
+    write(
+        "biodieselIntegrationStatus",
+        status.integration &&
+        status.domainIntegration
+            ? "CONNECTED"
+            : "UNAVAILABLE"
+    );
+
+    return status;
+}
+
+
+/* ============================================================
+   BIODIESEL SCENARIO
+   AUTHORITATIVE ENGINE ROUTING
+============================================================ */
+
+function runBiodieselScenario(
+    scenario
+) {
+
+    const normalizedScenario =
+        typeof scenario === "string"
+            ? scenario.trim().toUpperCase()
+            : "BIODIESEL_SHORTAGE";
+
+    BIODIESEL_STATE.scenario =
+        normalizedScenario;
+
+    const engineStatus =
+        getBiodieselEngineStatus();
+
+    let result = null;
+
+
+    /* --------------------------------------------------------
+       PREFERRED DOMAIN INTEGRATION PATH
+    -------------------------------------------------------- */
+
+    if (
+        window.BiodieselDomainIntegration &&
+        typeof
+            window.BiodieselDomainIntegration.run
+            === "function"
+    ) {
+
+        result =
+            window.BiodieselDomainIntegration.run({
+
+                scenario:
+                    normalizedScenario,
+
+                state: {
+
+                    energy:
+                        EDGE_STATE.intensity,
+
+                    intensity:
+                        EDGE_STATE.intensity
+                }
+            });
+    }
+
+
+    /* --------------------------------------------------------
+       SECONDARY INTEGRATION PATH
+    -------------------------------------------------------- */
+
+    else if (
+        window.BiodieselIntegration &&
+        typeof
+            window.BiodieselIntegration.run
+            === "function"
+    ) {
+
+        result =
+            window.BiodieselIntegration.run(
+                normalizedScenario,
+                {
+
+                    energy:
+                        EDGE_STATE.intensity,
+
+                    intensity:
+                        EDGE_STATE.intensity
+                }
+            );
+    }
+
+
+    /* --------------------------------------------------------
+       DIRECT SCENARIO ENGINE PATH
+       ONLY WHEN AUTHORITATIVE ENGINE IS AVAILABLE
+    -------------------------------------------------------- */
+
+    else if (
+        window.BiodieselScenarioEngine &&
+        typeof
+            window.BiodieselScenarioEngine
+                .executeDecisionFlow
+            === "function"
+    ) {
+
+        result =
+            window.BiodieselScenarioEngine
+                .executeDecisionFlow(
+                    normalizedScenario,
+                    {
+
+                        energy:
+                            EDGE_STATE.intensity,
+
+                        intensity:
+                            EDGE_STATE.intensity
+                    }
+                );
+    }
+
+
+    /* --------------------------------------------------------
+       SAFE BLOCK
+    -------------------------------------------------------- */
+
+    else {
+
+        result = {
+
+            status:
+                "BLOCKED",
+
+            domain:
+                "ENERGY",
+
+            module:
+                "BIODIESEL",
+
+            scenario:
+                normalizedScenario,
+
+            reason:
+                "AUTHORITATIVE_BIODIESEL_ENGINE_UNAVAILABLE",
+
+            execution:
+                "NO EXECUTION",
+
+            physicalExecution:
+                false,
+
+            externalConnection:
+                false,
+
+            humanAuthorizationRequired:
+                true
+        };
+    }
+
+
+    BIODIESEL_STATE.lastResult =
+        result;
+
+    write(
+        "biodieselScenarioResult",
+        {
+
+            engineStatus,
+
+            result
+        }
+    );
+
+    logBiodiesel(
+        `Biodiesel scenario routed through authoritative engine: ${normalizedScenario}`
+    );
+
+    return result;
+}
+
+
+/* ============================================================
+   BIODIESEL DOMAIN INTEGRATION TEST
+============================================================ */
+
+function runBiodieselIntegrationTest() {
+
+    BIODIESEL_STATE.integrationTest =
+        true;
+
+    updateBiodieselEngineStatus();
+
+    let result;
+
+    if (
+        window.BiodieselDomainIntegration &&
+        typeof
+            window.BiodieselDomainIntegration
+                .validate
+            === "function"
+    ) {
+
+        result =
+            window.BiodieselDomainIntegration
+                .validate();
+    }
+
+    else if (
+        window.BiodieselIntegration &&
+        typeof
+            window.BiodieselIntegration
+                .validate
+            === "function"
+    ) {
+
+        result =
+            window.BiodieselIntegration
+                .validate();
+    }
+
+    else {
+
+        result = {
+
+            status:
+                "FAIL",
+
+            reason:
+                "Biodiesel integration validator unavailable.",
+
+            physicalExecution:
+                false
+        };
+    }
+
+    write(
+        "biodieselIntegration",
+        result
+    );
+
+    write(
+        "biodieselIntegrationStatus",
+        result.status || "FAIL"
+    );
+
+    logBiodiesel(
+        `Biodiesel integration test: ${result.status || "FAIL"}`
+    );
+
+    return result;
+}
+
+
+/* ============================================================
+   BIODIESEL SELF-TEST
+============================================================ */
+
+function runBiodieselSelfTest() {
+
+    BIODIESEL_STATE.selfTest =
+        true;
+
+    const engineStatus =
+        getBiodieselEngineStatus();
+
+    const checks = {
+
+        ruleRegistry:
+            engineStatus.ruleRegistry,
+
+        ruleEngine:
+            engineStatus.ruleEngine,
+
+        scenarioEngine:
+            engineStatus.scenarioEngine,
+
+        trialManoeuvre:
+            engineStatus.trialManoeuvre,
+
+        integration:
+            engineStatus.integration,
+
+        domainIntegration:
+            engineStatus.domainIntegration
+    };
+
+    const passed =
+        Object.values(checks)
+            .every(Boolean);
+
+    const result = {
+
+        status:
+            passed
+                ? "PASS"
+                : "FAIL",
+
+        checks,
+
+        authoritativeRules:
+            true,
+
+        physicalExecution:
+            false,
+
+        backendConnection:
+            false,
+
+        humanAuthorizationRequired:
+            true
+    };
+
+    write(
+        "biodieselSelfTest",
+        result
+    );
+
+    write(
+        "biodieselSelfTestInterpretation",
+        passed
+
+            ? "Biodiesel self-test PASS — authoritative rule chain and safety boundary available."
+
+            : "Biodiesel self-test BLOCKED — one or more authoritative components are unavailable."
+    );
+
+    write(
+        "biodieselFaultIdentification",
+        passed
+
+            ? "No Biodiesel integration fault detected."
+
+            : "Biodiesel integration fault detected. Check engine load order and file paths."
+    );
+
+    write(
+        "biodieselCorrectiveAction",
+        passed
+
+            ? "No corrective action required."
+
+            : "Corrective action required: verify Biodiesel module load order and authoritative engine registration."
+    );
+
+    logBiodiesel(
+        `Biodiesel self-test: ${result.status}`
+    );
+
+    return result;
+}
+
+
+/* ============================================================
+   BIODIESEL SELF-TEST + CORRECTIVE ACTION
+============================================================ */
+
+function runBiodieselTestAndCorrect() {
+
+    const selfTest =
+        runBiodieselSelfTest();
+
+    BIODIESEL_STATE.correctiveAction =
+        true;
+
+    const result = {
+
+        status:
+            selfTest.status === "PASS"
+
+                ? "PASS"
+
+                : "CORRECTIVE_ACTION_REQUIRED",
+
+        action:
+            selfTest.status === "PASS"
+
+                ? "NO_CORRECTIVE_ACTION_REQUIRED"
+
+                : "VERIFY_BIODIESEL_MODULE_LOAD_ORDER",
+
+        physicalExecution:
+            false,
+
+        humanAuthorizationRequired:
+            true
+    };
+
+    write(
+        "biodieselCorrectiveAction",
+        result
+    );
+
+    const retest =
+        runBiodieselSelfTest();
+
+    write(
+        "biodieselRetest",
+        {
+
+            status:
+                retest.status,
+
+            result:
+
+                retest.status === "PASS"
+
+                    ? "Biodiesel re-test validation passed."
+
+                    : "Biodiesel re-test remains blocked."
+        }
+    );
+
+    logBiodiesel(
+        "Biodiesel corrective-action and re-test cycle completed."
+    );
+
+    return result;
+}
