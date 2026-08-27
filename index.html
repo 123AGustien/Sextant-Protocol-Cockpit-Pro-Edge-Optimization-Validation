@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -10,11 +11,16 @@
 
     <meta
         name="description"
-        content="Sextant Protocol Optimizer — ARM64 Edge Optimization and Validation Simulator"
+        content="Sextant Protocol™ Cockpit Pro — Edge Optimization & Deployment Validation Platform"
+    >
+
+    <meta
+        name="application-name"
+        content="Sextant Protocol™ Cockpit Pro"
     >
 
     <title>
-        Sextant Protocol™ Optimizer — ARM64 Edge Optimization Simulator
+        Sextant Protocol™ Cockpit Pro — Edge Optimization & Deployment Validation Platform
     </title>
 
     <style>
@@ -174,7 +180,8 @@
             width: 100%;
             min-height: 48px;
             padding: 12px 14px;
-            border: 1px solid #3b6a8d;
+            border:
+                1px solid #3b6a8d;
             border-radius: 8px;
             background:
                 #12304a;
@@ -201,6 +208,12 @@
         button:active {
             transform:
                 translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .danger-button {
@@ -532,23 +545,25 @@
         }
 
     </style>
+
 </head>
 
 <body>
 
+
 <header>
 
     <h1>
-        🛰️ SEXTANT PROTOCOL™ OPTIMIZER
+        🛰️ SEXTANT PROTOCOL™ COCKPIT PRO
     </h1>
 
     <p>
-        AI Computing Optimization & Validation Platform
+        Edge Optimization & Deployment Validation Platform
     </p>
 
     <p>
         <strong>
-            Investor Preview — ARM64 Edge Optimization Simulator
+            Independent AI optimization, benchmarking and deployment-efficiency research
         </strong>
     </p>
 
@@ -558,7 +573,7 @@
             OPERATIONAL BOUNDARY
         </strong>
 
-        <br>
+        <br><br>
 
         Local deterministic simulation only.
         Backend connection disabled.
@@ -596,7 +611,7 @@
                     id="systemStatus"
                     class="status-value ready"
                 >
-                    SYSTEM STATUS: READY — ARM SIMULATOR
+                    SYSTEM STATUS: READY — COCKPIT PRO
                 </span>
 
             </div>
@@ -621,11 +636,11 @@
             <div class="status-card">
 
                 <span class="status-label">
-                    Domain
+                    Target Environment
                 </span>
 
                 <span class="status-value">
-                    ARM64
+                    ARM64 EDGE
                 </span>
 
             </div>
@@ -681,7 +696,7 @@
     <section class="section">
 
         <h2>
-            🎛️ ARM SYSTEM CONTROLS
+            🎛️ ARM64 EDGE OPTIMIZATION CONTROLS
         </h2>
 
         <div class="control-grid">
@@ -689,25 +704,25 @@
             <button
                 onclick="runARMSystem()"
             >
-                ▶ RUN ARM OPTIMIZATION
+                ▶ RUN ARM64 OPTIMIZATION
             </button>
 
             <button
                 onclick="runARMSelfTest()"
             >
-                🧪 RUN ARM SELF-TEST
+                🧪 RUN ARM64 SELF-TEST
             </button>
 
             <button
                 onclick="runARMTestAndCorrect()"
             >
-                🛠️ ARM SELF-TEST + CORRECTIVE ACTION
+                🛠️ ARM64 SELF-TEST + CORRECTIVE ACTION
             </button>
 
             <button
                 onclick="runARMIntegrationTest()"
             >
-                🔌 RUN ARM DOMAIN INTEGRATION TEST
+                🔌 RUN ARM64 DOMAIN INTEGRATION TEST
             </button>
 
             <button
@@ -720,7 +735,7 @@
                 class="danger-button"
                 onclick="resetARMSystem()"
             >
-                RESET ARM SYSTEM
+                RESET ARM64 SYSTEM
             </button>
 
         </div>
@@ -735,7 +750,7 @@
     <section class="section">
 
         <h2>
-            🎛️ ARM OPTIMIZATION INTENSITY
+            🎛️ ARM64 OPTIMIZATION INTENSITY
         </h2>
 
         <div class="slider-wrap">
@@ -759,7 +774,7 @@
                 max="100"
                 step="1"
                 value="50"
-                aria-label="ARM optimization intensity"
+                aria-label="ARM64 optimization intensity"
             >
 
             <div class="scale">
@@ -793,7 +808,7 @@
     <section class="section">
 
         <h2>
-            🎛️ ARM SCENARIO CONTROL
+            🎛️ ARM64 SCENARIO CONTROL
         </h2>
 
         <p>
@@ -866,7 +881,7 @@
                 class="danger-button"
                 onclick="resetARMScenario()"
             >
-                RESET ARM SCENARIO
+                RESET ARM64 SCENARIO
             </button>
 
         </div>
@@ -945,7 +960,7 @@
             id="pipeline"
             class="output"
         >
-            ARM optimization pipeline waiting...
+            Cockpit Pro optimization pipeline waiting...
         </div>
 
     </section>
@@ -1074,16 +1089,16 @@
     <section class="section">
 
         <h2>
-            🔌 ARM DOMAIN INTEGRATION LAYER
+            🔌 ARM64 DOMAIN INTEGRATION LAYER
         </h2>
 
         <div class="output">
 
-ARM OPTIMIZER COCKPIT
+SEXTANT PROTOCOL™ COCKPIT PRO
         ↓
-LOCAL ARM DOMAIN INTEGRATION
+LOCAL ARM64 DOMAIN INTEGRATION
         ↓
-ARM OPTIMIZATION ENGINES
+ARM64 OPTIMIZATION ENGINES
         ↓
 NEURALEDGE DECISION CORE
         ↓
@@ -1099,7 +1114,7 @@ RESULT / VALIDATION / AUDIT
             id="domainIntegration"
             class="output"
         >
-            ARM domain integration test not executed.
+            ARM64 domain integration test not executed.
         </div>
 
     </section>
@@ -1112,7 +1127,7 @@ RESULT / VALIDATION / AUDIT
     <section class="section">
 
         <h2>
-            📊 RAW ARM SYSTEM STATE
+            📊 RAW ARM64 SYSTEM STATE
         </h2>
 
         <div
@@ -1132,7 +1147,7 @@ RESULT / VALIDATION / AUDIT
     <section class="section">
 
         <h2>
-            ⚠️ ARM SYSTEM ASSESSMENT
+            ⚠️ ARM64 SYSTEM ASSESSMENT
         </h2>
 
         <div
@@ -1236,14 +1251,14 @@ RESULT / VALIDATION / AUDIT
     <section class="section">
 
         <h2>
-            🔎 ARM VALIDATION
+            🔎 ARM64 VALIDATION
         </h2>
 
         <div
             id="validation"
             class="output"
         >
-            ARM validation not executed.
+            ARM64 validation not executed.
         </div>
 
     </section>
@@ -1256,46 +1271,46 @@ RESULT / VALIDATION / AUDIT
     <section class="section">
 
         <h2>
-            🧪 ARM SELF-TEST
+            🧪 ARM64 SELF-TEST
         </h2>
 
         <div
             id="selfTest"
             class="output"
         >
-            ARM self-test not executed.
+            ARM64 self-test not executed.
         </div>
 
         <br>
 
         <h3>
-            🔎 ARM SELF-TEST INTERPRETATION
+            🔎 ARM64 SELF-TEST INTERPRETATION
         </h3>
 
         <div
             id="selfTestInterpretation"
             class="output"
         >
-            Waiting for ARM self-test...
+            Waiting for ARM64 self-test...
         </div>
 
         <br>
 
         <h3>
-            ⚠️ ARM FAULT IDENTIFICATION
+            ⚠️ ARM64 FAULT IDENTIFICATION
         </h3>
 
         <div
             id="faultIdentification"
             class="output"
         >
-            No ARM fault assessment available.
+            No ARM64 fault assessment available.
         </div>
 
         <br>
 
         <h3>
-            🛠️ ARM CORRECTIVE ACTION
+            🛠️ ARM64 CORRECTIVE ACTION
         </h3>
 
         <div
@@ -1308,14 +1323,14 @@ RESULT / VALIDATION / AUDIT
         <br>
 
         <h3>
-            🔁 ARM RE-TEST VALIDATION
+            🔁 ARM64 RE-TEST VALIDATION
         </h3>
 
         <div
             id="retest"
             class="output"
         >
-            ARM re-test not executed.
+            ARM64 re-test not executed.
         </div>
 
     </section>
@@ -1328,7 +1343,7 @@ RESULT / VALIDATION / AUDIT
     <section class="section">
 
         <h2>
-            🧾 ARM AUDIT RECORD
+            🧾 ARM64 AUDIT RECORD
         </h2>
 
         <div
@@ -1341,7 +1356,7 @@ RESULT / VALIDATION / AUDIT
         <br>
 
         <h3>
-            📜 ARM PIPELINE LOG
+            📜 ARM64 PIPELINE LOG
         </h3>
 
         <div
@@ -1811,18 +1826,23 @@ VALIDATION / DECISION / AUDIT
 
     </section>
 
+
 </main>
 
 
 <footer>
 
     <strong>
-        Sextant Protocol™ Optimizer
+        Sextant Protocol™ Cockpit Pro
     </strong>
 
     <br>
 
-    ARM64 Edge Optimization / Validation Cockpit
+    Edge Optimization & Deployment Validation Platform
+
+    <br>
+
+    Independent AI optimization, benchmarking and deployment-efficiency research
 
     <br>
 
@@ -1838,23 +1858,30 @@ VALIDATION / DECISION / AUDIT
 </footer>
 
 
-<!-
- =========================================================
+<!-- =========================================================
      AUTHORITATIVE JAVASCRIPT LOAD ORDER
 ========================================================== -->
 
 <!--
-    SEXTANT PROTOCOL™ OPTIMIZER
+    SEXTANT PROTOCOL™ COCKPIT PRO
+
     AUTHORITATIVE LOCAL DETERMINISTIC MODULE LOAD ORDER
 
     BIODIESEL:
+
     RULES
-    → RULE ENGINE
-    → SCENARIO ENGINE
-    → TRIAL MANOEUVRE
-    → MODULE VALIDATION
-    → DOMAIN INTEGRATION
-    → ARM/UI ORCHESTRATOR
+    →
+    RULE ENGINE
+    →
+    SCENARIO ENGINE
+    →
+    TRIAL MANOEUVRE
+    →
+    MODULE VALIDATION
+    →
+    DOMAIN INTEGRATION
+    →
+    COCKPIT PRO / ARM64 UI ORCHESTRATOR
 
     Operational boundary:
     - Local deterministic simulation only
@@ -1863,6 +1890,7 @@ VALIDATION / DECISION / AUDIT
     - Autonomous execution prohibited
     - Human authorization required
 -->
+
 
 <!-- =========================================================
      BIODIESEL AUTHORITATIVE MODULES
@@ -1882,7 +1910,7 @@ VALIDATION / DECISION / AUDIT
 
 
 <!-- =========================================================
-     ARM / SCREEN ORCHESTRATOR
+     COCKPIT PRO / SCREEN ORCHESTRATOR
 ========================================================== -->
 
 <script src="assets/js/app.js"></script>
@@ -1891,6 +1919,7 @@ VALIDATION / DECISION / AUDIT
 <!-- =========================================================
      END OF AUTHORITATIVE JAVASCRIPT LOAD ORDER
 ========================================================== -->
+
 
 </body>
 </html>
