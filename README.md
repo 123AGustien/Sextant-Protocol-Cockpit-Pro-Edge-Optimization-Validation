@@ -1,3 +1,8 @@
+The Edge simulator tunes.
+The Latency simulator measures.
+The Biodiesel domain demonstrates portability into an Indonesian energy-resilience application.
+
+
 🧠 NeuralEdge Optimizer — ARM AI Acceleration Platform
 
 AI Model Optimization, Benchmarking and ARM64 Deployment Research
