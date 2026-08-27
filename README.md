@@ -538,4 +538,4 @@ Independent AI optimization, benchmarking and deployment-efficiency research.
 Research principle:
 Measure. Optimize. Validate. Deploy responsibly.
 
-**This is the version I would use for the clean public README.** It preserves the original technical proposition while removing the ARM/ARM64 affiliation and avoids implying endorsement, partnership, or hardware-specific performance claims.
+**
