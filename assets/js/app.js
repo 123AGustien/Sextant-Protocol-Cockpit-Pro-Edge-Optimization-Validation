@@ -2161,3 +2161,686 @@ function runBiodieselTestAndCorrect() {
 
     return result;
 }
+/* ============================================================
+   BIODIESEL TRIAL MANOEUVRE
+   SIMULATION ONLY
+============================================================ */
+
+function runBiodieselTrialManoeuvre() {
+
+    if (
+        !window.BiodieselTrialManoeuvre
+    ) {
+
+        const failure = {
+
+            status:
+                "BLOCKED",
+
+            reason:
+                "BiodieselTrialManoeuvre unavailable.",
+
+            physicalExecution:
+                false,
+
+            vesselActuation:
+                false,
+
+            externalConnection:
+                false,
+
+            humanAuthorizationRequired:
+                true
+        };
+
+        write(
+            "biodieselTrialManoeuvre",
+            failure
+        );
+
+        logBiodiesel(
+            "Biodiesel trial manoeuvre blocked — authoritative engine unavailable."
+        );
+
+        return failure;
+    }
+
+
+    const state = {
+
+        energy:
+            EDGE_STATE.intensity,
+
+        intensity:
+            EDGE_STATE.intensity
+    };
+
+    let trial;
+
+
+    try {
+
+        if (
+            typeof
+                window.BiodieselTrialManoeuvre.run
+                !== "function"
+        ) {
+
+            throw new Error(
+                "BiodieselTrialManoeuvre.run unavailable."
+            );
+        }
+
+        trial =
+            window.BiodieselTrialManoeuvre.run(
+                BIODIESEL_STATE.scenario,
+                state
+            );
+
+    } catch (error) {
+
+        trial = {
+
+            status:
+                "FAIL",
+
+            error:
+                error.message,
+
+            physicalExecution:
+                false,
+
+            vesselActuation:
+                false,
+
+            externalConnection:
+                false
+        };
+    }
+
+
+    BIODIESEL_STATE.lastTrial =
+        trial;
+
+    BIODIESEL_STATE.trialManoeuvre =
+        true;
+
+
+    write(
+        "biodieselTrialManoeuvre",
+        {
+
+            trial,
+
+            safetyBoundary: {
+
+                simulationOnly:
+                    true,
+
+                physicalExecution:
+                    false,
+
+                vesselActuation:
+                    false,
+
+                externalConnection:
+                    false,
+
+                humanOperatorAuthority:
+                    "REQUIRED"
+            }
+        }
+    );
+
+    logBiodiesel(
+        "Biodiesel trial manoeuvre simulation executed."
+    );
+
+    return trial;
+}
+
+
+/* ============================================================
+   BIODIESEL TRIAL VALIDATION
+============================================================ */
+
+function validateBiodieselTrialManoeuvre() {
+
+    if (
+        !BIODIESEL_STATE.lastTrial
+    ) {
+
+        const blocked = {
+
+            status:
+                "BLOCKED",
+
+            reason:
+                "No Biodiesel trial manoeuvre has been executed.",
+
+            physicalExecution:
+                false
+        };
+
+        write(
+            "biodieselValidation",
+            blocked
+        );
+
+        return blocked;
+    }
+
+
+    if (
+        !window.BiodieselTrialManoeuvre ||
+        typeof
+            window.BiodieselTrialManoeuvre.verify
+            !== "function"
+    ) {
+
+        const failure = {
+
+            status:
+                "FAIL",
+
+            reason:
+                "Biodiesel trial verification unavailable.",
+
+            physicalExecution:
+                false
+        };
+
+        write(
+            "biodieselValidation",
+            failure
+        );
+
+        logBiodiesel(
+            "Biodiesel trial validation unavailable."
+        );
+
+        return failure;
+    }
+
+
+    let verification;
+
+
+    try {
+
+        verification =
+            window.BiodieselTrialManoeuvre
+                .verify(
+                    BIODIESEL_STATE.lastTrial
+                );
+
+    } catch (error) {
+
+        verification = {
+
+            status:
+                "FAIL",
+
+            error:
+                error.message,
+
+            physicalExecution:
+                false
+        };
+    }
+
+
+    BIODIESEL_STATE.validation =
+        true;
+
+
+    write(
+        "biodieselValidation",
+        {
+
+            verification,
+
+            safetyBoundary: {
+
+                simulationOnly:
+                    true,
+
+                physicalExecution:
+                    false,
+
+                vesselActuation:
+                    false,
+
+                externalConnection:
+                    false,
+
+                humanAuthorization:
+                    "REQUIRED"
+            }
+        }
+    );
+
+    logBiodiesel(
+        "Biodiesel trial manoeuvre validation completed."
+    );
+
+    return verification;
+}
+
+
+/* ============================================================
+   BIODIESEL RESET
+============================================================ */
+
+function resetBiodieselTrialManoeuvre() {
+
+    BIODIESEL_STATE.scenario =
+        "BIODIESEL_SHORTAGE";
+
+    BIODIESEL_STATE.integrationTest =
+        false;
+
+    BIODIESEL_STATE.selfTest =
+        false;
+
+    BIODIESEL_STATE.correctiveAction =
+        false;
+
+    BIODIESEL_STATE.trialManoeuvre =
+        false;
+
+    BIODIESEL_STATE.validation =
+        false;
+
+    BIODIESEL_STATE.lastTrial =
+        null;
+
+    BIODIESEL_STATE.lastResult =
+        null;
+
+
+    write(
+        "biodieselScenarioResult",
+        "Biodiesel scenario not executed."
+    );
+
+    write(
+        "biodieselIntegration",
+        "Biodiesel domain integration test not executed."
+    );
+
+    write(
+        "biodieselSelfTest",
+        "Biodiesel self-test not executed."
+    );
+
+    write(
+        "biodieselSelfTestInterpretation",
+        "Waiting for Biodiesel self-test..."
+    );
+
+    write(
+        "biodieselFaultIdentification",
+        "No Biodiesel integration fault assessment available."
+    );
+
+    write(
+        "biodieselCorrectiveAction",
+        "No corrective action available."
+    );
+
+    write(
+        "biodieselRetest",
+        "Biodiesel re-test not executed."
+    );
+
+    write(
+        "biodieselTrialManoeuvre",
+        "Biodiesel trial manoeuvre not executed."
+    );
+
+    write(
+        "biodieselValidation",
+        "Biodiesel validation not executed."
+    );
+
+    updateBiodieselEngineStatus();
+
+    logBiodiesel(
+        "Biodiesel system reset."
+    );
+}
+
+
+/* ============================================================
+   EDGE OPTIMIZATION SYSTEM RESET
+============================================================ */
+
+function resetOptimizationSystem() {
+
+    EDGE_STATE.intensity =
+        50;
+
+    EDGE_STATE.scenario =
+        "NORMAL";
+
+    EDGE_STATE.running =
+        false;
+
+    EDGE_STATE.validation =
+        false;
+
+    EDGE_STATE.selfTest =
+        false;
+
+    EDGE_STATE.integrationTest =
+        false;
+
+    EDGE_STATE.correctiveAction =
+        false;
+
+    EDGE_STATE.domains = {
+
+        QUANTIZATION:
+            50,
+
+        PRUNING:
+            50,
+
+        GRAPH_OPTIMIZATION:
+            50,
+
+        MEMORY_OPTIMIZATION:
+            50,
+
+        KERNEL_OPTIMIZATION:
+            50,
+
+        RUNTIME_EFFICIENCY:
+            50
+    };
+
+
+    const slider =
+        getElement(
+            "optimizationIntensity"
+        );
+
+    if (slider) {
+
+        slider.value =
+            50;
+    }
+
+
+    updateOptimizationIntensity();
+
+    updateOptimizationDomainMonitor();
+
+
+    write(
+        "systemStatus",
+        "SYSTEM STATUS: READY — EDGE OPTIMIZATION"
+    );
+
+    write(
+        "optimizationStatus",
+        "WAITING"
+    );
+
+    write(
+        "scenarioPanel",
+        "Waiting..."
+    );
+
+    write(
+        "state",
+        "Waiting..."
+    );
+
+    write(
+        "assessment",
+        "Waiting..."
+    );
+
+    write(
+        "decision",
+        "Waiting..."
+    );
+
+    write(
+        "validation",
+        "Optimization validation not executed."
+    );
+
+    write(
+        "selfTest",
+        "Self-test not executed."
+    );
+
+    write(
+        "selfTestInterpretation",
+        "Waiting for self-test..."
+    );
+
+    write(
+        "faultIdentification",
+        "No fault assessment available."
+    );
+
+    write(
+        "correctiveAction",
+        "No corrective action available."
+    );
+
+    write(
+        "retest",
+        "Re-test not executed."
+    );
+
+    write(
+        "domainIntegration",
+        "Domain integration test not executed."
+    );
+
+
+    activatePipelineStage(
+        null
+    );
+
+
+    logEdge(
+        "Edge optimization system reset."
+    );
+}
+
+
+/* ============================================================
+   GLOBAL SCREEN EXPORTS
+   Required by HTML onclick=""
+============================================================ */
+
+window.EDGE_STATE =
+    EDGE_STATE;
+
+window.BIODIESEL_STATE =
+    BIODIESEL_STATE;
+
+
+/* ------------------------------------------------------------
+   EDGE OPTIMIZATION
+------------------------------------------------------------ */
+
+window.getOptimizationIntensity =
+    getOptimizationIntensity;
+
+window.updateOptimizationIntensity =
+    updateOptimizationIntensity;
+
+window.updateOptimizationDomainMonitor =
+    updateOptimizationDomainMonitor;
+
+window.activateOptimizationScenario =
+    activateOptimizationScenario;
+
+window.resetOptimizationScenario =
+    resetOptimizationScenario;
+
+window.runOptimizationSystem =
+    runOptimizationSystem;
+
+window.calculateOptimizationResults =
+    calculateOptimizationResults;
+
+window.runOptimizationValidation =
+    runOptimizationValidation;
+
+window.runOptimizationSelfTest =
+    runOptimizationSelfTest;
+
+window.runOptimizationTestAndCorrect =
+    runOptimizationTestAndCorrect;
+
+window.runOptimizationIntegrationTest =
+    runOptimizationIntegrationTest;
+
+window.resetOptimizationSystem =
+    resetOptimizationSystem;
+
+
+/* ------------------------------------------------------------
+   BIODIESEL
+------------------------------------------------------------ */
+
+window.getBiodieselEngineStatus =
+    getBiodieselEngineStatus;
+
+window.updateBiodieselEngineStatus =
+    updateBiodieselEngineStatus;
+
+window.runBiodieselScenario =
+    runBiodieselScenario;
+
+window.runBiodieselIntegrationTest =
+    runBiodieselIntegrationTest;
+
+window.runBiodieselSelfTest =
+    runBiodieselSelfTest;
+
+window.runBiodieselTestAndCorrect =
+    runBiodieselTestAndCorrect;
+
+window.runBiodieselTrialManoeuvre =
+    runBiodieselTrialManoeuvre;
+
+window.validateBiodieselTrialManoeuvre =
+    validateBiodieselTrialManoeuvre;
+
+window.resetBiodieselTrialManoeuvre =
+    resetBiodieselTrialManoeuvre;
+
+
+/* ============================================================
+   SCREEN INITIALIZATION
+============================================================ */
+
+function initializeOptimizerCockpit() {
+
+    const slider =
+        getElement(
+            "optimizationIntensity"
+        );
+
+
+    if (slider) {
+
+        slider.value =
+            EDGE_STATE.intensity;
+
+        /*
+         * The listener is installed only once
+         * during cockpit initialization.
+         */
+
+        if (
+            !slider.dataset
+                .sextantListenerAttached
+        ) {
+
+            slider.addEventListener(
+                "input",
+                updateOptimizationIntensity
+            );
+
+            slider.dataset
+                .sextantListenerAttached =
+                "true";
+        }
+    }
+
+
+    updateOptimizationIntensity();
+
+    updateOptimizationDomainMonitor();
+
+    updateBiodieselEngineStatus();
+
+
+    write(
+        "systemStatus",
+        "SYSTEM STATUS: READY — EDGE OPTIMIZATION"
+    );
+
+    write(
+        "optimizationStatus",
+        "WAITING"
+    );
+
+
+    console.log(
+        "Sextant Protocol™ Cockpit Pro initialized."
+    );
+
+    console.log(
+        "Edge optimization orchestration ready."
+    );
+
+    console.log(
+        "Optimization domains: Quantization, Pruning, Graph Optimization, Memory Optimization, Kernel Optimization, Runtime Efficiency."
+    );
+
+    console.log(
+        "Biodiesel authoritative domain orchestration ready."
+    );
+
+    console.log(
+        "Backend connection: DISABLED."
+    );
+
+    console.log(
+        "Physical execution: DISABLED."
+    );
+
+    console.log(
+        "Human authorization: REQUIRED."
+    );
+}
+
+
+/* ============================================================
+   DOM READY
+============================================================ */
+
+if (
+    document.readyState === "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeOptimizerCockpit
+    );
+
+} else {
+
+    initializeOptimizerCockpit();
+}
