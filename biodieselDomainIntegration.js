@@ -75,4 +75,56 @@ The required loading order is:
 <script src="biodieselModule.js"></script>
 <script src="biodieselDomainIntegration.js"></script>
 <script src="assets/js/app.js"></script>
+## 6. Authoritative Rule Registry
+
+The Biodiesel Rule Registry contains four deterministic rules.
+
+| Rule | Condition | Solution | Recovery | Priority |
+|---|---|---|---|---|
+| BDS-001 | energy >= 70 | MAINTAIN_SAFE_STATE | CONTINUE_MONITORING | HIGH |
+| BDS-002 | energy >= 50 && energy < 70 | ENERGY_CONSERVATION_MODE | REDUCE_NON_CRITICAL_ENERGY_DEMAND | MEDIUM |
+| BDS-003 | energy >= 30 && energy < 50 | ENERGY_CONTINGENCY_MODE | ACTIVATE_ALTERNATIVE_ENERGY_SUPPLY | HIGH |
+| BDS-004 | energy < 30 | ENERGY_EMERGENCY_MODE | ESCALATE_AND_ACTIVATE_EMERGENCY_SUPPLY | CRITICAL |
+
+Rules remain in the authoritative data registry.
+
+The integration layer does not duplicate or replace the rules.
+
+---
+
+## 7. Integration Architecture
+
+```text
+BIODIESEL INPUT
+      |
+      v
+OBSERVE
+      |
+      v
+VERIFY
+      |
+      v
+BIODIESEL RULE REGISTRY
+      |
+      v
+BIODIESEL RULE ENGINE
+      |
+      v
+ASSESS
+      |
+      v
+CAPTAIN AI LENA
+      |
+      v
+DECIDE
+      |
+      v
+HUMAN AUTHORIZATION
+      |
+      v
+RECOMMENDED ACTION
+      |
+      v
+UPDATE / AUDIT
+
 
