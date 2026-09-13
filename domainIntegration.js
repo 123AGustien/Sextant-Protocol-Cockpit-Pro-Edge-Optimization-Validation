@@ -411,3 +411,40 @@ if (
   window.initializeDomainIntegration =
     initializeDomainIntegration;
 }
+/*
+ * Safe initialization
+ *
+ * No domain-specific rules are created here.
+ * Existing engines are detected and registered only
+ * when they are already available.
+ */
+
+if (
+  typeof window !== "undefined"
+) {
+  try {
+    window.SextantDomainIntegration.initialize();
+  } catch (error) {
+    console.error(
+      "Sextant Domain Integration initialization failed:",
+      error
+    );
+  }
+}
+
+/*
+ * Compatibility aliases
+ *
+ * These preserve simple cockpit access without
+ * replacing the central integration API.
+ */
+
+if (
+  typeof window !== "undefined"
+) {
+  window.SPD_DOMAIN_INTEGRATION =
+    window.SextantDomainIntegration;
+
+  window.DomainIntegrationLayer =
+    window.SextantDomainIntegration;
+}
