@@ -1,0 +1,43 @@
+# SEXTANT PROTOCOL™ — BIODIESEL DOMAIN INTEGRATION
+
+## ENERGY DOMAIN
+
+**Captain AI Lena Decision Support**
+
+**Integration Version:** 2.1.0  
+**Rule Registry Version:** 1.0.0  
+**Rule Engine Version:** 1.0.0
+
+---
+
+## 1. Purpose
+
+The Biodiesel Domain Integration provides a deterministic local simulation interface between the authoritative Biodiesel Rule Registry, Biodiesel Rule Engine, Scenario Engine, Trial Manoeuvre layer, and Captain AI Lena decision-support workflow.
+
+The integration validates that the Biodiesel domain is correctly wired before a scenario solution is presented to the user.
+
+The integration does not provide autonomous physical control.
+
+---
+
+## 2. Doctrine
+
+The Biodiesel domain follows the Sextant Protocol™ Golden Rule:
+
+> OBSERVE → VERIFY → ASSESS → DECIDE → ACT → UPDATE
+
+The integration preserves the core architecture:
+
+> DATA → ALGORITHMS → COMPUTE
+
+### DATA
+
+The authoritative Biodiesel Rule Registry contains the domain rules and scenario definitions.
+
+### ALGORITHMS
+
+The Biodiesel Rule Engine evaluates the supplied state against the authoritative rules.
+
+### COMPUTE
+
+The Scenario Engine and integration layer execute the deterministic computation required to produce the verified solution.
