@@ -102,3 +102,137 @@
                 typeof engine.deriveSolution === "function"
         };
     }
+    /* ========================================================
+       REGISTRY STATUS
+       ======================================================== */
+
+    function getBiodieselRegistryStatus() {
+
+        return getBiodieselRegistry();
+    }
+
+
+    /* ========================================================
+       ENGINE STATUS
+       ======================================================== */
+
+    function getBiodieselEngineStatus() {
+
+        return getBiodieselEngine();
+    }
+
+
+    /* ========================================================
+       BIODIESEL INTENSITY
+       Deterministic test input
+       ======================================================== */
+
+    function getBiodieselIntensity() {
+
+        return 50;
+    }
+
+
+    /* ========================================================
+       CREATE BIODIESEL STATE
+       ======================================================== */
+
+    function createBiodieselState(
+        intensity = getBiodieselIntensity()
+    ) {
+
+        const numericIntensity =
+            Number(intensity);
+
+        return {
+            energy:
+                Number.isFinite(numericIntensity)
+                    ? numericIntensity
+                    : 50
+        };
+    }
+
+
+    /* ========================================================
+       VALIDATE AUTHORITATIVE REGISTRY
+       ======================================================== */
+
+    function validateBiodieselRegistry() {
+
+        const registry =
+            global.BiodieselRuleRegistry;
+
+        if (!registry) {
+
+            return {
+                valid: false,
+                error:
+                    "BIODIESEL_RULE_REGISTRY_NOT_AVAILABLE"
+            };
+        }
+
+        if (
+            typeof registry.validateBiodieselRules !==
+            "function"
+        ) {
+
+            return {
+                valid: false,
+                error:
+                    "BIODIESEL_REGISTRY_VALIDATOR_NOT_AVAILABLE"
+            };
+        }
+
+        const result =
+            registry.validateBiodieselRules();
+
+        return {
+            valid:
+                result &&
+                result.valid === true,
+
+            result:
+                result
+        };
+    }
+
+
+    /* ========================================================
+       EVALUATE BIODIESEL RULES
+       Authoritative Rule Engine only
+       ======================================================== */
+
+    function evaluateBiodieselRules(
+        scenario = BIODIESEL_SCENARIO,
+        state = createBiodieselState()
+    ) {
+
+        const engine =
+            global.BiodieselRuleEngine;
+
+        if (!engine) {
+
+            return {
+                verified: false,
+                error:
+                    "BIODIESEL_RULE_ENGINE_NOT_AVAILABLE"
+            };
+        }
+
+        if (
+            typeof engine.evaluate !==
+            "function"
+        ) {
+
+            return {
+                verified: false,
+                error:
+                    "BIODIESEL_RULE_ENGINE_EVALUATE_NOT_AVAILABLE"
+            };
+        }
+
+        return engine.evaluate(
+            scenario,
+            state
+        );
+    }
