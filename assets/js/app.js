@@ -1,4 +1,4 @@
-"use strict";
+slider.value"use strict";
 
 /* ============================================================
    SEXTANT PROTOCOL™ COCKPIT PRO
@@ -1462,3 +1462,626 @@ function identifyOptimizationFault(
         }
     );
 }
+/* ============================================================
+   CORRECTIVE ACTION
+============================================================ */
+
+function executeOptimizationCorrectiveAction() {
+
+    const slider =
+        getElement(
+            "optimizationIntensity"
+        );
+
+
+    if (slider) {
+
+        const intensity =
+            normalizeOptimizationIntensity(
+                slider.value
+            );
+
+        EDGE_STATE.intensity =
+            intensity;
+
+        setText(
+            "intensityValue",
+            `${intensity}%`
+        );
+
+
+        const fill =
+            getElement(
+                "fill"
+            );
+
+        if (fill) {
+
+            fill.style.width =
+                `${intensity}%`;
+        }
+
+
+        const progressFill =
+            getElement(
+                "progressFill"
+            );
+
+        if (progressFill) {
+
+            progressFill.style.width =
+                `${intensity}%`;
+        }
+    }
+
+
+    updateOptimizationDomainMonitor();
+
+
+    write(
+        "correctiveAction",
+        {
+            status:
+                "CORRECTIVE_ACTION_APPLIED",
+
+            action:
+                "REINITIALIZED_EDGE_SYSTEM_STATE",
+
+            scenario:
+                getActiveOptimizationScenario(),
+
+            intensity:
+                getOptimizationIntensity(),
+
+            execution:
+                "LOCAL_DETERMINISTIC_SIMULATION"
+        }
+    );
+
+
+    logEdge(
+        "Edge system corrective action applied."
+    );
+
+
+    return runOptimizationSelfTest();
+}
+
+
+/* ============================================================
+   SELF-TEST + CORRECTIVE ACTION
+============================================================ */
+
+function runOptimizationSelfTestAndCorrect() {
+
+    const firstTest =
+        runOptimizationSelfTest();
+
+
+    if (
+        firstTest &&
+        firstTest.status ===
+        "SELF_TEST_PASS"
+    ) {
+
+        write(
+            "correctiveAction",
+            {
+                status:
+                    "NOT_REQUIRED",
+
+                reason:
+                    "SELF_TEST_ALREADY_PASS"
+            }
+        );
+
+
+        write(
+            "retest",
+            {
+                status:
+                    "RETEST_NOT_REQUIRED",
+
+                reason:
+                    "INITIAL_SELF_TEST_PASS"
+            }
+        );
+
+
+        return firstTest;
+    }
+
+
+    const retest =
+        executeOptimizationCorrectiveAction();
+
+
+    write(
+        "retest",
+        retest
+    );
+
+
+    writeAudit(
+        "EDGE_SELF_TEST_RETEST",
+        retest
+    );
+
+
+    return retest;
+}
+
+
+/* ============================================================
+   HTML COMPATIBILITY ALIAS
+============================================================ */
+
+function runOptimizationTestAndCorrect() {
+
+    return runOptimizationSelfTestAndCorrect();
+}
+
+
+/* ============================================================
+   SYSTEM RESET
+============================================================ */
+
+function resetOptimizationSystem() {
+
+    EDGE_STATE.scenario =
+        "NORMAL";
+
+    EDGE_STATE.intensity =
+        50;
+
+    EDGE_STATE.running =
+        false;
+
+    EDGE_STATE.validation =
+        false;
+
+    EDGE_STATE.selfTest =
+        false;
+
+
+    EDGE_STATE.domains =
+        {
+            quantization:
+                50,
+
+            pruning:
+                50,
+
+            graph:
+                50,
+
+            memory:
+                50,
+
+            kernel:
+                50,
+
+            runtime:
+                50
+        };
+
+
+    const slider =
+        getElement(
+            "optimizationIntensity"
+        );
+
+
+    if (slider) {
+
+        slider.value =
+            "50";
+    }
+
+
+    setText(
+        "intensityValue",
+        "50%"
+    );
+
+
+    const fill =
+        getElement(
+            "fill"
+        );
+
+
+    if (fill) {
+
+        fill.style.width =
+            "50%";
+    }
+
+
+    const progressFill =
+        getElement(
+            "progressFill"
+        );
+
+
+    if (progressFill) {
+
+        progressFill.style.width =
+            "50%";
+    }
+
+
+    write(
+        "systemStatus",
+        "SYSTEM STATUS: READY — EDGE OPTIMIZATION"
+    );
+
+
+    write(
+        "optimizationStatus",
+        "WAITING"
+    );
+
+
+    write(
+        "scenarioPanel",
+        {
+            domain:
+                "EDGE OPTIMIZATION",
+
+            scenario:
+                "NORMAL",
+
+            intensity:
+                "50%",
+
+            execution:
+                "LOCAL_DETERMINISTIC_SIMULATION",
+
+            backend:
+                "NOT CONNECTED"
+        }
+    );
+
+
+    write(
+        "pipeline",
+        "Pipeline waiting for execution."
+    );
+
+
+    write(
+        "state",
+        "Waiting for optimization execution."
+    );
+
+
+    write(
+        "assessment",
+        "Waiting for assessment."
+    );
+
+
+    write(
+        "decision",
+        "Waiting for decision."
+    );
+
+
+    write(
+        "validation",
+        "Validation not executed."
+    );
+
+
+    write(
+        "selfTest",
+        "Self-test not executed."
+    );
+
+
+    write(
+        "selfTestInterpretation",
+        "Waiting for self-test."
+    );
+
+
+    write(
+        "faultIdentification",
+        "Fault identification not executed."
+    );
+
+
+    write(
+        "correctiveAction",
+        "Corrective action not executed."
+    );
+
+
+    write(
+        "retest",
+        "Retest not executed."
+    );
+
+
+    write(
+        "domainIntegration",
+        "Integration test not executed."
+    );
+
+
+    write(
+        "costReduction",
+        "—"
+    );
+
+
+    write(
+        "throughput",
+        "—"
+    );
+
+
+    write(
+        "efficiency",
+        "—"
+    );
+
+
+    updateOptimizationDomainMonitor();
+
+
+    window.edgePipelineLog =
+        [];
+
+    window.edgeAuditLog =
+        [];
+
+
+    write(
+        "pipelineLog",
+        []
+    );
+
+
+    write(
+        "audit",
+        []
+    );
+
+
+    activatePipelineStage(
+        "stageOBSERVE"
+    );
+
+
+    logEdge(
+        "Edge optimization system reset."
+    );
+}
+
+
+/* ============================================================
+   SYSTEM INITIALIZATION
+============================================================ */
+
+function initializeEdgeOptimizationSystem() {
+
+    const slider =
+        getElement(
+            "optimizationIntensity"
+        );
+
+
+    if (slider) {
+
+        slider.value =
+            String(
+                normalizeOptimizationIntensity(
+                    EDGE_STATE.intensity
+                )
+            );
+    }
+
+
+    setText(
+        "intensityValue",
+        `${getOptimizationIntensity()}%`
+    );
+
+
+    const fill =
+        getElement(
+            "fill"
+        );
+
+
+    if (fill) {
+
+        fill.style.width =
+            `${getOptimizationIntensity()}%`;
+    }
+
+
+    const progressFill =
+        getElement(
+            "progressFill"
+        );
+
+
+    if (progressFill) {
+
+        progressFill.style.width =
+            `${getOptimizationIntensity()}%`;
+    }
+
+
+    updateOptimizationDomainMonitor();
+
+
+    write(
+        "systemStatus",
+        "SYSTEM STATUS: READY — EDGE OPTIMIZATION"
+    );
+
+
+    write(
+        "optimizationStatus",
+        "WAITING"
+    );
+
+
+    write(
+        "scenarioPanel",
+        {
+            domain:
+                "EDGE OPTIMIZATION",
+
+            scenario:
+                getActiveOptimizationScenario(),
+
+            intensity:
+                `${getOptimizationIntensity()}%`,
+
+            execution:
+                "LOCAL_DETERMINISTIC_SIMULATION",
+
+            backend:
+                "NOT CONNECTED"
+        }
+    );
+
+
+    write(
+        "pipeline",
+        "Pipeline waiting for execution."
+    );
+
+
+    logEdge(
+        `Edge Optimization System initialized — ${EDGE_APP_VERSION}.`
+    );
+}
+
+
+/* ============================================================
+   PUBLIC APPLICATION API
+============================================================ */
+
+window.EdgeOptimizationApp =
+    {
+        version:
+            EDGE_APP_VERSION,
+
+        state:
+            EDGE_STATE,
+
+        getActiveOptimizationScenario:
+            getActiveOptimizationScenario,
+
+        activateOptimizationScenario:
+            activateOptimizationScenario,
+
+        resetOptimizationScenario:
+            resetOptimizationScenario,
+
+        getOptimizationIntensity:
+            getOptimizationIntensity,
+
+        updateOptimizationIntensity:
+            updateOptimizationIntensity,
+
+        updateOptimizationDomainMonitor:
+            updateOptimizationDomainMonitor,
+
+        runOptimizationSystem:
+            runOptimizationSystem,
+
+        runOptimizationIntegrationTest:
+            runOptimizationIntegrationTest,
+
+        runOptimizationValidation:
+            runOptimizationValidation,
+
+        runOptimizationSelfTest:
+            runOptimizationSelfTest,
+
+        runOptimizationSelfTestAndCorrect:
+            runOptimizationSelfTestAndCorrect,
+
+        runOptimizationTestAndCorrect:
+            runOptimizationTestAndCorrect,
+
+        resetOptimizationSystem:
+            resetOptimizationSystem
+    };
+
+
+/* ============================================================
+   GLOBAL HTML HANDLER EXPORTS
+   REQUIRED BY INLINE ONCLICK / ONINPUT HANDLERS
+============================================================ */
+
+window.getActiveOptimizationScenario =
+    getActiveOptimizationScenario;
+
+window.activateOptimizationScenario =
+    activateOptimizationScenario;
+
+window.resetOptimizationScenario =
+    resetOptimizationScenario;
+
+window.getOptimizationIntensity =
+    getOptimizationIntensity;
+
+window.updateOptimizationIntensity =
+    updateOptimizationIntensity;
+
+window.updateOptimizationDomainMonitor =
+    updateOptimizationDomainMonitor;
+
+window.runOptimizationSystem =
+    runOptimizationSystem;
+
+window.runOptimizationValidation =
+    runOptimizationValidation;
+
+window.runOptimizationIntegrationTest =
+    runOptimizationIntegrationTest;
+
+window.runOptimizationSelfTest =
+    runOptimizationSelfTest;
+
+window.runOptimizationSelfTestAndCorrect =
+    runOptimizationSelfTestAndCorrect;
+
+window.runOptimizationTestAndCorrect =
+    runOptimizationTestAndCorrect;
+
+window.resetOptimizationSystem =
+    resetOptimizationSystem;
+
+
+/* ============================================================
+   DOM READY
+============================================================ */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeEdgeOptimizationSystem
+    );
+
+} else {
+
+    initializeEdgeOptimizationSystem();
+}
+
+
+/* ============================================================
+   END OF EDGE SYSTEM-WIRING BASELINE
+============================================================ */
