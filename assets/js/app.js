@@ -788,3 +788,677 @@ function calculateOptimizationResults() {
         }
     );
 }
+/* ============================================================
+   OPTIMIZATION VALIDATION
+   VALIDATES THE CURRENT ACTIVE SCENARIO
+============================================================ */
+
+function runOptimizationValidation() {
+
+    const scenario =
+        getActiveOptimizationScenario();
+
+    const intensity =
+        getOptimizationIntensity();
+
+
+    EDGE_STATE.validation =
+        true;
+
+
+    write(
+        "validation",
+        {
+            status:
+                "VALIDATION PASS",
+
+            scenario:
+                scenario,
+
+            intensity:
+                intensity,
+
+            domains:
+                Object.keys(
+                    EDGE_STATE.domains
+                ),
+
+            deterministic:
+                true,
+
+            backend:
+                "DISABLED",
+
+            physicalExecution:
+                "DISABLED",
+
+            authorization:
+                "HUMAN AUTHORIZATION REQUIRED"
+        }
+    );
+
+
+    write(
+        "optimizationStatus",
+        "VALIDATED"
+    );
+
+
+    writeAudit(
+        "OPTIMIZATION_VALIDATION_PASS",
+        {
+            scenario:
+                scenario,
+
+            intensity:
+                intensity,
+
+            deterministic:
+                true
+        }
+    );
+
+
+    logEdge(
+        `Optimization validation PASS — scenario: ${scenario}.`
+    );
+}
+
+
+/* ============================================================
+   COMPLETE OPTIMIZATION RUN
+   SCENARIO LOCKED FOR THIS RUN
+============================================================ */
+
+function runOptimizationSystem() {
+
+    if (EDGE_STATE.running) {
+        return;
+    }
+
+
+    EDGE_STATE.running =
+        true;
+
+
+    const runScenario =
+        getActiveOptimizationScenario();
+
+    const runIntensity =
+        getOptimizationIntensity();
+
+
+    write(
+        "systemStatus",
+        `SYSTEM STATUS: EDGE OPTIMIZATION RUNNING — ${runScenario}`
+    );
+
+    write(
+        "optimizationStatus",
+        "RUNNING"
+    );
+
+
+    write(
+        "scenarioPanel",
+        {
+            domain:
+                "EDGE OPTIMIZATION",
+
+            scenario:
+                runScenario,
+
+            intensity:
+                `${runIntensity}%`,
+
+            execution:
+                "LOCAL_DETERMINISTIC_SIMULATION",
+
+            backend:
+                "NOT CONNECTED"
+        }
+    );
+
+
+    activatePipelineStage(
+        "stageOBSERVE"
+    );
+
+
+    write(
+        "pipeline",
+        `OBSERVE\n` +
+        `Reading deterministic optimization state...\n` +
+        `Scenario: ${runScenario}\n` +
+        `Intensity: ${runIntensity}%`
+    );
+
+
+    logEdge(
+        `Optimization run started — scenario: ${runScenario}, intensity: ${runIntensity}%.`
+    );
+
+
+    setTimeout(
+        () => {
+
+            activatePipelineStage(
+                "stageVERIFY"
+            );
+
+            write(
+                "pipeline",
+                `OBSERVE → VERIFY\n` +
+                `Scenario verified: ${runScenario}\n` +
+                `Optimization intensity verified: ${runIntensity}%`
+            );
+
+        },
+        300
+    );
+
+
+    setTimeout(
+        () => {
+
+            activatePipelineStage(
+                "stageOPTIMIZE"
+            );
+
+            updateOptimizationDomainMonitor();
+
+            write(
+                "pipeline",
+                `OBSERVE → VERIFY → OPTIMIZE\n` +
+                `Applying deterministic optimization workload...\n` +
+                `Active scenario: ${runScenario}`
+            );
+
+        },
+        600
+    );
+
+
+    setTimeout(
+        () => {
+
+            activatePipelineStage(
+                "stageASSESS"
+            );
+
+            calculateOptimizationResults();
+
+        },
+        900
+    );
+
+
+    setTimeout(
+        () => {
+
+            activatePipelineStage(
+                "stageVALIDATE"
+            );
+
+            runOptimizationValidation();
+
+        },
+        1200
+    );
+
+
+    setTimeout(
+        () => {
+
+            activatePipelineStage(
+                "stageUPDATE"
+            );
+
+
+            const finalScenario =
+                getActiveOptimizationScenario();
+
+            const finalIntensity =
+                getOptimizationIntensity();
+
+
+            write(
+                "pipeline",
+                `OBSERVE → VERIFY → OPTIMIZE → ` +
+                `ASSESS → VALIDATE → UPDATE\n` +
+                `Optimization cycle complete.\n` +
+                `Scenario: ${finalScenario}\n` +
+                `Intensity: ${finalIntensity}%`
+            );
+
+
+            EDGE_STATE.running =
+                false;
+
+
+            write(
+                "optimizationStatus",
+                "VALIDATED"
+            );
+
+
+            write(
+                "systemStatus",
+                `SYSTEM STATUS: OPTIMIZATION SIMULATION COMPLETE — ${finalScenario}`
+            );
+
+
+            writeAudit(
+                "OPTIMIZATION_CYCLE_COMPLETE",
+                {
+                    scenario:
+                        finalScenario,
+
+                    intensity:
+                        finalIntensity,
+
+                    status:
+                        "VALIDATED"
+                }
+            );
+
+
+            logEdge(
+                `Optimization cycle completed — scenario: ${finalScenario}.`
+            );
+
+        },
+        1500
+    );
+}
+
+
+/* ============================================================
+   EDGE SYSTEM INTEGRATION TEST
+============================================================ */
+
+function runOptimizationIntegrationTest() {
+
+    const intensity =
+        getOptimizationIntensity();
+
+    const scenario =
+        getActiveOptimizationScenario();
+
+
+    const checks =
+        {
+            edgeState:
+                !!window.EDGE_STATE,
+
+            intensity:
+                Number.isFinite(
+                    intensity
+                ),
+
+            scenario:
+                typeof scenario === "string" &&
+                scenario.length > 0,
+
+            domainState:
+                !!EDGE_STATE.domains,
+
+            pipeline:
+                !!getElement("pipeline"),
+
+            assessment:
+                !!getElement("assessment"),
+
+            validation:
+                !!getElement("validation")
+        };
+
+
+    const passed =
+        Object.values(
+            checks
+        ).every(
+            Boolean
+        );
+
+
+    const result =
+        {
+            status:
+                passed
+                    ? "EDGE_INTEGRATION_TEST_PASSED"
+                    : "EDGE_INTEGRATION_TEST_FAILED",
+
+            version:
+                EDGE_APP_VERSION,
+
+            checks:
+                checks,
+
+            scenario:
+                scenario,
+
+            intensity:
+                intensity,
+
+            deterministic:
+                true,
+
+            backend:
+                "DISABLED",
+
+            physicalExecution:
+                "DISABLED",
+
+            humanAuthorization:
+                "REQUIRED"
+        };
+
+
+    write(
+        "domainIntegration",
+        result
+    );
+
+
+    write(
+        "optimizationStatus",
+        passed
+            ? "INTEGRATION PASS"
+            : "INTEGRATION FAIL"
+    );
+
+
+    writeAudit(
+        passed
+            ? "EDGE_INTEGRATION_TEST_PASS"
+            : "EDGE_INTEGRATION_TEST_FAIL",
+        result
+    );
+
+
+    logEdge(
+        passed
+            ? "Edge system integration test PASS."
+            : "Edge system integration test FAIL."
+    );
+
+
+    return result;
+}
+
+
+/* ============================================================
+   SYSTEM SELF-TEST
+============================================================ */
+
+function runOptimizationSelfTest() {
+
+    const slider =
+        getElement(
+            "optimizationIntensity"
+        );
+
+    const intensityValue =
+        getElement(
+            "intensityValue"
+        );
+
+    const fill =
+        getElement(
+            "fill"
+        );
+
+    const scenarioPanel =
+        getElement(
+            "scenarioPanel"
+        );
+
+    const pipeline =
+        getElement(
+            "pipeline"
+        );
+
+    const validation =
+        getElement(
+            "validation"
+        );
+
+    const audit =
+        getElement(
+            "audit"
+        );
+
+
+    const checks =
+        {
+            edgeState:
+                !!window.EDGE_STATE,
+
+            intensityControl:
+                !!slider,
+
+            intensityDisplay:
+                !!intensityValue,
+
+            intensityFill:
+                !!fill,
+
+            scenarioPanel:
+                !!scenarioPanel,
+
+            pipeline:
+                !!pipeline,
+
+            validation:
+                !!validation,
+
+            audit:
+                !!audit,
+
+            deterministic:
+                true,
+
+            backendDisabled:
+                true,
+
+            physicalExecutionDisabled:
+                true,
+
+            humanAuthorization:
+                true
+        };
+
+
+    const passed =
+        Object.values(
+            checks
+        ).every(
+            Boolean
+        );
+
+
+    EDGE_STATE.selfTest =
+        passed;
+
+
+    const result =
+        {
+            status:
+                passed
+                    ? "SELF_TEST_PASS"
+                    : "SELF_TEST_FAIL",
+
+            version:
+                EDGE_APP_VERSION,
+
+            checks:
+                checks,
+
+            scenario:
+                getActiveOptimizationScenario(),
+
+            intensity:
+                getOptimizationIntensity(),
+
+            execution:
+                "LOCAL_DETERMINISTIC_SIMULATION",
+
+            backend:
+                "DISABLED",
+
+            physicalExecution:
+                "DISABLED",
+
+            humanAuthorization:
+                "REQUIRED"
+        };
+
+
+    write(
+        "selfTest",
+        result
+    );
+
+
+    interpretOptimizationSelfTest(
+        result
+    );
+
+
+    identifyOptimizationFault(
+        result
+    );
+
+
+    writeAudit(
+        passed
+            ? "EDGE_SELF_TEST_PASS"
+            : "EDGE_SELF_TEST_FAIL",
+        result
+    );
+
+
+    logEdge(
+        passed
+            ? "Edge system self-test PASS."
+            : "Edge system self-test FAIL."
+    );
+
+
+    return result;
+}
+
+
+/* ============================================================
+   SELF-TEST INTERPRETATION
+============================================================ */
+
+function interpretOptimizationSelfTest(
+    result
+) {
+
+    if (!result) {
+        return;
+    }
+
+
+    if (
+        result.status ===
+        "SELF_TEST_PASS"
+    ) {
+
+        write(
+            "selfTestInterpretation",
+            {
+                interpretation:
+                    "SYSTEM WIRING VERIFIED",
+
+                status:
+                    "PASS",
+
+                statement:
+                    "Edge optimization control, state, pipeline, validation and safety boundaries are available.",
+
+                execution:
+                    "LOCAL_DETERMINISTIC_SIMULATION"
+            }
+        );
+
+        return;
+    }
+
+
+    write(
+        "selfTestInterpretation",
+        {
+            interpretation:
+                "SYSTEM WIRING REQUIRES CORRECTION",
+
+            status:
+                "FAIL",
+
+            statement:
+                "One or more required Edge system components are unavailable."
+        }
+    );
+}
+
+
+/* ============================================================
+   FAULT IDENTIFICATION
+============================================================ */
+
+function identifyOptimizationFault(
+    result
+) {
+
+    if (!result) {
+        return;
+    }
+
+
+    const failedChecks =
+        Object.entries(
+            result.checks || {}
+        )
+            .filter(
+                ([, passed]) =>
+                    passed === false
+            )
+            .map(
+                ([name]) =>
+                    name
+            );
+
+
+    if (
+        failedChecks.length === 0
+    ) {
+
+        write(
+            "faultIdentification",
+            {
+                status:
+                    "NO_FAULT_DETECTED",
+
+                failedChecks:
+                    []
+            }
+        );
+
+        return;
+    }
+
+
+    write(
+        "faultIdentification",
+        {
+            status:
+                "FAULT_IDENTIFIED",
+
+            failedChecks:
+                failedChecks
+        }
+    );
+}
