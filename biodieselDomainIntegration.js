@@ -116,7 +116,7 @@
         );
 
         updateBiodieselElement(
-            "biodieselAuditRecord",
+            "biodieselAudit"
             global.biodieselAuditLog
         );
 
