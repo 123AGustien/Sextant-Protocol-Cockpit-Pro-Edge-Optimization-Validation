@@ -173,5 +173,17 @@ The test verifies:
 
 The integration test passes only when all required checks are true.
 
+## 10. Verified Test Result
 
+Test input:
+
+```json
+{
+  "domain": "ENERGY",
+  "scenario": "BIODIESEL_SHORTAGE",
+  "intensity": 50,
+  "state": {
+    "energy": 50
+  }
+}
 
