@@ -236,3 +236,222 @@
             state
         );
     }
+    /* ========================================================
+       DERIVE BIODIESEL SOLUTION
+       Authoritative Rule Engine only
+       ======================================================== */
+
+    function deriveBiodieselSolution(
+        scenario = BIODIESEL_SCENARIO,
+        state = createBiodieselState()
+    ) {
+
+        const engine =
+            global.BiodieselRuleEngine;
+
+        if (!engine) {
+
+            return {
+                verified: false,
+                error:
+                    "BIODIESEL_RULE_ENGINE_NOT_AVAILABLE"
+            };
+        }
+
+        if (
+            typeof engine.deriveSolution !==
+            "function"
+        ) {
+
+            return {
+                verified: false,
+                error:
+                    "BIODIESEL_RULE_ENGINE_DERIVE_SOLUTION_NOT_AVAILABLE"
+            };
+        }
+
+        return engine.deriveSolution(
+            scenario,
+            state
+        );
+    }
+
+
+    /* ========================================================
+       RUN BIODIESEL DOMAIN
+       ======================================================== */
+
+    function runBiodieselDomain() {
+
+        const registryStatus =
+            getBiodieselRegistryStatus();
+
+        const engineStatus =
+            getBiodieselEngineStatus();
+
+        const state =
+            createBiodieselState();
+
+        if (
+            !registryStatus.available ||
+            !engineStatus.available
+        ) {
+
+            return {
+
+                domain:
+                    BIODIESEL_DOMAIN,
+
+                scenario:
+                    BIODIESEL_SCENARIO,
+
+                state:
+                    state,
+
+                registry:
+                    registryStatus,
+
+                engine:
+                    engineStatus,
+
+                ruleEvaluation:
+                    null,
+
+                solution:
+                    null,
+
+                verified:
+                    false,
+
+                humanAuthorizationRequired:
+                    true,
+
+                physicalExecution:
+                    false,
+
+                automaticExecution:
+                    false,
+
+                status:
+                    "BIODIESEL_DOMAIN_INTEGRATION_UNAVAILABLE"
+            };
+        }
+
+
+        const ruleEvaluation =
+            evaluateBiodieselRules(
+                BIODIESEL_SCENARIO,
+                state
+            );
+
+
+        const solution =
+            deriveBiodieselSolution(
+                BIODIESEL_SCENARIO,
+                state
+            );
+
+
+        return {
+
+            domain:
+                BIODIESEL_DOMAIN,
+
+            scenario:
+                BIODIESEL_SCENARIO,
+
+            state:
+                state,
+
+            registry:
+                registryStatus,
+
+            engine:
+                engineStatus,
+
+            ruleEvaluation:
+                ruleEvaluation,
+
+            solution:
+                solution,
+
+            verified:
+                Boolean(
+                    ruleEvaluation &&
+                    ruleEvaluation.verified === true
+                ),
+
+            humanAuthorizationRequired:
+                true,
+
+            physicalExecution:
+                false,
+
+            automaticExecution:
+                false,
+
+            status:
+                (
+                    ruleEvaluation &&
+                    ruleEvaluation.verified === true
+                )
+                    ? "BIODIESEL_DOMAIN_INTEGRATION_VERIFIED"
+                    : "BIODIESEL_DOMAIN_INTEGRATION_FAILED"
+        };
+    }
+
+
+    /* ========================================================
+       BIODIESEL DOMAIN INTEGRATION TEST
+       ======================================================== */
+
+    function runBiodieselIntegrationTest() {
+
+        const intensity =
+            getBiodieselIntensity();
+
+        const state =
+            createBiodieselState(
+                intensity
+            );
+
+        const registryStatus =
+            getBiodieselRegistryStatus();
+
+        const engineStatus =
+            getBiodieselEngineStatus();
+
+        const registryValidation =
+            validateBiodieselRegistry();
+
+
+        let evaluation = null;
+
+        let ruleEvaluationExecuted =
+            false;
+
+        let ruleVerified =
+            false;
+
+
+        if (
+            registryStatus.available &&
+            engineStatus.available &&
+            engineStatus.evaluateAvailable
+        ) {
+
+            evaluation =
+                evaluateBiodieselRules(
+                    BIODIESEL_SCENARIO,
+                    state
+                );
+
+            ruleEvaluationExecuted =
+                true;
+
+            ruleVerified =
+                Boolean(
+                    evaluation &&
+                    evaluation.verified === true
+                );
+        }
