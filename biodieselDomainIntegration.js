@@ -126,5 +126,52 @@ RECOMMENDED ACTION
       |
       v
 UPDATE / AUDIT
+## 8. Safety Boundary
+
+The Biodiesel integration is a local deterministic simulator.
+
+The following boundaries are enforced:
+
+- Backend connection: `false`
+- Physical execution: `false`
+- Automatic execution: `false`
+- Vessel actuation: `false`
+- External connection: `false`
+- Human authorization required: `true`
+
+Therefore:
+
+- No backend connection is required.
+- No physical equipment is controlled.
+- No automatic execution occurs.
+- No vessel actuation occurs.
+- No external system is connected.
+- Human authorization remains mandatory.
+
+---
+
+## 9. Integration Test
+
+The integration test is:
+
+`BIODIESEL_DOMAIN_INTEGRATION`
+
+Integration version:
+
+`2.1.0`
+
+The test verifies:
+
+1. Rule Registry availability
+2. Registry validator availability
+3. Registry validity
+4. Rule Engine availability
+5. Evaluate function availability
+6. Derive Solution function availability
+7. Rule evaluation execution
+8. Rule verification
+
+The integration test passes only when all required checks are true.
+
 
 
