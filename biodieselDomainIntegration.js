@@ -415,4 +415,236 @@
 
         return fault;
     }
+    /* ========================================================
+       CORRECTIVE ACTION
+       ======================================================== */
+
+    function executeBiodieselCorrectiveAction(
+        fault
+    ) {
+
+        let action;
+
+        if (
+            !fault ||
+            fault.faultDetected !== true
+        ) {
+
+            action = {
+
+                correctiveAction:
+                    "NO_CORRECTIVE_ACTION_REQUIRED",
+
+                automaticExecution:
+                    false,
+
+                physicalExecution:
+                    false,
+
+                humanAuthorization:
+                    "REQUIRED",
+
+                status:
+                    "NO_FAULT_DETECTED"
+            };
+
+        } else {
+
+            action = {
+
+                correctiveAction:
+                    "REQUEST_ADDITIONAL_DIAGNOSTICS",
+
+                fault:
+                    fault.fault,
+
+                automaticExecution:
+                    false,
+
+                physicalExecution:
+                    false,
+
+                humanAuthorization:
+                    "REQUIRED",
+
+                status:
+                    "CORRECTIVE_ACTION_RECOMMENDED"
+            };
+        }
+
+
+        updateBiodieselElement(
+            "biodieselCorrectiveAction",
+            action
+        );
+
+
+        writeBiodieselAudit(
+            "CORRECTIVE_ACTION",
+            action
+        );
+
+
+        writeBiodieselPipelineLog(
+            "CORRECTIVE_ACTION",
+            action.status,
+            action
+        );
+
+
+        return action;
+    }
+
+
+    /* ========================================================
+       SELF-TEST
+       ======================================================== */
+
+    function runBiodieselSelfTest() {
+
+        const result =
+            runBiodieselIntegrationTest();
+
+
+        updateBiodieselElement(
+            "biodieselSelfTest",
+            result
+        );
+
+
+        interpretBiodieselSelfTest(
+            result
+        );
+
+
+        identifyBiodieselFault(
+            result
+        );
+
+
+        writeBiodieselPipelineLog(
+            "SELF_TEST",
+            result?.passed === true
+                ? "PASS"
+                : "FAIL",
+            result
+        );
+
+
+        writeBiodieselAudit(
+            "SELF_TEST",
+            result
+        );
+
+
+        return result;
+    }
+
+
+    /* ========================================================
+       SELF-TEST + CORRECTIVE ACTION + RE-TEST
+       ======================================================== */
+
+    function runBiodieselSelfTestAndCorrectiveAction() {
+
+        const initialResult =
+            runBiodieselIntegrationTest();
+
+
+        updateBiodieselElement(
+            "biodieselSelfTest",
+            initialResult
+        );
+
+
+        const interpretation =
+            interpretBiodieselSelfTest(
+                initialResult
+            );
+
+
+        const fault =
+            identifyBiodieselFault(
+                initialResult
+            );
+
+
+        const correctiveAction =
+            executeBiodieselCorrectiveAction(
+                fault
+            );
+
+
+        let retest;
+
+
+        if (
+            initialResult &&
+            initialResult.passed === true
+        ) {
+
+            retest =
+                runBiodieselIntegrationTest();
+
+        } else {
+
+            retest = {
+
+                executed:
+                    false,
+
+                status:
+                    "RETEST_BLOCKED_PENDING_DIAGNOSTICS",
+
+                reason:
+                    "Initial Biodiesel self-test failed. " +
+                    "Re-test requires diagnostic resolution.",
+
+                humanAuthorization:
+                    "REQUIRED"
+            };
+        }
+
+
+        updateBiodieselElement(
+            "biodieselRetest",
+            retest
+        );
+
+
+        writeBiodieselAudit(
+            "RETEST",
+            retest
+        );
+
+
+        writeBiodieselPipelineLog(
+            "RETEST",
+            retest.passed === true
+                ? "PASS"
+                : retest.executed === false
+                    ? "BLOCKED"
+                    : "FAIL",
+            retest
+        );
+
+
+        return {
+
+            initialTest:
+                initialResult,
+
+            interpretation:
+                interpretation,
+
+            fault:
+                fault,
+
+            correctiveAction:
+                correctiveAction,
+
+            retest:
+                retest
+        };
+    }
 
