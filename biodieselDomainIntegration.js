@@ -41,3 +41,38 @@ The Biodiesel Rule Engine evaluates the supplied state against the authoritative
 ### COMPUTE
 
 The Scenario Engine and integration layer execute the deterministic computation required to produce the verified solution.
+## 3. Authoritative Components
+
+The Biodiesel integration requires the following components:
+
+1. `BiodieselRuleRegistry`
+2. `BiodieselRuleEngine`
+3. `BiodieselScenarioEngine`
+4. `BiodieselTrialManoeuvre`
+5. `BiodieselModule`
+6. `BiodieselDomainIntegration`
+
+The authoritative rule registry is:
+
+`window.BiodieselRuleRegistry`
+
+The authoritative rule engine is:
+
+`window.BiodieselRuleEngine`
+
+---
+
+## 4. Script Load Order
+
+The required loading order is:
+
+```html
+<script src="rules/energy/biodiesel/biodieselRuleRegistry.js"></script>
+<script src="biodieselRules.js"></script>
+<script src="biodieselRuleEngine.js"></script>
+<script src="biodieselScenarioEngine.js"></script>
+<script src="biodieselTrialManoeuvre.js"></script>
+<script src="biodieselModule.js"></script>
+<script src="biodieselDomainIntegration.js"></script>
+<script src="assets/js/app.js"></script>
+
