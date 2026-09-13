@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 /* ============================================================
    SEXTANT PROTOCOL™ COCKPIT PRO
