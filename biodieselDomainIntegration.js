@@ -647,4 +647,260 @@
                 retest
         };
     }
+    /* ========================================================
+       PUBLIC TRIAL MANOEUVRE HANDLER
+       ======================================================== */
+
+    function runBiodieselTrialManoeuvre() {
+
+        const result = {
+
+            executed:
+                false,
+
+            status:
+                "TRIAL_MANOEUVRE_NOT_AVAILABLE",
+
+            reason:
+                "Biodiesel trial manoeuvre module was removed.",
+
+            physicalExecution:
+                false,
+
+            backendConnection:
+                false,
+
+            humanAuthorization:
+                "REQUIRED"
+        };
+
+
+        updateBiodieselElement(
+            "biodieselTrialManoeuvre",
+            result
+        );
+
+
+        writeBiodieselAudit(
+            "TRIAL_MANOEUVRE",
+            result
+        );
+
+
+        writeBiodieselPipelineLog(
+            "TRIAL_MANOEUVRE",
+            "NOT_AVAILABLE",
+            result
+        );
+
+
+        return result;
+    }
+
+
+    /* ========================================================
+       TRIAL VALIDATION
+       ======================================================== */
+
+    function validateBiodieselTrialManoeuvre() {
+
+        const result = {
+
+            trialManoeuvreVerified:
+                false,
+
+            status:
+                "TRIAL_VALIDATION_NOT_AVAILABLE",
+
+            reason:
+                "Biodiesel trial manoeuvre module was removed.",
+
+            deterministic:
+                true,
+
+            backendConnection:
+                false,
+
+            physicalExecution:
+                false,
+
+            humanAuthorization:
+                "REQUIRED"
+        };
+
+
+        updateBiodieselElement(
+            "biodieselValidation",
+            result
+        );
+
+
+        writeBiodieselAudit(
+            "TRIAL_VALIDATION",
+            result
+        );
+
+
+        writeBiodieselPipelineLog(
+            "TRIAL_VALIDATION",
+            "NOT_AVAILABLE",
+            result
+        );
+
+
+        return result;
+    }
+
+
+    /* ========================================================
+       RESET BIODIESEL
+       ======================================================== */
+
+    function resetBiodiesel() {
+
+        global.biodieselAuditLog = [];
+        global.biodieselPipelineLog = [];
+
+
+        updateBiodieselElement(
+            "biodieselScenarioPanel",
+            "Biodiesel scenario not executed."
+        );
+
+        updateBiodieselElement(
+            "biodieselSelfTest",
+            "Biodiesel self-test not executed."
+        );
+
+        updateBiodieselElement(
+            "biodieselSelfTestInterpretation",
+            "Waiting for Biodiesel self-test..."
+        );
+
+        updateBiodieselElement(
+            "biodieselFaultIdentification",
+            "No Biodiesel integration fault assessment available."
+        );
+
+        updateBiodieselElement(
+            "biodieselCorrectiveAction",
+            "No corrective action available."
+        );
+
+        updateBiodieselElement(
+            "biodieselRetest",
+            "Biodiesel re-test not executed."
+        );
+
+        updateBiodieselElement(
+            "biodieselTrialManoeuvre",
+            "Biodiesel trial manoeuvre not executed."
+        );
+
+        updateBiodieselElement(
+            "biodieselValidation",
+            "Biodiesel validation not executed."
+        );
+
+        updateBiodieselElement(
+            "biodieselAudit",
+            []
+        );
+
+        updateBiodieselElement(
+            "biodieselPipelineLog",
+            []
+        );
+
+
+        return {
+
+            reset:
+                true,
+
+            domain:
+                BIODIESEL_DOMAIN,
+
+            status:
+                "BIODIESEL_RESET"
+        };
+    }
+
+
+    /* ========================================================
+       PUBLIC API
+       ======================================================== */
+
+    global.BiodieselDomainIntegration = {
+
+        version:
+            BIODIESEL_INTEGRATION_VERSION,
+
+        run:
+            runBiodieselDomain,
+
+        integrationTest:
+            runBiodieselIntegrationTest,
+
+        activateScenario:
+            activateBiodieselScenario,
+
+        selfTest:
+            runBiodieselSelfTest,
+
+        selfTestAndCorrect:
+            runBiodieselSelfTestAndCorrectiveAction,
+
+        trialManoeuvre:
+            runBiodieselTrialManoeuvre,
+
+        validateTrialManoeuvre:
+            validateBiodieselTrialManoeuvre,
+
+        reset:
+            resetBiodiesel
+    };
+
+
+    /* ========================================================
+       GLOBAL UI COMPATIBILITY WIRING
+       ======================================================== */
+
+    global.runBiodieselDomain =
+        runBiodieselDomain;
+
+    global.runBiodieselIntegrationTest =
+        runBiodieselIntegrationTest;
+
+    global.activateBiodieselScenario =
+        activateBiodieselScenario;
+
+    global.runBiodieselSelfTest =
+        runBiodieselSelfTest;
+
+    global.runBiodieselSelfTestAndCorrectiveAction =
+        runBiodieselSelfTestAndCorrectiveAction;
+
+
+    /*
+       Current index.html button uses the shorter
+       legacy function name. Preserve compatibility
+       without modifying the protected HTML.
+    */
+
+    global.runBiodieselSelfTestAndCorrect =
+        runBiodieselSelfTestAndCorrectiveAction;
+
+
+    global.runBiodieselTrialManoeuvre =
+        runBiodieselTrialManoeuvre;
+
+    global.validateBiodieselTrialManoeuvre =
+        validateBiodieselTrialManoeuvre;
+
+    global.resetBiodiesel =
+        resetBiodiesel;
+
+
+})(window);
 
