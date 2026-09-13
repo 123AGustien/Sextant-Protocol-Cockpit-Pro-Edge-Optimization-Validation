@@ -157,3 +157,136 @@ function verifyDomainInput(
     intensity
   };
 }
+function resolveDomainEngine(domain) {
+  const normalizedDomain =
+    normalizeDomain(domain);
+
+  return (
+    SEXTANT_DOMAIN_ENGINES.get(
+      normalizedDomain
+    ) || null
+  );
+}
+
+function verifyDomainEngine(domain) {
+  const normalizedDomain =
+    normalizeDomain(domain);
+
+  const engine =
+    resolveDomainEngine(normalizedDomain);
+
+  return {
+    domain: normalizedDomain,
+    registered: Boolean(engine),
+    status: engine
+      ? SEXTANT_DOMAIN_STATUS.ACTIVE
+      : SEXTANT_DOMAIN_STATUS.PLANNED,
+    engineAvailable: Boolean(engine)
+  };
+}
+
+function routeDomainScenario(
+  domain,
+  scenario,
+  scenarioState = {},
+  intensity = 0
+) {
+  const input =
+    verifyDomainInput(
+      domain,
+      scenarioState,
+      intensity
+    );
+
+  if (!input.valid) {
+    return {
+      routed: false,
+      domain: input.domain,
+      scenario,
+      reason: input.reason,
+      authority:
+        "HUMAN DECISION AUTHORITY"
+    };
+  }
+
+  const engine =
+    resolveDomainEngine(
+      input.domain
+    );
+
+  if (!engine) {
+    return {
+      routed: false,
+      domain: input.domain,
+      scenario,
+      reason:
+        "DOMAIN_ENGINE_NOT_REGISTERED",
+      authority:
+        "HUMAN DECISION AUTHORITY"
+    };
+  }
+
+  if (
+    typeof engine.run === "function"
+  ) {
+    return {
+      routed: true,
+      domain: input.domain,
+      scenario,
+      result: engine.run(
+        scenario,
+        scenarioState
+      ),
+      physicalExecution: false,
+      humanAuthorization:
+        "REQUIRED"
+    };
+  }
+
+  if (
+    typeof engine.evaluate === "function"
+  ) {
+    return {
+      routed: true,
+      domain: input.domain,
+      scenario,
+      result: engine.evaluate(
+        scenario,
+        scenarioState
+      ),
+      physicalExecution: false,
+      humanAuthorization:
+        "REQUIRED"
+    };
+  }
+
+  if (
+    typeof engine.deriveSolution ===
+    "function"
+  ) {
+    return {
+      routed: true,
+      domain: input.domain,
+      scenario,
+      result:
+        engine.deriveSolution(
+          scenario,
+          scenarioState
+        ),
+      physicalExecution: false,
+      humanAuthorization:
+        "REQUIRED"
+    };
+  }
+
+  return {
+    routed: false,
+    domain: input.domain,
+    scenario,
+    reason:
+      "REGISTERED_ENGINE_HAS_NO_SUPPORTED_ENTRY_POINT",
+    physicalExecution: false,
+    humanAuthorization:
+      "REQUIRED"
+  };
+}
