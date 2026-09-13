@@ -455,3 +455,398 @@
                     evaluation.verified === true
                 );
         }
+        const result = {
+
+            test:
+                "BIODIESEL_DOMAIN_INTEGRATION",
+
+            version:
+                BIODIESEL_INTEGRATION_VERSION,
+
+            domain:
+                BIODIESEL_DOMAIN,
+
+            scenario:
+                BIODIESEL_SCENARIO,
+
+            intensity:
+                intensity,
+
+            state:
+                state,
+
+
+            /* =================================================
+               AUTHORITATIVE COMPONENTS
+               ================================================= */
+
+            authoritativeRegistry:
+                registryStatus,
+
+            authoritativeEngine:
+                engineStatus,
+
+            registryValidation:
+                registryValidation,
+
+
+            /* =================================================
+               SAFETY BOUNDARY
+               ================================================= */
+
+            safetyBoundary: {
+
+                backendConnection:
+                    false,
+
+                physicalExecution:
+                    false,
+
+                automaticExecution:
+                    false,
+
+                vesselActuation:
+                    false,
+
+                externalConnection:
+                    false,
+
+                humanAuthorizationRequired:
+                    true
+            },
+
+
+            /* =================================================
+               VALIDATION CHECKS
+               ================================================= */
+
+            checks: {
+
+                ruleRegistry:
+                    registryStatus.available === true,
+
+                registryValidator:
+                    registryStatus.validationAvailable === true,
+
+                registryValid:
+                    registryValidation.valid === true,
+
+                engineDetected:
+                    engineStatus.available === true,
+
+                evaluateFunctionAvailable:
+                    engineStatus.evaluateAvailable === true,
+
+                deriveSolutionFunctionAvailable:
+                    engineStatus.deriveSolutionAvailable === true,
+
+                ruleEvaluationExecuted:
+                    ruleEvaluationExecuted,
+
+                ruleVerified:
+                    ruleVerified
+            },
+
+
+            evaluation:
+                evaluation,
+
+
+            passed:
+                false,
+
+
+            status:
+                "BIODIESEL_INTEGRATION_TEST_FAILED",
+
+
+            failureReason:
+                null
+        };
+
+
+        /* =====================================================
+           FINAL PASS CONDITION
+
+           Every authoritative integration requirement must
+           pass before the domain is considered integrated.
+           ===================================================== */
+
+        result.passed =
+            result.checks.ruleRegistry === true &&
+            result.checks.registryValidator === true &&
+            result.checks.registryValid === true &&
+            result.checks.engineDetected === true &&
+            result.checks.evaluateFunctionAvailable === true &&
+            result.checks.deriveSolutionFunctionAvailable === true &&
+            result.checks.ruleEvaluationExecuted === true &&
+            result.checks.ruleVerified === true;
+
+
+        if (result.passed === true) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_PASSED";
+
+            result.failureReason =
+                null;
+
+        } else if (
+            result.checks.ruleRegistry !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "AUTHORITATIVE_BIODIESEL_RULE_REGISTRY_NOT_AVAILABLE";
+
+        } else if (
+            result.checks.registryValidator !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "BIODIESEL_REGISTRY_VALIDATOR_NOT_AVAILABLE";
+
+        } else if (
+            result.checks.registryValid !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "BIODIESEL_RULE_REGISTRY_VALIDATION_FAILED";
+
+        } else if (
+            result.checks.engineDetected !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "BIODIESEL_RULE_ENGINE_NOT_AVAILABLE";
+
+        } else if (
+            result.checks.evaluateFunctionAvailable !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "BIODIESEL_RULE_ENGINE_EVALUATE_NOT_AVAILABLE";
+
+        } else if (
+            result.checks.deriveSolutionFunctionAvailable !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "BIODIESEL_RULE_ENGINE_DERIVE_SOLUTION_NOT_AVAILABLE";
+
+        } else if (
+            result.checks.ruleEvaluationExecuted !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "BIODIESEL_RULE_EVALUATION_NOT_EXECUTED";
+
+        } else if (
+            result.checks.ruleVerified !== true
+        ) {
+
+            result.status =
+                "BIODIESEL_INTEGRATION_TEST_FAILED";
+
+            result.failureReason =
+                "BIODIESEL_RULE_VERIFICATION_FAILED";
+        }
+
+
+        /* =====================================================
+           UI OUTPUT
+           ===================================================== */
+
+        const display =
+            typeof document !== "undefined"
+                ? document.getElementById(
+                    "biodieselDomainIntegration"
+                )
+                : null;
+
+
+        if (display) {
+
+            display.textContent =
+                JSON.stringify(
+                    result,
+                    null,
+                    2
+                );
+        }
+
+
+        const integrationStatus =
+            typeof document !== "undefined"
+                ? document.getElementById(
+                    "biodieselIntegration"
+                )
+                : null;
+
+
+        if (integrationStatus) {
+
+            integrationStatus.textContent =
+                result.passed === true
+                    ? "PASSED"
+                    : "FAILED";
+        }
+
+
+        /* =====================================================
+           AUDIT LOG
+           ===================================================== */
+
+        if (
+            Array.isArray(
+                global.biodieselAuditLog
+            )
+        ) {
+
+            global.biodieselAuditLog.push({
+
+                test:
+                    result.test,
+
+                version:
+                    result.version,
+
+                domain:
+                    result.domain,
+
+                scenario:
+                    result.scenario,
+
+                passed:
+                    result.passed,
+
+                status:
+                    result.status,
+
+                failureReason:
+                    result.failureReason,
+
+                timestamp:
+                    new Date().toISOString()
+            });
+        }
+
+
+        return result;
+    }
+
+
+    /* ========================================================
+       SELF TEST
+       ======================================================== */
+
+    function runBiodieselSelfTest() {
+
+        return runBiodieselIntegrationTest();
+    }
+
+
+    /* ========================================================
+       SELF TEST + CORRECTIVE ACTION
+       ======================================================== */
+
+    function runBiodieselSelfTestAndCorrectiveAction() {
+
+        return runBiodieselIntegrationTest();
+    }
+
+
+    /* ========================================================
+       PUBLIC API
+       ======================================================== */
+
+    global.BiodieselDomainIntegrationAPI = {
+
+        version:
+            BIODIESEL_INTEGRATION_VERSION,
+
+        domain:
+            BIODIESEL_DOMAIN,
+
+        scenario:
+            BIODIESEL_SCENARIO,
+
+        getBiodieselRegistry:
+            getBiodieselRegistry,
+
+        getBiodieselEngine:
+            getBiodieselEngine,
+
+        getBiodieselRegistryStatus:
+            getBiodieselRegistryStatus,
+
+        getBiodieselEngineStatus:
+            getBiodieselEngineStatus,
+
+        getBiodieselIntensity:
+            getBiodieselIntensity,
+
+        createBiodieselState:
+            createBiodieselState,
+
+        validateBiodieselRegistry:
+            validateBiodieselRegistry,
+
+        evaluateBiodieselRules:
+            evaluateBiodieselRules,
+
+        deriveBiodieselSolution:
+            deriveBiodieselSolution,
+
+        runBiodieselDomain:
+            runBiodieselDomain,
+
+        runBiodieselIntegrationTest:
+            runBiodieselIntegrationTest,
+
+        runBiodieselSelfTest:
+            runBiodieselSelfTest,
+
+        runBiodieselSelfTestAndCorrectiveAction:
+            runBiodieselSelfTestAndCorrectiveAction
+    };
+
+
+    /* ========================================================
+       GLOBAL COMPATIBILITY FUNCTIONS
+       ======================================================== */
+
+    global.runBiodieselDomain =
+        runBiodieselDomain;
+
+    global.runBiodieselIntegrationTest =
+        runBiodieselIntegrationTest;
+
+    global.runBiodieselSelfTest =
+        runBiodieselSelfTest;
+
+    global.runBiodieselSelfTestAndCorrectiveAction =
+        runBiodieselSelfTestAndCorrectiveAction;
+
+
+})(window);
