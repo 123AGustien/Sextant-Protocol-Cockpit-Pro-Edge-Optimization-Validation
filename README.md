@@ -4,7 +4,8 @@ Edge Optimization & Deployment Validation Platform
 
 Independent AI optimization, benchmarking and deployment-efficiency research
 
-Sextant Protocol™ Cockpit Pro is an independent research and simulation platform focused on improving AI model efficiency, inference performance, validation and deployment readiness in constrained and edge-computing environments.
+Sextant Protocol™ Cockpit Pro is an independent research and simulation platform focused on improving AI model efficiency, inference
+ performance, validation and deployment readiness in constrained and edge-computing environments.
 
 The project explores a deployment-first approach to AI:
 
