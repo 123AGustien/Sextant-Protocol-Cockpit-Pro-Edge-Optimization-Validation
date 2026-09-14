@@ -1,4 +1,35 @@
+SRPC Research Test
 
+Experimental research environment — SRPC v0.1
+
+The isolated Sextant Resilience Processing Core (SRPC) research test is available here:
+
+SRPC Research Test: https://123agustien.github.io/Sextant-Protocol-Cockpit-Pro-Edge-Optimization-Validation/research/srpc/srpcTest.html
+
+Research Scope
+
+The test validates:
+
+SRPC Kernel availability
+SRPC Rules availability
+SRPC Compute availability
+Dependency integrity
+Input validation
+Rule evaluation
+Deterministic processing
+Research safety boundaries
+Safety boundary:
+
+Physical execution: disabled
+Backend connection: disabled
+External connection: disabled
+Autonomous actuation: disabled
+Human authorization: required
+Status: "SRPC_RESEARCH_TEST_PASS"
+
+Version: "0.1.0-RESEARCH"
+
+This is an isolated research environment and is not part of the protected Edge Optimization v1.0.0 system wiring. The Edge simulator tunes. The Latency simulator measures. The Biodiesel domain demonstrates portability into an Indonesian energy-resilience application.
 The Edge simulator tunes.
 The Latency simulator measures.
 The Biodiesel domain demonstrates portability into an Indonesian energy-resilience application.
