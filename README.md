@@ -105,7 +105,9 @@ The isolated Sextant Resilience Processing Core (SRPC) research test validates t
 
 SRPC Research Test — Live Browser Environment:
 
-"SRPC Research Test — Live Browser Environment" (https://reference-url-citation.invalid/0)
+"SRPC Research Test — Live Browser Environment" 
+
+https://123agustien.github.io/Sextant-Protocol-Cockpit-Pro-Edge-Optimization-Validation/research/srpc/srpcTest.html
 
 The test validates:
 
