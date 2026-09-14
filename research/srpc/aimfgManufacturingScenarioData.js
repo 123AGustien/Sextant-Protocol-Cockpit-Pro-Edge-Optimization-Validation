@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 /*
  * Sextant Resilience Processing Core (SRPC)
