@@ -1,3 +1,14 @@
+The screen URL after GitHub Pages deploys will be:
+AIMfg Manufacturing Research Screen⁠�
+So the sequence is now:
+aimfgManufacturingRules.js
+        ↓
+aimfgManufacturingScenario.js
+        ↓
+aimfgManufacturingTest.html  ← SCREEN
+      
+
+
 🛰️ SEXTANT PROTOCOL™ COCKPIT PRO
 
 Edge Optimization & Deployment Validation Platform
