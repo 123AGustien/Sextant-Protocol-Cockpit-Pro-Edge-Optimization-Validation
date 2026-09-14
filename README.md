@@ -1,0 +1,901 @@
+🛰️ SEXTANT PROTOCOL™ COCKPIT PRO
+
+Edge Optimization & Deployment Validation Platform
+
+Independent AI optimization, benchmarking and deployment-efficiency research
+
+Sextant Protocol™ Cockpit Pro is an independent research and simulation platform focused on improving AI model efficiency, inference performance, validation and deployment readiness in constrained and edge-computing environments.
+
+The project explores a deployment-first approach to AI:
+
+«Make AI models smaller, faster and more efficient while maintaining measurable and reproducible performance.»
+
+The platform is designed as a research and simulation environment for evaluating optimization techniques before consideration of deployment on real target hardware.
+
+---
+
+🚀 System Overview
+
+Modern AI models can provide significant computational capability, but deployment on constrained or edge hardware introduces practical challenges including:
+
+- memory limitations;
+- inference latency;
+- computational overhead;
+- power consumption;
+- model size;
+- throughput requirements;
+- thermal constraints; and
+- hardware-specific execution efficiency.
+
+Sextant Protocol™ Cockpit Pro explores how these constraints can be addressed through a modular optimization and benchmarking pipeline.
+
+The current research architecture focuses on:
+
+BASELINE MODEL
+       ↓
+BASELINE BENCHMARK
+       ↓
+OPTIMIZATION
+       ↓
+OPTIMIZED MODEL
+       ↓
+OPTIMIZED BENCHMARK
+       ↓
+COMPARISON
+       ↓
+VALIDATION
+       ↓
+PERFORMANCE REPORT
+
+---
+
+🧠 SRPC — SEXTANT RESILIENCE PROCESSING CORE
+
+Hardware-Independent Resilience Processing Research
+
+Sextant has a validated software resilience-processing architecture, and the research question is whether this compact, hardware-independent computational layer could ultimately be mapped onto or implemented within future AI/edge/RISC-V/ASIC/SoC architectures.
+
+This research does not claim a completed semiconductor implementation, processor IP core, production firmware, or autonomous hardware control.
+
+The present objective is to establish and independently evaluate the underlying computational structure in software before investigating potential hardware implementation pathways.
+
+Research Question
+
+«Could this architecture be mapped to our technology?»
+
+The present software implementation provides a deterministic research environment in which the proposed resilience-processing structure can be executed, validated and independently inspected before any consideration of hardware implementation.
+
+Conceptual Hardware Mapping
+
+                 FUTURE HARDWARE
+        ┌──────────────────────────┐
+        │ CPU / RISC-V / AI / ASIC │
+        │          / SoC           │
+        └────────────┬─────────────┘
+                     │
+              SRPC PROCESSING
+                     │
+        ┌────────────┴─────────────┐
+        │ resilience rules/logic   │
+        │ assessment/decision      │
+        │ deterministic processing │
+        └────────────┬─────────────┘
+                     │
+              DOMAIN APPLICATION
+        ┌────────┬────────┬────────┐
+        │ Energy │ Marine │  Grid  │
+        │Finance │ Space  │Industry│
+        └────────┴────────┴────────┘
+
+SRPC Research Test
+
+Experimental research environment — SRPC v0.1
+
+The isolated Sextant Resilience Processing Core (SRPC) research test validates the software processing structure independently of physical or backend execution.
+
+SRPC Research Test:
+
+"SRPC Research Test — Live Browser Environment" (https://reference-url-citation.invalid/0)
+
+The test validates:
+
+- SRPC Kernel availability
+- SRPC Rules availability
+- SRPC Compute availability
+- dependency integrity
+- input validation
+- rule evaluation
+- deterministic processing
+- research safety boundaries
+
+Validated status: "SRPC_RESEARCH_TEST_PASS"
+
+Version: "0.1.0-RESEARCH"
+
+SRPC Safety Boundary
+
+Physical execution       : DISABLED
+Backend connection       : DISABLED
+External connection      : DISABLED
+Autonomous actuation     : DISABLED
+Human authorization      : REQUIRED
+
+This is an isolated research environment and is not part of the protected Edge Optimization v1.0.0 system wiring.
+
+Research Interpretation
+
+The current SRPC implementation demonstrates a software-based resilience-processing structure that can be executed deterministically and validated independently.
+
+The research does not establish a semiconductor implementation.
+
+It establishes the software architecture as a candidate subject for future technical investigation, including whether portions of the processing structure could potentially be mapped to:
+
+- AI accelerators;
+- edge processors;
+- RISC-V architectures;
+- ASIC architectures; or
+- SoC architectures.
+
+No claim is made at this stage regarding silicon performance, manufacturability, processor IP, production firmware or commercial hardware implementation.
+
+Relationship to the Sextant Demonstrators
+
+The broader Sextant research programme provides different domain environments in which related computational structures can be examined.
+
+- Edge simulator — optimization and deployment-efficiency research
+- Latency simulator — measurement and performance research
+- Biodiesel domain — energy-resilience portability research
+- SRPC — investigation of a compact, hardware-independent resilience-processing structure
+
+The research hypothesis is that a common computational structure may be applicable across different domains while domain-specific data and rules remain separate.
+
+Research Boundary
+
+VALIDATED SOFTWARE RESEARCH
+             ↓
+INDEPENDENT TECHNICAL REVIEW
+             ↓
+HARDWARE-MAPPING INVESTIGATION
+             ↓
+POTENTIAL AI / EDGE / RISC-V /
+ASIC / SoC IMPLEMENTATION RESEARCH
+
+---
+
+🎯 Research Objective
+
+The primary objective is to determine whether an AI workload can be optimized for constrained and edge-computing environments while maintaining measurable and reproducible performance.
+
+The research focuses on three principal optimization mechanisms.
+
+Quantization
+
+Reduction of numerical precision where appropriate.
+
+Example:
+
+FP32 → INT8
+
+Potential benefits include:
+
+- reduced model memory requirements;
+- improved computational efficiency;
+- lower inference cost; and
+- improved suitability for constrained hardware.
+
+Quantization can introduce accuracy trade-offs and therefore requires validation.
+
+Pruning
+
+Reduction of unnecessary model parameters or weights.
+
+Potential benefits include:
+
+- reduced model size;
+- reduced computational workload;
+- improved execution efficiency; and
+- lower resource requirements.
+
+Pruning must be evaluated against its effect on model accuracy and output quality.
+
+Graph Optimization
+
+Optimization of the computational structure and execution path of a model.
+
+Potential objectives include:
+
+- reducing unnecessary operations;
+- improving execution paths;
+- reducing inference overhead; and
+- improving hardware utilization.
+
+---
+
+📊 Benchmarking
+
+Optimization alone does not establish performance improvement.
+
+Sextant Protocol™ Cockpit Pro therefore separates the optimization layer from the measurement layer.
+
+The benchmark system measures comparable baseline and optimized workloads.
+
+Primary measurements include:
+
+MODEL SIZE
+INFERENCE LATENCY
+THROUGHPUT
+RESOURCE EFFICIENCY
+
+The comparison engine determines measurable changes between baseline and optimized states.
+
+---
+
+⚖️ Baseline vs Optimized
+
+The research methodology follows:
+
+BASELINE
+    ↓
+MEASURE PERFORMANCE
+    ↓
+APPLY OPTIMIZATION
+    ↓
+OPTIMIZED
+    ↓
+MEASURE PERFORMANCE
+    ↓
+COMPARE RESULTS
+    ↓
+VALIDATE
+
+This prevents an optimization from being considered successful solely because it appears theoretically beneficial.
+
+Performance must be demonstrated through measurement.
+
+---
+
+🧪 Reproducibility
+
+Reproducibility is a core principle of the project.
+
+The benchmark engine is designed to execute comparable workloads repeatedly and record:
+
+- average latency;
+- minimum latency;
+- maximum latency;
+- throughput; and
+- comparative performance.
+
+The same methodology can subsequently be extended to real target hardware.
+
+Actual hardware results must be measured on the target environment rather than inferred from simulation.
+
+---
+
+🏗️ System Architecture
+
+              SEXTANT PROTOCOL™
+                 COCKPIT PRO
+                      │
+                      ▼
+          ┌─────────────────────┐
+          │   Baseline Model    │
+          │       Loader        │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │ Baseline Benchmark  │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │  Optimization Layer │
+          │                     │
+          │  Quantization       │
+          │  Pruning            │
+          │  Graph Optimization │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │  Optimized Model    │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │ Optimized Benchmark │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │ Comparison Engine   │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │ Performance Results │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │    Validation       │
+          └──────────┬──────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │ Deployment Readiness│
+          └─────────────────────┘
+
+---
+
+📁 Repository Structure
+
+/
+├── index.html
+├── README.md
+├── ARCHITECTURE.md
+├── requirements.txt
+├── benchmark.py
+├── baseline_benchmark.py
+├── optimized_benchmark.py
+├── self_test.py
+│
+├── assets/
+├── EN/
+├── FIN/
+│
+├── rules/
+│   └── energy/
+│       └── biodiesel/
+│
+├── research/
+│   └── srpc/
+│       ├── srpcKernel.js
+│       ├── srpcRules.js
+│       ├── srpcCompute.js
+│       ├── srpcTest.html
+│       ├── srpcEdgeIntegration.html
+│       └── srpcEdgeIntegration.md
+│
+├── src/
+│
+└── .github/
+    └── workflows/
+
+The repository may contain additional supporting modules for domain integration, scenario simulation, validation and audit functions.
+
+---
+
+🖥️ Browser-Based Research Console
+
+The project includes a browser-based interface designed to provide a visual representation of the optimization and validation cycle.
+
+The interface can present:
+
+- model optimization status;
+- compression status;
+- latency assessment;
+- deployment readiness;
+- quantization status;
+- pruning status;
+- graph optimization status;
+- optimization-cycle execution;
+- benchmark results;
+- validation results; and
+- audit information.
+
+The browser interface is a research visualization and interaction layer.
+
+Authoritative benchmark and validation logic should be independently verified through the underlying research and measurement layers.
+
+---
+
+🔬 Current Benchmark Engine
+
+The benchmark engine provides reusable benchmarking functions for measuring workload execution.
+
+The benchmark records:
+
+- average latency;
+- minimum latency;
+- maximum latency;
+- throughput; and
+- comparative performance.
+
+The engine also provides baseline-versus-optimized comparison functions.
+
+---
+
+🧪 Baseline Runner
+
+The baseline execution path establishes a reference workload and measures its execution characteristics.
+
+The baseline provides the comparison point against which optimization can be evaluated.
+
+---
+
+⚡ Optimized Runner
+
+The optimized execution path executes the optimized reference workload through the same benchmark methodology.
+
+Using the same measurement methodology allows the two execution paths to be compared.
+
+---
+
+🔄 Comparison Methodology
+
+The comparison layer evaluates:
+
+Latency Improvement
+
+(Baseline Latency - Optimized Latency)
+÷ Baseline Latency × 100
+
+Throughput Improvement
+
+(Optimized Throughput - Baseline Throughput)
+÷ Baseline Throughput × 100
+
+Speedup
+
+Baseline Latency ÷ Optimized Latency
+
+These measurements should always be interpreted in the context of the workload and hardware on which the benchmark was executed.
+
+---
+
+⚙️ Edge Optimization Research Focus
+
+Sextant Protocol™ Cockpit Pro is designed to investigate AI optimization in constrained and edge-computing environments.
+
+Potential environments include:
+
+- edge AI;
+- embedded intelligence;
+- mobile computing;
+- low-power computing;
+- intelligent devices;
+- edge servers;
+- industrial computing; and
+- other resource-constrained execution environments.
+
+The platform does not claim universal performance across hardware platforms.
+
+Actual performance must be established through direct measurement on the target environment.
+
+---
+
+⚙️ Deployment-First AI
+
+The research is based on the principle that AI development does not end when a model is trained.
+
+A production-capable AI system must also consider:
+
+MODEL QUALITY
++
+COMPUTATIONAL COST
++
+LATENCY
++
+MEMORY
++
+POWER
++
+HARDWARE
++
+RELIABILITY
+
+Sextant Protocol™ Cockpit Pro therefore focuses on the transition:
+
+AI MODEL
+    ↓
+OPTIMIZATION
+    ↓
+BENCHMARK
+    ↓
+VALIDATION
+    ↓
+TARGET HARDWARE
+    ↓
+DEPLOYMENT READINESS
+
+---
+
+🛡️ Research Integrity
+
+The project does not assume that every optimization produces a beneficial production outcome.
+
+An optimization can improve:
+
+SPEED
+
+while potentially degrading:
+
+ACCURACY
+
+or improve:
+
+MODEL SIZE
+
+while creating:
+
+EXECUTION TRADE-OFFS
+
+Consequently, optimization results should be evaluated across multiple dimensions.
+
+The research encourages independent verification of:
+
+- accuracy;
+- latency;
+- throughput;
+- model size;
+- resource consumption;
+- reproducibility; and
+- target-hardware performance.
+
+---
+
+🧪 Simulation vs Real Hardware
+
+The current platform is a research and simulation environment.
+
+Benchmark results generated in a general-purpose development environment should not automatically be interpreted as target-hardware results.
+
+A future hardware-validation stage should execute the same benchmark methodology directly on appropriate target hardware.
+
+The research distinction is therefore:
+
+SIMULATION / DEVELOPMENT BENCHMARK
+               ↓
+       HARDWARE VALIDATION
+               ↓
+      DEPLOYMENT EVALUATION
+
+---
+
+🔐 Operational Boundary
+
+Current project boundary:
+
+RESEARCH / SIMULATION
+        ↓
+NO AUTONOMOUS PRODUCTION DEPLOYMENT
+        ↓
+NO LIVE CUSTOMER SYSTEM CONTROL
+        ↓
+NO UNIVERSAL HARDWARE PERFORMANCE CLAIMS
+        ↓
+BENCHMARK RESULTS REQUIRE VALIDATION
+
+The platform is intended for:
+
+- research;
+- benchmarking;
+- experimentation;
+- optimization studies; and
+- technical evaluation.
+
+Physical deployment remains outside the current research scope.
+
+---
+
+🤖 Future Development
+
+Planned research directions include:
+
+Automated Optimization
+
+Development of automated recommendations for selecting optimization strategies based on model characteristics and target environments.
+
+Hardware-Aware Tuning
+
+Benchmarking optimization strategies against different processor and hardware configurations.
+
+Cross-Platform Comparison
+
+Comparative benchmarking across different execution environments.
+
+ONNX Integration
+
+Potential support for ONNX model conversion and deployment workflows.
+
+Accuracy Validation
+
+Automated comparison of model accuracy before and after optimization.
+
+Real-Time Inference
+
+Evaluation of optimization techniques under real-time inference requirements.
+
+Resource Monitoring
+
+Expansion of benchmarking to include:
+
+- memory;
+- CPU utilization;
+- power;
+- thermal characteristics; and
+- sustained inference performance.
+
+Lightweight Research Dashboard
+
+Expansion of the browser interface into a comprehensive technical dashboard for researchers, engineers and evaluators.
+
+---
+
+🌐 Potential Application Areas
+
+The research architecture may have relevance to:
+
+- edge AI;
+- embedded intelligence;
+- mobile AI;
+- autonomous systems;
+- industrial monitoring;
+- intelligent infrastructure;
+- telecommunications;
+- robotics;
+- transportation;
+- maritime systems;
+- aerospace systems; and
+- other resource-constrained AI environments.
+
+Actual applicability requires domain-specific validation.
+
+---
+
+💼 Commercial and Infrastructure Relevance
+
+The research is intended to explore a potential economic proposition as well as a technical one.
+
+More efficient AI inference may contribute to:
+
+LOWER COMPUTATIONAL COST
+        ↓
+LOWER RESOURCE REQUIREMENTS
+        ↓
+LOWER POWER CONSUMPTION
+        ↓
+HIGHER THROUGHPUT
+        ↓
+LOWER LATENCY
+        ↓
+GREATER DEPLOYMENT FLEXIBILITY
+
+The actual return on investment depends on:
+
+- workload volume;
+- hardware costs;
+- infrastructure costs;
+- energy consumption;
+- inference frequency;
+- latency requirements;
+- model complexity; and
+- deployment scale.
+
+Therefore, ROI should ultimately be calculated using customer or operator benchmark data rather than assumed project-wide.
+
+---
+
+🔗 Relationship to the Sextant Protocol™ Research Programme
+
+Sextant Protocol™ Cockpit Pro represents a computational-efficiency research stream within the broader Sextant Protocol™ research programme.
+
+Its purpose is to explore the computational efficiency layer required when intelligent decision-support systems move toward constrained or edge deployment.
+
+Conceptually:
+
+SEXTANT RESILIENCE ARCHITECTURE
+              ↓
+      DECISION-SUPPORT LOGIC
+              ↓
+       AI PROCESSING LAYER
+              ↓
+     SEXTANT COCKPIT PRO
+              ↓
+       EDGE OPTIMIZATION
+              ↓
+        TARGET HARDWARE
+              ↓
+     DEPLOYMENT VALIDATION
+
+This creates a potential research bridge between resilience decision-support and efficient edge deployment.
+
+The optimization platform remains modular and does not replace the existing Sextant resilience simulators.
+
+The broader programme can be viewed as:
+
+The Edge simulator tunes.
+The Latency simulator measures.
+The Biodiesel domain demonstrates portability
+into an Indonesian energy-resilience application.
+The SRPC research investigates whether a compact,
+hardware-independent resilience-processing structure
+can be expressed across these domains.
+
+---
+
+🔄 Research Philosophy
+
+The project follows a simple principle:
+
+«Measure before claiming.
+Validate before deploying.
+Optimize without losing sight of reliability.»
+
+The objective is not merely to make AI faster.
+
+The objective is to determine whether AI can become:
+
+SMALLER
+FASTER
+MORE EFFICIENT
+MEASURABLE
+REPRODUCIBLE
+DEPLOYABLE
+
+without compromising the requirements of the application.
+
+---
+
+🟢 Continuous Integration
+
+The repository includes automated validation through GitHub Actions.
+
+The workflow can validate:
+
+Repository Checkout
+        ↓
+Python Environment
+        ↓
+Dependencies
+        ↓
+Python Syntax
+        ↓
+Baseline Benchmark
+        ↓
+Optimized Benchmark
+        ↓
+Benchmark Self-Test
+        ↓
+CI PASS
+
+The workflow supports automatic and manual execution where configured.
+
+---
+
+📜 Research Status
+
+Current status:
+
+🟢 RESEARCH PLATFORM
+🟢 BROWSER UI
+🟢 BENCHMARK ENGINE
+🟢 BASELINE RUNNER
+🟢 OPTIMIZED RUNNER
+🟢 EDGE OPTIMIZATION RESEARCH
+🟢 SRPC SOFTWARE RESEARCH
+🟢 SRPC DETERMINISTIC RESEARCH TEST
+🟢 CI VALIDATION
+
+🟡 TARGET-HARDWARE VALIDATION
+   FUTURE STAGE
+
+🟡 HARDWARE MAPPING INVESTIGATION
+   FUTURE RESEARCH STAGE
+
+🟡 PRODUCTION DEPLOYMENT
+   OUTSIDE CURRENT SCOPE
+
+---
+
+🏁 Core Proposition
+
+Sextant Protocol™ Cockpit Pro investigates a fundamental deployment question:
+
+«How efficiently can useful AI intelligence operate when computational resources, latency, memory and power are constrained?»
+
+The platform provides a structured environment in which that question can be measured rather than assumed.
+
+The SRPC research extends this question:
+
+«Could a compact, hardware-independent resilience-processing architecture ultimately be mapped to existing or future AI, edge, RISC-V, ASIC or SoC technology?»
+
+The long-term research objective is to progress from:
+
+RESEARCH
+    ↓
+SOFTWARE VALIDATION
+    ↓
+SIMULATION
+    ↓
+BENCHMARKING
+    ↓
+INDEPENDENT TECHNICAL REVIEW
+    ↓
+HARDWARE-MAPPING INVESTIGATION
+    ↓
+HARDWARE VALIDATION
+    ↓
+DEPLOYMENT READINESS
+
+with each stage supported by measurable evidence.
+
+---
+
+🛡️ Safety and Operational Principle
+
+Sextant Protocol™ Cockpit Pro is currently designed for research, simulation, benchmarking and technical evaluation.
+
+It does not autonomously control physical systems.
+
+The research environment maintains a separation between:
+
+OBSERVATION
+      ↓
+OPTIMIZATION
+      ↓
+ASSESSMENT
+      ↓
+VALIDATION
+      ↓
+HUMAN / OPERATOR AUTHORITY
+      ↓
+DEPLOYMENT DECISION
+
+Any future operational deployment must undergo appropriate engineering, safety, security, regulatory and independent validation.
+
+---
+
+🔗 Public Research Environments
+
+Sextant Protocol™ Official Index
+
+"Sextant Protocol™ Official Index" (https://reference-url-citation.invalid/1)
+
+Sextant Protocol™ DP Resilience System
+
+"DP Resilience System" (https://reference-url-citation.invalid/2)
+
+Sextant Orbital Resilience Framework
+
+"Orbital Resilience Framework" (https://reference-url-citation.invalid/3)
+
+SPD v13.1 — Captain AI Lena
+
+"Captain AI Lena — SPD v13.1" (https://reference-url-citation.invalid/4)
+
+Cockpit Pro — Edge Optimization & Deployment Validation
+
+"Cockpit Pro Live Research Environment" (https://reference-url-citation.invalid/5)
+
+SRPC Research Test
+
+"SRPC Research Test — v0.1" (https://reference-url-citation.invalid/6)
+
+Sextant Rule Library
+
+"Sextant Rule Library" (https://reference-url-citation.invalid/7)
+
+---
+
+📜 License
+
+See the repository "LICENSE" file for licensing information.
+
+---
+
+🛰️ Project
+
+Sextant Protocol™ Cockpit Pro
+
+Independent AI optimization, benchmarking and deployment-efficiency research.
+
+SRPC research principle:
+
+«Measure. Validate. Investigate. Map responsibly.»
+
+Edge research principle:
+
+«Optimize without losing sight of reliability.»
