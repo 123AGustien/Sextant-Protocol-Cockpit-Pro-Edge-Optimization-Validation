@@ -1,1 +1,978 @@
-g
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        SRPC AIMfg Manufacturing Resilience Research v0.1
+    </title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b1220;
+            color: #e8eef7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            margin-top: 28px;
+        }
+
+        .subtitle {
+            color: #9fb0c5;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: #121c2d;
+            border: 1px solid #2c3b52;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .status {
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .pass {
+            color: #63e6be;
+        }
+
+        .fail {
+            color: #ff8787;
+        }
+
+        .pending {
+            color: #ffd43b;
+        }
+
+        button {
+            padding: 12px 18px;
+            margin-right: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #53657e;
+            border-radius: 6px;
+            background: #1b2a40;
+            color: #ffffff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #263b58;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+            background: #080d16;
+            border: 1px solid #26364c;
+            border-radius: 6px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+            gap: 10px;
+        }
+
+        .scenario-item {
+            background: #0d1727;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .label {
+            color: #8fa4bd;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .value {
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        .boundary {
+            line-height: 1.8;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        SRPC AIMfg Manufacturing Resilience Research v0.1
+    </h1>
+
+    <div class="subtitle">
+        A*STAR AIMfg Manufacturing Line Degradation Research Scenario
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Research Scenario
+        </h2>
+
+        <div class="scenario-grid">
+
+            <div class="scenario-item">
+                <div class="label">Scenario</div>
+                <div
+                    class="value"
+                    id="scenarioName"
+                >
+                    AIMFG_MANUFACTURING_LINE_DEGRADATION
+                </div>
+            </div>
+
+            <div class="scenario-item">
+                <div class="label">System</div>
+                <div
+                    class="value"
+                    id="systemId"
+                >
+                    AIMFG-DEMO-01
+                </div>
+            </div>
+
+            <div class="scenario-item">
+                <div class="label">Affected Machine</div>
+                <div
+                    class="value"
+                    id="affectedMachine"
+                >
+                    MACHINE-03
+                </div>
+            </div>
+
+            <div class="scenario-item">
+                <div class="label">Fault Condition</div>
+                <div
+                    class="value"
+                    id="faultCondition"
+                >
+                    DEGRADATION
+                </div>
+            </div>
+
+            <div class="scenario-item">
+                <div class="label">Production Impact</div>
+                <div
+                    class="value"
+                    id="productionImpact"
+                >
+                    MODERATE
+                </div>
+            </div>
+
+            <div class="scenario-item">
+                <div class="label">Dependent Processes</div>
+                <div
+                    class="value"
+                    id="dependentProcesses"
+                >
+                    3
+                </div>
+            </div>
+
+            <div class="scenario-item">
+                <div class="label">Available Redundancy</div>
+                <div
+                    class="value"
+                    id="availableRedundancy"
+                >
+                    1
+                </div>
+            </div>
+
+            <div class="scenario-item">
+                <div class="label">Remaining Capability</div>
+                <div
+                    class="value"
+                    id="remainingCapability"
+                >
+                    72%
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Test Controls
+        </h2>
+
+        <button
+            id="runTestButton"
+            type="button"
+        >
+            RUN AIMFG RESEARCH TEST
+        </button>
+
+        <button
+            id="resetButton"
+            type="button"
+        >
+            RESET TEST
+        </button>
+
+        <div
+            id="overallStatus"
+            class="status pending"
+        >
+            TEST NOT RUN
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Processing Chain
+        </h2>
+
+        <div class="status">
+            OBSERVE:
+            <span id="observeStatus">
+                NOT TESTED
+            </span>
+        </div>
+
+        <div class="status">
+            VERIFY:
+            <span id="verifyStatus">
+                NOT TESTED
+            </span>
+        </div>
+
+        <div class="status">
+            ASSESS:
+            <span id="assessStatus">
+                NOT TESTED
+            </span>
+        </div>
+
+        <div class="status">
+            DECIDE:
+            <span id="decideStatus">
+                NOT TESTED
+            </span>
+        </div>
+
+        <div class="status">
+            ACT:
+            <span id="actStatus">
+                NOT TESTED
+            </span>
+        </div>
+
+        <div class="status">
+            UPDATE:
+            <span id="updateStatus">
+                NOT TESTED
+            </span>
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Rule Evaluation
+        </h2>
+
+        <div class="status">
+            Rules:
+            <span id="ruleStatus">
+                NOT TESTED
+            </span>
+        </div>
+
+        <pre id="ruleOutput">
+Waiting for test...
+        </pre>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Resilience Assessment
+        </h2>
+
+        <pre id="assessmentOutput">
+Waiting for test...
+        </pre>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Recovery Decision
+        </h2>
+
+        <pre id="decisionOutput">
+Waiting for test...
+        </pre>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Determinism Test
+        </h2>
+
+        <div
+            id="determinismStatus"
+            class="status pending"
+        >
+            NOT TESTED
+        </div>
+
+        <pre id="determinismOutput">
+Waiting for test...
+        </pre>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Safety Boundary
+        </h2>
+
+        <div class="boundary">
+
+            <div>
+                Physical execution:
+                <strong id="physicalExecution">
+                    DISABLED
+                </strong>
+            </div>
+
+            <div>
+                Backend connection:
+                <strong id="backendConnection">
+                    DISABLED
+                </strong>
+            </div>
+
+            <div>
+                External connection:
+                <strong id="externalConnection">
+                    DISABLED
+                </strong>
+            </div>
+
+            <div>
+                Autonomous actuation:
+                <strong id="autonomousActuation">
+                    DISABLED
+                </strong>
+            </div>
+
+            <div>
+                Human authorization:
+                <strong id="humanAuthorization">
+                    REQUIRED
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>
+            Complete Research Result
+        </h2>
+
+        <pre id="resultOutput">
+Waiting for test...
+        </pre>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================
+     FROZEN SRPC RESEARCH CORE
+     ======================================================== -->
+
+<script src="./srpcKernel.js"></script>
+
+<script src="./srpcRules.js"></script>
+
+<script src="./srpcCompute.js"></script>
+
+
+<!-- ========================================================
+     ADDITIVE AIMfg RESEARCH MODULES
+     ======================================================== -->
+
+<script src="./aimfgManufacturingRules.js"></script>
+
+<script src="./aimfgManufacturingScenario.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+function setStatus(
+    elementId,
+    passed,
+    passText,
+    failText
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        passed
+            ? passText
+            : failText;
+
+    element.className =
+        "status " +
+        (
+            passed
+                ? "pass"
+                : "fail"
+        );
+}
+
+
+function setText(
+    elementId,
+    value
+) {
+
+    const element =
+        document.getElementById(elementId);
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        value;
+}
+
+
+function displayScenarioState(
+    state
+) {
+
+    setText(
+        "scenarioName",
+        state.scenario
+    );
+
+    setText(
+        "systemId",
+        state.systemId
+    );
+
+    setText(
+        "affectedMachine",
+        state.affectedMachine
+    );
+
+    setText(
+        "faultCondition",
+        state.faultCondition
+    );
+
+    setText(
+        "productionImpact",
+        state.productionImpact
+    );
+
+    setText(
+        "dependentProcesses",
+        String(
+            state.dependentProcesses
+        )
+    );
+
+    setText(
+        "availableRedundancy",
+        String(
+            state.availableRedundancy
+        )
+    );
+
+    setText(
+        "remainingCapability",
+        String(
+            state.remainingCapability
+        ) + "%"
+    );
+}
+
+
+function runAIMfgResearchTest() {
+
+    if (
+        !window.AIMfgManufacturingScenario
+    ) {
+
+        setText(
+            "overallStatus",
+            "AIMFG SCENARIO MODULE UNAVAILABLE"
+        );
+
+        return;
+    }
+
+
+    const scenario =
+        window.AIMfgManufacturingScenario;
+
+
+    const state =
+        scenario.create();
+
+
+    displayScenarioState(
+        state
+    );
+
+
+    const result =
+        scenario.run(
+            state
+        );
+
+
+    const determinism =
+        scenario.testDeterminism();
+
+
+    setStatus(
+        "observeStatus",
+        result.observation &&
+        result.observation.observed === true,
+        "PASS",
+        "FAIL"
+    );
+
+
+    setStatus(
+        "verifyStatus",
+        result.verification &&
+        result.verification.valid === true,
+        "PASS",
+        "FAIL"
+    );
+
+
+    setStatus(
+        "assessStatus",
+        result.assessment &&
+        typeof result.assessment === "object",
+        "PASS",
+        "FAIL"
+    );
+
+
+    setStatus(
+        "decideStatus",
+        result.decision &&
+        result.decision.authorizationRequired === true,
+        "PASS",
+        "FAIL"
+    );
+
+
+    setStatus(
+        "actStatus",
+        result.simulatedAction &&
+        result.simulatedAction.executed === false,
+        "PASS — SIMULATION ONLY",
+        "FAIL"
+    );
+
+
+    setStatus(
+        "updateStatus",
+        result.update &&
+        result.update.updated === true,
+        "PASS",
+        "FAIL"
+    );
+
+
+    setStatus(
+        "ruleStatus",
+        result.ruleEvaluation &&
+        result.ruleEvaluation.allPassed === true,
+        "PASS",
+        "FAIL"
+    );
+
+
+    setStatus(
+        "determinismStatus",
+        determinism.deterministic === true,
+        "PASS",
+        "FAIL"
+    );
+
+
+    const safetyPass =
+        result.safetyBoundary &&
+        result.safetyBoundary.physicalExecution === false &&
+        result.safetyBoundary.backendConnection === false &&
+        result.safetyBoundary.externalConnection === false &&
+        result.safetyBoundary.autonomousActuation === false &&
+        result.safetyBoundary.humanAuthorizationRequired === true;
+
+
+    const overallPass =
+        result.passed === true &&
+        determinism.deterministic === true &&
+        safetyPass;
+
+
+    const overallElement =
+        document.getElementById(
+            "overallStatus"
+        );
+
+
+    if (overallElement) {
+
+        overallElement.textContent =
+            overallPass
+                ? "AIMFG_MANUFACTURING_RESEARCH_PASS"
+                : "AIMFG_MANUFACTURING_RESEARCH_REQUIRES_REVIEW";
+
+        overallElement.className =
+            "status " +
+            (
+                overallPass
+                    ? "pass"
+                    : "fail"
+            );
+    }
+
+
+    setText(
+        "ruleOutput",
+        JSON.stringify(
+            result.ruleEvaluation,
+            null,
+            2
+        )
+    );
+
+
+    setText(
+        "assessmentOutput",
+        JSON.stringify(
+            result.assessment,
+            null,
+            2
+        )
+    );
+
+
+    setText(
+        "decisionOutput",
+        JSON.stringify(
+            result.decision,
+            null,
+            2
+        )
+    );
+
+
+    setText(
+        "determinismOutput",
+        JSON.stringify(
+            determinism,
+            null,
+            2
+        )
+    );
+
+
+    setText(
+        "physicalExecution",
+        safetyPass
+            ? "DISABLED"
+            : "CHECK REQUIRED"
+    );
+
+
+    setText(
+        "backendConnection",
+        safetyPass
+            ? "DISABLED"
+            : "CHECK REQUIRED"
+    );
+
+
+    setText(
+        "externalConnection",
+        safetyPass
+            ? "DISABLED"
+            : "CHECK REQUIRED"
+    );
+
+
+    setText(
+        "autonomousActuation",
+        safetyPass
+            ? "DISABLED"
+            : "CHECK REQUIRED"
+    );
+
+
+    setText(
+        "humanAuthorization",
+        safetyPass
+            ? "REQUIRED"
+            : "CHECK REQUIRED"
+    );
+
+
+    setText(
+        "resultOutput",
+        JSON.stringify(
+            {
+                researchVersion:
+                    "0.1.0-RESEARCH",
+
+                scenario:
+                    result.scenario,
+
+                overallPass:
+                    overallPass,
+
+                result:
+                    result,
+
+                determinism:
+                    determinism,
+
+                safetyBoundary:
+                    result.safetyBoundary
+            },
+            null,
+            2
+        )
+    );
+}
+
+
+function resetAIMfgResearchTest() {
+
+    const state =
+        window.AIMfgManufacturingScenario
+            ? window.AIMfgManufacturingScenario.create()
+            : null;
+
+
+    if (state) {
+        displayScenarioState(state);
+    }
+
+
+    const statusIds = [
+
+        "observeStatus",
+        "verifyStatus",
+        "assessStatus",
+        "decideStatus",
+        "actStatus",
+        "updateStatus",
+        "ruleStatus"
+
+    ];
+
+
+    statusIds.forEach(
+        function (id) {
+
+            const element =
+                document.getElementById(id);
+
+            if (!element) {
+                return;
+            }
+
+            element.textContent =
+                "NOT TESTED";
+
+            element.className =
+                "status pending";
+
+        }
+    );
+
+
+    const determinismElement =
+        document.getElementById(
+            "determinismStatus"
+        );
+
+
+    if (determinismElement) {
+
+        determinismElement.textContent =
+            "NOT TESTED";
+
+        determinismElement.className =
+            "status pending";
+    }
+
+
+    const overallElement =
+        document.getElementById(
+            "overallStatus"
+        );
+
+
+    if (overallElement) {
+
+        overallElement.textContent =
+            "TEST NOT RUN";
+
+        overallElement.className =
+            "status pending";
+    }
+
+
+    setText(
+        "ruleOutput",
+        "Waiting for test..."
+    );
+
+    setText(
+        "assessmentOutput",
+        "Waiting for test..."
+    );
+
+    setText(
+        "decisionOutput",
+        "Waiting for test..."
+    );
+
+    setText(
+        "determinismOutput",
+        "Waiting for test..."
+    );
+
+    setText(
+        "resultOutput",
+        "Waiting for test..."
+    );
+
+
+    setText(
+        "physicalExecution",
+        "DISABLED"
+    );
+
+    setText(
+        "backendConnection",
+        "DISABLED"
+    );
+
+    setText(
+        "externalConnection",
+        "DISABLED"
+    );
+
+    setText(
+        "autonomousActuation",
+        "DISABLED"
+    );
+
+    setText(
+        "humanAuthorization",
+        "REQUIRED"
+    );
+}
+
+
+document
+    .getElementById("runTestButton")
+    .addEventListener(
+        "click",
+        runAIMfgResearchTest
+    );
+
+
+document
+    .getElementById("resetButton")
+    .addEventListener(
+        "click",
+        resetAIMfgResearchTest
+    );
+
+
+resetAIMfgResearchTest();
+
+</script>
+
+</body>
+
+</html>
