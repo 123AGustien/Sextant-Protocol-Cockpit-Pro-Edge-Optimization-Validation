@@ -872,37 +872,36 @@ DEPLOYMENT DECISION
 Any future operational deployment must undergo appropriate engineering, safety, security, regulatory and independent validation.
 
 ---
-
 🔗 Public Research Environments
 
 Sextant Protocol™ Official Index
 
-"Sextant Protocol™ Official Index" (https://reference-url-citation.invalid/1)
+"Sextant Protocol™ Official Index" (https://reference-url-citation.invalid/0)
 
 Sextant Protocol™ DP Resilience System
 
-"DP Resilience System" (https://reference-url-citation.invalid/2)
+"DP Resilience System" (https://reference-url-citation.invalid/1)
 
 Sextant Orbital Resilience Framework
 
-"Orbital Resilience Framework" (https://reference-url-citation.invalid/3)
+"Orbital Resilience Framework" (https://reference-url-citation.invalid/2)
 
 SPD v13.1 — Captain AI Lena
 
-"Captain AI Lena — SPD v13.1" (https://reference-url-citation.invalid/4)
+"Captain AI Lena — SPD v13.1" (https://reference-url-citation.invalid/3)
 
 Cockpit Pro — Edge Optimization & Deployment Validation
 
-"Cockpit Pro Live Research Environment" (https://reference-url-citation.invalid/5)
+"Cockpit Pro Live Research Environment" (https://reference-url-citation.invalid/4)
 
 SRPC Research Test
 
-"SRPC Research Test — v0.1" (https://reference-url-citation.invalid/6)
+"SRPC Research Test — v0.1" (https://reference-url-citation.invalid/5)
 
 Sextant Rule Library
 
-"Sextant Rule Library" (https://reference-url-citation.invalid/7)
-
+"Sextant Rule Library" (https://reference-url-citation.invalid/6)
+ 
 ---
 
 📜 License
