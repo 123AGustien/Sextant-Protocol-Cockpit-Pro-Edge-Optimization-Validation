@@ -1,29 +1,4 @@
 
-
-Could this architecture be mapped to our technology?"   
-
-A software implementation of the proposed resilience-processing structure can be executed deterministically, validated, and isolated from physical/backend execution.
-
-              FUTURE HARDWARE
-        ┌──────────────────────────┐
-        │ CPU / RISC-V / AI / ASIC │
-        │          / SoC            │
-        └────────────┬─────────────┘
-                     │
-              SRPC processing
-                     │
-        ┌────────────┴─────────────┐
-        │ resilience rules/logic   │
-        │ assessment/decision      │
-        │ deterministic processing │
-        └──────────────────────────┘
-                     │
-              DOMAIN APPLICATION
-        ┌────────┬────────┬────────┐
-        │Energy  │Marine  │Grid    │
-        │        │        │        │
-        │Finance │Space   │Industry│
-        └────────┴────────┴────────┘
 Research Positioning
 
 Sextant has a validated software resilience-processing architecture, and the research question is whether this compact, hardware-independent computational layer could ultimately be mapped onto or implemented within future AI/edge/RISC-V/ASIC/SoC architectures.
