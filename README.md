@@ -869,8 +869,35 @@ DEPLOYMENT DECISION
 Any future operational deployment must undergo appropriate engineering, safety, security, regulatory and independent validation.
 
 ---
-🔗 
-Q
+🔗 Public Research Environments
+
+Sextant Protocol™ Official Index
+
+https://123agustien.github.io/sextant-protocol-official-index/
+
+Sextant Protocol™ DP Resilience System
+
+https://123agustien.github.io/sextant-protocol-dp-system/
+
+Sextant Orbital Resilience Framework
+
+https://123agustien.github.io/sextant-orbital-resilience-framework/
+
+SPD v13.1 — Captain AI Lena
+
+https://123agustien.github.io/spd-captain-ai-lena-autonomous-agent-core/
+
+Cockpit Pro — Edge Optimization & Deployment Validation
+
+https://123agustien.github.io/Sextant-Protocol-Cockpit-Pro-Edge-Optimization-Validation/
+
+SRPC Research Test — v0.1
+
+https://123agustien.github.io/Sextant-Protocol-Cockpit-Pro-Edge-Optimization-Validation/research/srpc/srpcTest.html
+
+Sextant Rule Library
+
+https://123agustien.github.io/sextant-rule-library/
 
 
 ---
