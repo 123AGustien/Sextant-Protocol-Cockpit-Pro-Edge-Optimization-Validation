@@ -1100,3 +1100,251 @@ Re-test not executed.
 <pre id="pipelineLog">[]</pre>
 
 </section>
+<!-- =====================================================
+     AIMFG MANUFACTURING RESILIENCE RESEARCH
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+    🏭 A*STAR AIMfg MANUFACTURING RESILIENCE
+</div>
+
+<div class="muted">
+    Deterministic manufacturing resilience research scenario
+</div>
+
+<br>
+
+<div class="pipeline">
+
+    <span class="stage">
+        AIMFG MANUFACTURING RESILIENCE
+    </span>
+
+    ↓
+
+    <span class="stage">
+        MANUFACTURING LINE DEGRADATION
+    </span>
+
+    ↓
+
+    <span class="stage">
+        AIMFG MANUFACTURING RULE DATA
+    </span>
+
+    ↓
+
+    <span class="stage">
+        AIMFG MANUFACTURING RULE ENGINE
+    </span>
+
+    ↓
+
+    <span class="stage">
+        AIMFG MANUFACTURING SCENARIO ENGINE
+    </span>
+
+    ↓
+
+    <span class="stage">
+        AIMFG MANUFACTURING DOMAIN INTEGRATION
+    </span>
+
+    ↓
+
+    <span class="stage">
+        AIMFG MANUFACTURING MODULE
+    </span>
+
+    ↓
+
+    <span class="stage">
+        RESILIENCE ASSESSMENT
+    </span>
+
+    ↓
+
+    <span class="stage">
+        RECOVERY DECISION
+    </span>
+
+    ↓
+
+    <span class="stage">
+        HUMAN AUTHORIZATION
+    </span>
+
+    ↓
+
+    <span class="stage">
+        SIMULATED ACTION / UPDATE
+    </span>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG MANUFACTURING RESEARCH SCENARIO
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+    🏭 AIMFG MANUFACTURING RESEARCH SCENARIO
+</div>
+
+<div class="muted">
+    Deterministic manufacturing resilience scenario
+</div>
+
+<!-- ADDITIVE SCENARIO DETAILS CONTROL -->
+
+<button
+    type="button"
+    class="scenario-info-button"
+    onclick="openAIMfgScenarioDetails()"
+>
+    🔎 VIEW SCENARIO DETAILS
+</button>
+
+<br><br>
+
+<div class="monitor">
+
+    <div class="domain">
+
+        <div class="domain-name">
+            SYSTEM
+        </div>
+
+        <div
+            id="aimfgSystem"
+            class="domain-value"
+        >
+            AIMFG-DEMO-01
+        </div>
+
+    </div>
+
+
+    <div class="domain">
+
+        <div class="domain-name">
+            AFFECTED MACHINE
+        </div>
+
+        <div
+            id="aimfgMachine"
+            class="domain-value"
+        >
+            MACHINE-03
+        </div>
+
+    </div>
+
+
+    <div class="domain">
+
+        <div class="domain-name">
+            FAULT
+        </div>
+
+        <div
+            id="aimfgFault"
+            class="domain-value"
+        >
+            DEGRADATION
+        </div>
+
+    </div>
+
+
+    <div class="domain">
+
+        <div class="domain-name">
+            PRODUCTION IMPACT
+        </div>
+
+        <div
+            id="aimfgImpact"
+            class="domain-value"
+        >
+            MODERATE
+        </div>
+
+    </div>
+
+
+    <div class="domain">
+
+        <div class="domain-name">
+            DEPENDENT PROCESSES
+        </div>
+
+        <div
+            id="aimfgDependencies"
+            class="domain-value"
+        >
+            3
+        </div>
+
+    </div>
+
+
+    <div class="domain">
+
+        <div class="domain-name">
+            REDUNDANCY
+        </div>
+
+        <div
+            id="aimfgRedundancy"
+            class="domain-value"
+        >
+            1
+        </div>
+
+    </div>
+
+
+    <div class="domain">
+
+        <div class="domain-name">
+            REMAINING CAPABILITY
+        </div>
+
+        <div
+            id="aimfgCapability"
+            class="domain-value"
+        >
+            72%
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG SCENARIO DETAILS MODAL
+     PRESENTATION ONLY
+====================================================== -->
+
+<div
+    id="aimfgScenarioModal"
+    class="scenario-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="aimfgScenarioModalTitle"
+>
+
+    <div class="scenario-modal-content">
+
+        <div
+            id="aimfgScenario
