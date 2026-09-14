@@ -1,3 +1,10 @@
+
+Research Positioning
+
+Sextant has a validated software resilience-processing architecture, and the research question is whether this compact, hardware-independent computational layer could ultimately be mapped onto or implemented within future AI/edge/RISC-V/ASIC/SoC architectures.
+
+This research does not claim a completed semiconductor implementation, processor IP core, production firmware, or autonomous hardware control. The present objective is to establish and independently evaluate the underlying computational structure in software before investigating potential hardware implementation pathways.
+
 SRPC Research Test
 
 Experimental research environment — SRPC v0.1
