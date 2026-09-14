@@ -92,18 +92,13 @@ SRPC Research Test
 
 Experimental research environment — SRPC v0.1
 
-The isolated Sextant Resilience Processing Core (SRPC) research test validates the software processing structure independently of physical or backend execution.
-
-SRPC Research Test:
-
-"SRPC Research Test — Live Browser Environment" (https://reference-url-citation.invalid/0)
-SRPC Research Test
+The isolated Sextant Resilience Processing Core (SRPC) research test validates the software processing structure independently of physical or backend execution
 
 Experimental research environment — SRPC v0.1
 
 The isolated Sextant Resilience Processing Core (SRPC) research test validates the software processing structure independently of physical or backend execution.
 
-SRPC Research Test — Live Browser Environment:
+
 
 "SRPC Research Test — Live Browser Environment" 
 
