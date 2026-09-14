@@ -1,4 +1,6 @@
-                 FUTURE HARDWARE
+
+
+Could this architecture be mapped to our technology?"                 FUTURE HARDWARE
         ┌──────────────────────────┐
         │ CPU / RISC-V / AI / ASIC │
         │          / SoC            │
