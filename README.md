@@ -1,6 +1,10 @@
 
 
-Could this architecture be mapped to our technology?"                 FUTURE HARDWARE
+Could this architecture be mapped to our technology?"   
+
+A software implementation of the proposed resilience-processing structure can be executed deterministically, validated, and isolated from physical/backend execution.
+
+              FUTURE HARDWARE
         ┌──────────────────────────┐
         │ CPU / RISC-V / AI / ASIC │
         │          / SoC            │
