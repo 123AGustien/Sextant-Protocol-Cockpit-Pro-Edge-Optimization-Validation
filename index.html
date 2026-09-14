@@ -1286,3 +1286,969 @@ CLOSE
 </div>
 
 </div>
+<!-- =====================================================
+     AIMFG RESEARCH CONTROLS
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+🧪 AIMFG RESEARCH TEST CONTROLS
+</div>
+
+<div class="scenario-controls">
+
+<button
+    type="button"
+    onclick="runAIMfgResearchTest()"
+>
+▶ RUN AIMFG RESEARCH TEST
+</button>
+
+<button
+    type="button"
+    class="self-test-button"
+    onclick="runAIMfgIntegrationTest()"
+>
+🔌 RUN AIMFG INTEGRATION TEST
+</button>
+
+<button
+    type="button"
+    class="self-test-button"
+    onclick="runAIMfgDeterminismTest()"
+>
+🔁 RUN AIMFG DETERMINISM TEST
+</button>
+
+<button
+    type="button"
+    class="danger"
+    onclick="resetAIMfgResearchTest()"
+>
+RESET AIMFG RESEARCH
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG PROCESSING PIPELINE
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+🛰️ AIMFG PROCESSING PIPELINE
+</div>
+
+<div class="pipeline">
+
+<span
+    id="aimfgStageObserve"
+    class="stage"
+>
+OBSERVE
+</span>
+
+→
+
+<span
+    id="aimfgStageVerify"
+    class="stage"
+>
+VERIFY
+</span>
+
+→
+
+<span
+    id="aimfgStageAssess"
+    class="stage"
+>
+ASSESS
+</span>
+
+→
+
+<span
+    id="aimfgStageDecide"
+    class="stage"
+>
+DECIDE
+</span>
+
+→
+
+<span
+    id="aimfgStageAct"
+    class="stage"
+>
+ACT
+</span>
+
+→
+
+<span
+    id="aimfgStageUpdate"
+    class="stage"
+>
+UPDATE
+</span>
+
+</div>
+
+<br>
+
+<pre id="aimfgPipeline">
+AIMfg processing pipeline waiting...
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG RULE EVALUATION
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+📋 AIMFG RULE EVALUATION
+</div>
+
+<pre id="aimfgRuleEvaluation">
+Rule evaluation not executed.
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG RESILIENCE ASSESSMENT
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+⚠️ AIMFG RESILIENCE ASSESSMENT
+</div>
+
+<pre id="aimfgAssessment">
+Resilience assessment not executed.
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG RECOVERY DECISION
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+🧠 AIMFG RECOVERY DECISION
+</div>
+
+<pre id="aimfgDecision">
+Recovery decision not executed.
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG DETERMINISM
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+🔁 AIMFG DETERMINISM
+</div>
+
+<pre id="aimfgDeterminism">
+Determinism test not executed.
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG COMPLETE RESULT
+====================================================== -->
+
+<section class="panel">
+
+<div class="title">
+📊 AIMFG COMPLETE RESULT
+</div>
+
+<pre id="aimfgCompleteResult">
+Complete AIMfg result not executed.
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG RESEARCH SAFETY BOUNDARY
+====================================================== -->
+
+<section class="panel execution-boundary">
+
+<div class="title">
+🛡️ AIMFG RESEARCH SAFETY BOUNDARY
+</div>
+
+<pre>
+LOCAL DETERMINISTIC RESEARCH SIMULATION
+
+Physical execution       : DISABLED
+Backend connection       : DISABLED
+External connection      : DISABLED
+Autonomous actuation     : DISABLED
+Human authorization      : REQUIRED
+
+Research purpose only.
+No physical manufacturing command is issued.
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AIMFG EXECUTION SAFETY BOUNDARY
+====================================================== -->
+
+<section class="panel execution-boundary">
+
+<div class="title">
+🔐 EXECUTION SAFETY BOUNDARY
+</div>
+
+<pre>
+OBSERVE
+→ VERIFY
+→ ASSESS
+→ DECIDE
+→ ACT
+→ UPDATE
+
+ACT = SIMULATED ACTION ONLY
+
+FINAL DECISION AUTHORITY:
+HUMAN OPERATOR
+</pre>
+
+</section>
+
+
+<!-- =====================================================
+     AUTHORITATIVE SCRIPT LOAD ORDER
+====================================================== -->
+
+<script src="research/srpc/srpcKernel.js"></script>
+<script src="research/srpc/srpcRules.js"></script>
+<script src="research/srpc/srpcCompute.js"></script>
+
+<script src="research/srpc/aimfgManufacturingRules.js"></script>
+<script src="research/srpc/aimfgManufacturingRuleEngine.js"></script>
+
+<script src="research/srpc/aimfgManufacturingScenario.js"></script>
+<script src="research/srpc/aimfgManufacturingScenarioEngine.js"></script>
+
+<script src="research/srpc/aimfgManufacturingDomainIntegration.js"></script>
+<script src="research/srpc/aimfgManufacturingModule.js"></script>
+
+<script src="assets/js/app.js"></script>
+
+
+<!-- =====================================================
+     AIMFG RESEARCH BRIDGE
+====================================================== -->
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   GENERIC UI HELPER
+====================================================== */
+
+function setText(id,value){
+
+    const element =
+        document.getElementById(id);
+
+    if(!element){
+        return;
+    }
+
+    element.textContent =
+        value === undefined ||
+        value === null
+            ? "—"
+            : String(value);
+}
+
+
+/* =====================================================
+   JSON DISPLAY HELPER
+====================================================== */
+
+function setJSON(id,value){
+
+    const element =
+        document.getElementById(id);
+
+    if(!element){
+        return;
+    }
+
+    element.textContent =
+        JSON.stringify(
+            value,
+            null,
+            2
+        );
+}
+
+
+/* =====================================================
+   AIMFG PIPELINE STAGES
+====================================================== */
+
+function setStage(stageId,active){
+
+    const element =
+        document.getElementById(stageId);
+
+    if(!element){
+        return;
+    }
+
+    if(active){
+        element.classList.add("active");
+    }else{
+        element.classList.remove("active");
+    }
+}
+
+
+function resetAIMfgStages(){
+
+    [
+        "aimfgStageObserve",
+        "aimfgStageVerify",
+        "aimfgStageAssess",
+        "aimfgStageDecide",
+        "aimfgStageAct",
+        "aimfgStageUpdate"
+    ].forEach(function(id){
+
+        setStage(
+            id,
+            false
+        );
+
+    });
+}
+
+
+function activateAIMfgStages(){
+
+    [
+        "aimfgStageObserve",
+        "aimfgStageVerify",
+        "aimfgStageAssess",
+        "aimfgStageDecide",
+        "aimfgStageAct",
+        "aimfgStageUpdate"
+    ].forEach(function(id){
+
+        setStage(
+            id,
+            true
+        );
+
+    });
+}
+
+
+/* =====================================================
+   AIMFG BASELINE STATE
+====================================================== */
+
+function getAIMfgBaselineState(){
+
+    return {
+
+        systemId:
+            "AIMFG-DEMO-01",
+
+        productionCells:
+            2,
+
+        criticalMachines:
+            8,
+
+        affectedMachine:
+            "MACHINE-03",
+
+        faultCondition:
+            "DEGRADATION",
+
+        productionImpact:
+            "MODERATE",
+
+        dependentProcesses:
+            3,
+
+        availableRedundancy:
+            1,
+
+        remainingCapability:
+            72,
+
+        physicalExecution:
+            false,
+
+        backendConnection:
+            false,
+
+        externalConnection:
+            false,
+
+        autonomousActuation:
+            false,
+
+        humanAuthorizationRequired:
+            true
+    };
+}
+
+
+/* =====================================================
+   DISPLAY SCENARIO STATE
+====================================================== */
+
+function displayScenarioState(state){
+
+    if(!state){
+        return;
+    }
+
+    setText(
+        "aimfgSystem",
+        state.systemId
+    );
+
+    setText(
+        "aimfgMachine",
+        state.affectedMachine
+    );
+
+    setText(
+        "aimfgFault",
+        state.faultCondition
+    );
+
+    setText(
+        "aimfgImpact",
+        state.productionImpact
+    );
+
+    setText(
+        "aimfgDependencies",
+        state.dependentProcesses
+    );
+
+    setText(
+        "aimfgRedundancy",
+        state.availableRedundancy
+    );
+
+    setText(
+        "aimfgCapability",
+        state.remainingCapability !== undefined
+            ? state.remainingCapability + "%"
+            : "—"
+    );
+}
+
+
+/* =====================================================
+   SCENARIO DETAILS MODAL
+====================================================== */
+
+function openAIMfgScenarioDetails(){
+
+    const modal =
+        document.getElementById(
+            "aimfgScenarioModal"
+        );
+
+    if(!modal){
+        return;
+    }
+
+    setText(
+        "aimfgModalScenario",
+        "AIMFG_MANUFACTURING_LINE_DEGRADATION"
+    );
+
+    setText(
+        "aimfgModalSystem",
+        document.getElementById(
+            "aimfgSystem"
+        )?.textContent
+    );
+
+    setText(
+        "aimfgModalMachine",
+        document.getElementById(
+            "aimfgMachine"
+        )?.textContent
+    );
+
+    setText(
+        "aimfgModalFault",
+        document.getElementById(
+            "aimfgFault"
+        )?.textContent
+    );
+
+    setText(
+        "aimfgModalImpact",
+        document.getElementById(
+            "aimfgImpact"
+        )?.textContent
+    );
+
+    setText(
+        "aimfgModalDependencies",
+        document.getElementById(
+            "aimfgDependencies"
+        )?.textContent
+    );
+
+    setText(
+        "aimfgModalRedundancy",
+        document.getElementById(
+            "aimfgRedundancy"
+        )?.textContent
+    );
+
+    setText(
+        "aimfgModalCapability",
+        document.getElementById(
+            "aimfgCapability"
+        )?.textContent
+    );
+
+    modal.classList.add("active");
+}
+
+
+function closeAIMfgScenarioDetails(){
+
+    const modal =
+        document.getElementById(
+            "aimfgScenarioModal"
+        );
+
+    if(!modal){
+        return;
+    }
+
+    modal.classList.remove("active");
+}
+
+
+/* =====================================================
+   MODAL BACKDROP / ESCAPE
+====================================================== */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const modal =
+            document.getElementById(
+                "aimfgScenarioModal"
+            );
+
+        if(
+            modal &&
+            event.target === modal
+        ){
+            closeAIMfgScenarioDetails();
+        }
+
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+            closeAIMfgScenarioDetails();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   RESET AIMFG RESEARCH
+====================================================== */
+
+function resetAIMfgResearchTest(){
+
+    resetAIMfgStages();
+
+    setText(
+        "aimfgPipeline",
+        "AIMfg processing pipeline waiting..."
+    );
+
+    setText(
+        "aimfgRuleEvaluation",
+        "Rule evaluation not executed."
+    );
+
+    setText(
+        "aimfgAssessment",
+        "Resilience assessment not executed."
+    );
+
+    setText(
+        "aimfgDecision",
+        "Recovery decision not executed."
+    );
+
+    setText(
+        "aimfgDeterminism",
+        "Determinism test not executed."
+    );
+
+    setText(
+        "aimfgCompleteResult",
+        "Complete AIMfg result not executed."
+    );
+
+    displayScenarioState(
+        getAIMfgBaselineState()
+    );
+}
+
+
+/* =====================================================
+   AIMFG RESEARCH TEST
+   Uses the validated Scenario API:
+   create / run / testDeterminism
+====================================================== */
+
+function runAIMfgResearchTest(){
+
+    resetAIMfgStages();
+
+    setStage(
+        "aimfgStageObserve",
+        true
+    );
+
+    const scenarioModule =
+        window.AIMfgManufacturingScenario;
+
+    if(
+        !scenarioModule ||
+        typeof scenarioModule.run !== "function"
+    ){
+
+        setText(
+            "aimfgCompleteResult",
+            "AIMFG SCENARIO MODULE UNAVAILABLE"
+        );
+
+        return;
+    }
+
+    const state =
+        getAIMfgBaselineState();
+
+    setStage(
+        "aimfgStageVerify",
+        true
+    );
+
+    let result;
+
+    try{
+
+        result =
+            scenarioModule.run(
+                state
+            );
+
+    }catch(error){
+
+        setText(
+            "aimfgCompleteResult",
+            JSON.stringify(
+                {
+                    passed:false,
+                    error:error.message,
+                    safetyBoundary:{
+                        physicalExecution:false,
+                        backendConnection:false,
+                        externalConnection:false,
+                        autonomousActuation:false,
+                        humanAuthorizationRequired:true
+                    }
+                },
+                null,
+                2
+            )
+        );
+
+        return;
+    }
+
+    setStage(
+        "aimfgStageAssess",
+        true
+    );
+
+    setStage(
+        "aimfgStageDecide",
+        true
+    );
+
+    setStage(
+        "aimfgStageAct",
+        true
+    );
+
+    setStage(
+        "aimfgStageUpdate",
+        true
+    );
+
+    const safetyPass =
+        result &&
+        result.physicalExecution === false &&
+        result.backendConnection === false &&
+        result.externalConnection === false &&
+        result.autonomousActuation === false &&
+        result.humanAuthorizationRequired === true;
+
+    setText(
+        "aimfgPipeline",
+        "OBSERVE → VERIFY → ASSESS → DECIDE → ACT → UPDATE"
+    );
+
+    setJSON(
+        "aimfgRuleEvaluation",
+        result.ruleEvaluation ||
+        result.ruleResult ||
+        result.validation ||
+        "Rule evaluation returned within scenario result."
+    );
+
+    setJSON(
+        "aimfgAssessment",
+        result.assessment ||
+        result.resilienceAssessment ||
+        "Assessment returned within scenario result."
+    );
+
+    setJSON(
+        "aimfgDecision",
+        result.decision ||
+        result.recoveryDecision ||
+        result.recommendedRecovery ||
+        "Decision returned within scenario result."
+    );
+
+    setJSON(
+        "aimfgCompleteResult",
+        {
+            scenario:
+                "AIMFG_MANUFACTURING_LINE_DEGRADATION",
+
+            result:
+                result,
+
+            safetyPass:
+                safetyPass,
+
+            researchStatus:
+                safetyPass
+                    ? "AIMFG_MANUFACTURING_RESEARCH_PASS"
+                    : "AIMFG_MANUFACTURING_RESEARCH_REVIEW_REQUIRED"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   AIMFG INTEGRATION TEST
+====================================================== */
+
+function runAIMfgIntegrationTest(){
+
+    resetAIMfgStages();
+
+    let result = null;
+
+    const integration =
+        window.AIMfgManufacturingDomainIntegration;
+
+    if(
+        integration &&
+        typeof integration.runIntegrationTest ===
+            "function"
+    ){
+
+        try{
+
+            result =
+                integration.runIntegrationTest();
+
+        }catch(error){
+
+            result = {
+                passed:false,
+                error:error.message
+            };
+
+        }
+
+    }else{
+
+        result = {
+            passed:false,
+            integrationTest:
+                "AIMFG DOMAIN INTEGRATION UNAVAILABLE"
+        };
+
+    }
+
+    setJSON(
+        "aimfgCompleteResult",
+        {
+            test:
+                "AIMFG DOMAIN INTEGRATION TEST",
+
+            result:
+                result
+        }
+    );
+
+}
+
+
+/* =====================================================
+   AIMFG DETERMINISM TEST
+====================================================== */
+
+function runAIMfgDeterminismTest(){
+
+    const scenario =
+        window.AIMfgManufacturingScenario;
+
+    let result;
+
+    if(
+        scenario &&
+        typeof scenario.testDeterminism ===
+            "function"
+    ){
+
+        try{
+
+            result =
+                scenario.testDeterminism();
+
+        }catch(error){
+
+            result = {
+                deterministic:false,
+                error:error.message
+            };
+
+        }
+
+    }else{
+
+        result = {
+            deterministic:false,
+            error:
+                "AIMFG DETERMINISM FUNCTION UNAVAILABLE"
+        };
+
+    }
+
+    setJSON(
+        "aimfgDeterminism",
+        result
+    );
+
+}
+
+
+/* =====================================================
+   GLOBAL CONTROL EXPOSURE
+====================================================== */
+
+window.runAIMfgResearchTest =
+    runAIMfgResearchTest;
+
+window.runAIMfgIntegrationTest =
+    runAIMfgIntegrationTest;
+
+window.runAIMfgDeterminismTest =
+    runAIMfgDeterminismTest;
+
+window.resetAIMfgResearchTest =
+    resetAIMfgResearchTest;
+
+window.openAIMfgScenarioDetails =
+    openAIMfgScenarioDetails;
+
+window.closeAIMfgScenarioDetails =
+    closeAIMfgScenarioDetails;
+
+
+/* =====================================================
+   INITIAL AIMFG SCREEN STATE
+====================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        resetAIMfgResearchTest();
+
+    }
+);
+
+</script>
+
+
+<!-- =====================================================
+     END OF SEXTANT PROTOCOL™ COCKPIT PRO
+====================================================== -->
+
+</body>
+</html>
