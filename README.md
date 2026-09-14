@@ -63,6 +63,7 @@ Research Scope
 The test validates:
 
 SRPC Kernel availability
+
 SRPC Rules availability
 SRPC Compute availability
 Dependency integrity
