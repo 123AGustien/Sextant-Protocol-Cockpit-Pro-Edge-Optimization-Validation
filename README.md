@@ -1,9 +1,11 @@
 The screen URL after GitHub Pages deploys will be:
-AIMfg Manufacturing Research Screen⁠�
+AIMfg Manufacturing Research Screen
+
 So the sequence is now:
 
 The screen URL after GitHub Pages deploys will be:
-AIMfg Manufacturing Research Screen⁠�
+AIMfg Manufacturing Research Screen
+
 So the sequence is now:
 aimfgManufacturingRules.js
         ↓
